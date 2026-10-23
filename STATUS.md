@@ -111,3 +111,49 @@ The account expires 2026-10-27 22:00 Pacific according to the supplied guide.
   query coverage during the event before demonstrating numeric reconciliation.
 - Product-generation and stock-group ambiguity agent scenarios are not yet tested.
   Their prepared fixtures and independent oracles are available for event work.
+
+## EVENT BUILD (hackathon 2026-10-23) — L2P Logic to Product (in progress)
+Everything below was built during the event on branch codex/l2p-hackathon-build, starting
+from prework baseline commit 659671ba0744b1126d043af3c25843c6249538bb. Code: event/l2p/, skills/.
+Status is updated as work proceeds; items marked PENDING have not been run yet.
+
+Deployed (new schemas only; RAW, ANALYTICS, starter agent and catalog untouched):
+- L2P (registry, contract, recipes, builder procs, skill stage), L2P_STAGE (snapshots, candidates),
+  L2P_RELEASE (released versions), L2P_CONSUMER (read procs + consumer agent).
+- Agents: L2P.L2P_BUILDER and L2P_CONSUMER.L2P_CONSUMER, both on claude-opus-5-5 (verified in
+  DESCRIBE AGENT). Builder: catalog search + 7 bounded procs. Consumer: 3 read-only procs only.
+
+Step A baseline (live): 96 invoices, 243 lines, 53589.47 excl. tax, 241 expected grain rows,
+stock-group join fanout 293 rows.
+
+Contract regression, direct procedure calls (NOT agent evidence): 32/32 asserts PASS.
+- Pre-release discovery: no product; ranking refuses.
+- B stock-group fanout: FAILED (line coverage, grouped + total reconciliation); not released; consumer saw nothing.
+- Single-group omission: FAILED on dropped lines. Order-date basis: totals PASS but grouped
+  reconciliation FAILS, so blocked (proves totals alone are insufficient).
+- C correct recipe: 11/11 checks PASS, released v1 = L2P_RELEASE.DAILY_INVOICED_SALES_V0001
+  (241 rows, 53589.47). Consumer ranking equals independent snapshot ranking.
+- D bad candidate after release: release and consumer results unchanged.
+- E: repeated release rejected; post-validation tamper rejected (CHANGED_AFTER_VALIDATION);
+  unknown/malformed IDs, unsupported recipe, unvalidated release, re-create all rejected.
+- Defect found and fixed: a validation crash during development left candidate C00001 in
+  CREATED with run V00001 RUNNING (never releasable, but unexplained). Validation now records
+  FAILED with the error. C00001 retained as evidence.
+
+Agent orchestration (step F), via SNOWFLAKE.CORTEX.DATA_AGENT_RUN on saved agents:
+- C1 consumer account review: PASS. Called DiscoverReleasedProduct + RankCustomersBySales,
+  named version 1 and the queried object, top 5 = customers 10, 8, 19, 18, 4, which matches the
+  independent snapshot ranking exactly. Stated consent/margin/response/uplift boundary. 24.7s.
+- Builder prompts, consumer uplift/consent/send prompt, consumer escape attempt, starter
+  comparison: PENDING.
+
+Skills: authored (3 reviewed SKILL.md files, original) -> staged on @L2P.SKILL_STAGE (hashes in
+event/l2p/evidence/skills_stage.json) -> ATTACHED to L2P_BUILDER only (verified in DESCRIBE AGENT).
+Invocation-tested: PENDING (needs trace evidence of skill selection, not just a good answer).
+
+Retrieval baseline/chunking/skills comparison and cross-layer Qlik filter scenario: PENDING.
+
+Limitations: enforcement is procedure/tool-level under one role (ATTENDEE_ROLE); separate per-user
+RBAC for builder vs consumer is not configured or tested. The object owner can still alter
+tables directly; the release/consumer hash checks detect, but cannot prevent, such changes.
+Python test runs authenticate with a user-created PAT read from a local file outside the repo.

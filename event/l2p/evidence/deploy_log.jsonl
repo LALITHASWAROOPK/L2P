@@ -1,0 +1,91 @@
+{"ts": "2026-10-23T11:57:24-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5f-0034-28cb001b332a", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T11:57:24-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5d-0034-28cb001b52b6", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T11:57:25-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e59-0034-28cb001b1362", "first_row": ["Schema L2P successfully created."]}
+{"ts": "2026-10-23T11:57:25-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5b-0034-28cb001af332", "first_row": ["Schema L2P_STAGE successfully created."]}
+{"ts": "2026-10-23T11:57:25-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e58-0034-28cb001b03aa", "first_row": ["Schema L2P_RELEASE successfully created."]}
+{"ts": "2026-10-23T11:57:25-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6d8c-0034-28cb001b63be", "first_row": ["Schema L2P_CONSUMER successfully created."]}
+{"ts": "2026-10-23T11:57:25-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6d8c-0034-28cb001b63c2", "first_row": ["Sequence SEQ_CANDIDATE successfully created."]}
+{"ts": "2026-10-23T11:57:25-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5b-0034-28cb001af336", "first_row": ["Sequence SEQ_SNAPSHOT successfully created."]}
+{"ts": "2026-10-23T11:57:26-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5e-0034-28cb001bd312", "first_row": ["Sequence SEQ_RUN successfully created."]}
+{"ts": "2026-10-23T11:57:26-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5a-0034-28cb001b23a6", "first_row": ["Sequence SEQ_RELEASE successfully created."]}
+{"ts": "2026-10-23T11:57:26-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5a-0034-28cb001b23aa", "first_row": ["Sequence SEQ_EVENT successfully created."]}
+{"ts": "2026-10-23T11:57:26-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e59-0034-28cb001b1366", "first_row": ["Table CONTRACT_FIELDS successfully created."]}
+{"ts": "2026-10-23T11:57:27-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5c-0034-28cb001b42da", "first_row": ["0"]}
+{"ts": "2026-10-23T11:57:28-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5a-0034-28cb001b23ae", "first_row": ["10"]}
+{"ts": "2026-10-23T11:57:28-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5f-0034-28cb001b332e", "first_row": ["Table RECIPES successfully created."]}
+{"ts": "2026-10-23T11:57:29-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5c-0034-28cb001b42de", "first_row": ["0"]}
+{"ts": "2026-10-23T11:57:29-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5d-0034-28cb001b52ba", "first_row": ["4"]}
+{"ts": "2026-10-23T11:57:29-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6d8c-0034-28cb001b63c6", "first_row": ["Table RECIPE_MAPPINGS successfully created."]}
+{"ts": "2026-10-23T11:57:30-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5e-0034-28cb001bd316", "first_row": ["0"]}
+{"ts": "2026-10-23T11:57:30-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e59-0034-28cb001b136a", "first_row": ["17"]}
+{"ts": "2026-10-23T11:57:30-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5b-0034-28cb001af33a", "first_row": ["Table SNAPSHOTS successfully created."]}
+{"ts": "2026-10-23T11:57:31-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5f-0034-28cb001b3332", "first_row": ["Table CANDIDATES successfully created."]}
+{"ts": "2026-10-23T11:57:31-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5e-0034-28cb001bd31a", "first_row": ["Table VALIDATION_RUNS successfully created."]}
+{"ts": "2026-10-23T11:57:31-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5e-0034-28cb001bd31e", "first_row": ["Table CHECK_RESULTS successfully created."]}
+{"ts": "2026-10-23T11:57:32-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5f-0034-28cb001b3336", "first_row": ["Table RELEASES successfully created."]}
+{"ts": "2026-10-23T11:57:32-0700", "file": "10_l2p_control.sql", "query_id": "01c7ed91-010c-6e5e-0034-28cb001bd322", "first_row": ["Table EVENT_LOG successfully created."]}
+{"ts": "2026-10-23T12:01:09-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed95-010c-6e5b-0034-28cb001af346", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:01:10-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed95-010c-6e59-0034-28cb001b136e", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:01:10-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed95-010c-6e5c-0034-28cb001b42e2", "first_row": ["Function SNAPSHOT_FINGERPRINT successfully created."]}
+{"ts": "2026-10-23T12:01:37-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed95-010c-6e5b-0034-28cb001af34e", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:01:38-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed95-010c-6d8c-0034-28cb001b63ca", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:01:38-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed95-010c-6e58-0034-28cb001b03ae", "first_row": ["Function SNAPSHOT_FINGERPRINT successfully created."]}
+{"ts": "2026-10-23T12:01:59-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed95-010c-6d8c-0034-28cb001b63ce", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:01:59-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed95-010c-6e5c-0034-28cb001b42f6", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:01:59-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed95-010c-6e58-0034-28cb001b03b2", "first_row": ["Function SNAPSHOT_FINGERPRINT successfully created."]}
+{"ts": "2026-10-23T12:01:59-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed95-010c-6e5e-0034-28cb001bd326", "first_row": ["Function TAKE_SNAPSHOT successfully created."]}
+{"ts": "2026-10-23T12:02:00-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed96-010c-6d8c-0034-28cb001b63d2", "first_row": ["Function PROPOSE_CANDIDATE successfully created."]}
+{"ts": "2026-10-23T12:02:00-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed96-010c-6e5f-0034-28cb001b333a", "first_row": ["Function CREATE_CANDIDATE successfully created."]}
+{"ts": "2026-10-23T12:02:00-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed96-010c-6e5b-0034-28cb001af352", "first_row": ["Function RUN_CHECK successfully created."]}
+{"ts": "2026-10-23T12:02:00-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed96-010c-6e58-0034-28cb001b03b6", "first_row": ["Function VALIDATE_CANDIDATE successfully created."]}
+{"ts": "2026-10-23T12:02:01-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed96-010c-6d8c-0034-28cb001b63d6", "first_row": ["Function RELEASE_CANDIDATE successfully created."]}
+{"ts": "2026-10-23T12:02:01-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed96-010c-6e5a-0034-28cb001b23b2", "first_row": ["Function GET_CANDIDATE_STATUS successfully created."]}
+{"ts": "2026-10-23T12:10:02-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed9e-010c-6d8c-0034-28cb001b643e", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:10:02-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed9e-010c-6e5b-0034-28cb001af3ce", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:10:02-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed9e-010c-6e5c-0034-28cb001b4366", "first_row": ["Function SNAPSHOT_FINGERPRINT successfully created."]}
+{"ts": "2026-10-23T12:10:02-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed9e-010c-6e5e-0034-28cb001bd38e", "first_row": ["Function TAKE_SNAPSHOT successfully created."]}
+{"ts": "2026-10-23T12:10:02-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed9e-010c-6e5a-0034-28cb001b241e", "first_row": ["Function PROPOSE_CANDIDATE successfully created."]}
+{"ts": "2026-10-23T12:10:03-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed9e-010c-6d8c-0034-28cb001b6442", "first_row": ["Function CREATE_CANDIDATE successfully created."]}
+{"ts": "2026-10-23T12:10:03-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed9e-010c-6e5a-0034-28cb001b2422", "first_row": ["Function RUN_CHECK successfully created."]}
+{"ts": "2026-10-23T12:10:03-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed9e-010c-6e5c-0034-28cb001b436a", "first_row": ["Function VALIDATE_CANDIDATE successfully created."]}
+{"ts": "2026-10-23T12:10:03-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed9e-010c-6e5c-0034-28cb001b436e", "first_row": ["Function RELEASE_CANDIDATE successfully created."]}
+{"ts": "2026-10-23T12:10:03-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed9e-010c-6e5c-0034-28cb001b4372", "first_row": ["Function GET_CANDIDATE_STATUS successfully created."]}
+{"ts": "2026-10-23T12:10:04-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed9e-010c-6e5d-0034-28cb001b5322", "first_row": ["Function GET_SOURCE_DEFINITION successfully created."]}
+{"ts": "2026-10-23T12:10:04-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7ed9e-010c-6e5b-0034-28cb001af3d2", "first_row": ["Function RECONCILE_ORDERED_VS_INVOICED successfully created."]}
+{"ts": "2026-10-23T12:12:39-0700", "file": "30_l2p_consumer_procs.sql", "query_id": "01c7eda0-010c-6e5a-0034-28cb001b242e", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:12:39-0700", "file": "30_l2p_consumer_procs.sql", "query_id": "01c7eda0-010c-6e5c-0034-28cb001b4386", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:13:15-0700", "file": "30_l2p_consumer_procs.sql", "query_id": "01c7eda1-010c-6e58-0034-28cb001b0426", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:13:15-0700", "file": "30_l2p_consumer_procs.sql", "query_id": "01c7eda1-010c-6e5a-0034-28cb001b2432", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:16:06-0700", "file": "30_l2p_consumer_procs.sql", "query_id": "01c7eda4-010c-6e5d-0034-28cb001b532e", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:16:07-0700", "file": "30_l2p_consumer_procs.sql", "query_id": "01c7eda4-010c-6e5c-0034-28cb001b4396", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:16:07-0700", "file": "30_l2p_consumer_procs.sql", "query_id": "01c7eda4-010c-6e5b-0034-28cb001af3e6", "first_row": ["Function DISCOVER_RELEASED_PRODUCT successfully created."]}
+{"ts": "2026-10-23T12:16:07-0700", "file": "30_l2p_consumer_procs.sql", "query_id": "01c7eda4-010c-6e58-0034-28cb001b043a", "first_row": ["Function RANK_CUSTOMERS_BY_SALES successfully created."]}
+{"ts": "2026-10-23T12:16:07-0700", "file": "30_l2p_consumer_procs.sql", "query_id": "01c7eda4-010c-6e5a-0034-28cb001b2436", "first_row": ["Function CUSTOMER_SALES_DETAIL successfully created."]}
+{"ts": "2026-10-23T12:20:35-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7eda8-010c-6e58-0034-28cb001b04ae", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:20:35-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7eda8-010c-6e58-0034-28cb001b04b2", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:20:35-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7eda8-010c-6e5f-0034-28cb001b33ea", "first_row": ["Function SNAPSHOT_FINGERPRINT successfully created."]}
+{"ts": "2026-10-23T12:20:35-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7eda8-010c-6e5b-0034-28cb001af402", "first_row": ["Function TAKE_SNAPSHOT successfully created."]}
+{"ts": "2026-10-23T12:20:35-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7eda8-010c-6d8c-0034-28cb001b6476", "first_row": ["Function PROPOSE_CANDIDATE successfully created."]}
+{"ts": "2026-10-23T12:20:36-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7eda8-010c-6e5a-0034-28cb001b244a", "first_row": ["Function CREATE_CANDIDATE successfully created."]}
+{"ts": "2026-10-23T12:20:36-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7eda8-010c-6e5d-0034-28cb001b533e", "first_row": ["Function RUN_CHECK successfully created."]}
+{"ts": "2026-10-23T12:20:36-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7eda8-010c-6e5c-0034-28cb001b439e", "first_row": ["Function VALIDATE_CANDIDATE successfully created."]}
+{"ts": "2026-10-23T12:20:36-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7eda8-010c-6e5f-0034-28cb001b33ee", "first_row": ["Function RELEASE_CANDIDATE successfully created."]}
+{"ts": "2026-10-23T12:20:36-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7eda8-010c-6e5a-0034-28cb001b244e", "first_row": ["Function GET_CANDIDATE_STATUS successfully created."]}
+{"ts": "2026-10-23T12:20:37-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7eda8-010c-6e5e-0034-28cb001bd3ca", "first_row": ["Function GET_SOURCE_DEFINITION successfully created."]}
+{"ts": "2026-10-23T12:20:37-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7eda8-010c-6e5e-0034-28cb001bd3ce", "first_row": ["Function RECONCILE_ORDERED_VS_INVOICED successfully created."]}
+{"ts": "2026-10-23T12:43:30-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7edbf-010c-6e5e-0034-28cb001bd4c6", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:43:30-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7edbf-010c-6e5e-0034-28cb001bd4ca", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:43:30-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7edbf-010c-6e5a-0034-28cb001b267e", "first_row": ["Function SNAPSHOT_FINGERPRINT successfully created."]}
+{"ts": "2026-10-23T12:43:31-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7edbf-010c-6e5c-0034-28cb001b43b6", "first_row": ["Function TAKE_SNAPSHOT successfully created."]}
+{"ts": "2026-10-23T12:43:31-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7edbf-010c-6e59-0034-28cb001b147a", "first_row": ["Function PROPOSE_CANDIDATE successfully created."]}
+{"ts": "2026-10-23T12:43:32-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7edbf-010c-6e5a-0034-28cb001b2682", "first_row": ["Function CREATE_CANDIDATE successfully created."]}
+{"ts": "2026-10-23T12:43:32-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7edbf-010c-6e58-0034-28cb001b0572", "first_row": ["Function RUN_CHECK successfully created."]}
+{"ts": "2026-10-23T12:43:32-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7edbf-010c-6e5d-0034-28cb001b55a6", "first_row": ["Function VALIDATE_CANDIDATE successfully created."]}
+{"ts": "2026-10-23T12:43:33-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7edbf-010c-6e5a-0034-28cb001b2686", "first_row": ["Function RELEASE_CANDIDATE successfully created."]}
+{"ts": "2026-10-23T12:43:33-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7edbf-010c-6e5e-0034-28cb001bd4ce", "first_row": ["Function GET_CANDIDATE_STATUS successfully created."]}
+{"ts": "2026-10-23T12:43:33-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7edbf-010c-6e5d-0034-28cb001b55aa", "first_row": ["Function GET_SOURCE_DEFINITION successfully created."]}
+{"ts": "2026-10-23T12:43:33-0700", "file": "20_l2p_builder_procs.sql", "query_id": "01c7edbf-010c-6e5c-0034-28cb001b43ba", "first_row": ["Function RECONCILE_ORDERED_VS_INVOICED successfully created."]}
+{"ts": "2026-10-23T12:53:54-0700", "file": "40_l2p_agents.sql", "query_id": "01c7edc9-010c-6d8c-0034-28cb001b6636", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:53:54-0700", "file": "40_l2p_agents.sql", "query_id": "01c7edc9-010c-6e5f-0034-28cb001b34ce", "first_row": ["Statement executed successfully."]}
+{"ts": "2026-10-23T12:53:55-0700", "file": "40_l2p_agents.sql", "query_id": "01c7edc9-010c-6e5e-0034-28cb001bd4d6", "first_row": ["Agent L2P_BUILDER successfully created."]}
+{"ts": "2026-10-23T12:53:57-0700", "file": "40_l2p_agents.sql", "query_id": "01c7edc9-010c-6e59-0034-28cb001b1486", "first_row": ["Agent L2P_CONSUMER successfully created."]}

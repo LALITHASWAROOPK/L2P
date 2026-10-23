@@ -71,3 +71,23 @@ the existing search catalog, then requests a refresh. Reapply `04_connect_search
 to acknowledge the new artifact type. No additional agent tools are introduced.
 `evaluation/` contains independent arithmetic and expected product output; never index it.
 All of this remains disclosed preparation. The product execution workflow is not built.
+
+## Hackathon event build: L2P (Logic to Product)
+**Prework baseline:** commit `659671ba0744b1126d043af3c25843c6249538bb` on `codex/hackathon-prework`.
+Everything above this section is prework. Everything in `event/l2p/` and `skills/` was built
+during the event on branch `codex/l2p-hackathon-build`. See STATUS.md for what has actually passed.
+
+Built during the event:
+- Contract-gated product registry and release path (`event/l2p/sql/10..30`): fixed recipes,
+  source snapshots, 11 independent contract checks, and a hash-verified release procedure.
+- Two distinct agents (`event/l2p/sql/40_l2p_agents.sql`): `L2P.L2P_BUILDER` (catalog search plus
+  bounded builder tools plus three staged skills) and `L2P_CONSUMER.L2P_CONSUMER` (released-product
+  read tools only).
+- Builder skills (`skills/l2p-*`), staged to `@L2P.SKILL_STAGE` (`event/l2p/tests/stage_skills.py`).
+- Tests: `event/l2p/tests/test_contract_regression.py` (direct procedure regression) and
+  `test_agents.py` (saved-agent runs via DATA_AGENT_RUN). Evidence: `event/l2p/evidence/`.
+
+Reproduce, in order: deploy `event/l2p/sql/10`, `20` and `30` with `python event/l2p/tests/run_sql.py <file>`,
+then run `stage_skills.py`, deploy `40_l2p_agents.sql`, and run the two test scripts. The runner only
+connects to the hackathon account/role/warehouse. It accepts a PAT from a file named by `L2P_PAT_FILE`
+(kept outside the repo); otherwise it falls back to SSO.

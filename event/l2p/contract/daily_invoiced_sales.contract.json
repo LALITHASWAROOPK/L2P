@@ -1,0 +1,35 @@
+{
+  "built_during": "hackathon event 2026-10-23 (not prework)",
+  "product": "DAILY_INVOICED_SALES",
+  "contract_version": 1,
+  "description": "Daily invoiced sales excluding tax at invoice date / customer / stock item grain. Synthetic Wide World Importers-derived data.",
+  "grain": ["INVOICE_DATE", "CUSTOMER_ID", "STOCK_ITEM_ID"],
+  "fields": [
+    {"name": "INVOICE_DATE",        "type": "DATE",          "nullable": false, "source": "INVOICES.INVOICEDATE"},
+    {"name": "CUSTOMER_ID",         "type": "NUMBER(38,0)",  "nullable": false, "source": "INVOICES.CUSTOMERID"},
+    {"name": "STOCK_ITEM_ID",       "type": "NUMBER(38,0)",  "nullable": false, "source": "INVOICELINES.STOCKITEMID"},
+    {"name": "CUSTOMER_NAME",       "type": "TEXT",          "nullable": true,  "source": "CUSTOMERS.CUSTOMERNAME via INVOICES.CUSTOMERID"},
+    {"name": "STOCK_ITEM_NAME",     "type": "TEXT",          "nullable": true,  "source": "STOCKITEMS.STOCKITEMNAME via INVOICELINES.STOCKITEMID"},
+    {"name": "INVOICE_LINE_COUNT",  "type": "NUMBER(18,0)",  "nullable": false, "source": "COUNT(INVOICELINES)"},
+    {"name": "QUANTITY",            "type": "NUMBER(18,0)",  "nullable": false, "source": "SUM(INVOICELINES.QUANTITY)"},
+    {"name": "SALES_EXCLUDING_TAX", "type": "NUMBER(18,2)",  "nullable": false, "source": "SUM(INVOICELINES.EXTENDEDPRICE - INVOICELINES.TAXAMOUNT)"},
+    {"name": "TAX_AMOUNT",          "type": "NUMBER(18,2)",  "nullable": false, "source": "SUM(INVOICELINES.TAXAMOUNT)"},
+    {"name": "TOTAL_INCLUDING_TAX", "type": "NUMBER(18,2)",  "nullable": false, "source": "SUM(INVOICELINES.EXTENDEDPRICE)"}
+  ],
+  "not_modeled": ["currency", "calendar zero-fill (days without invoices are absent)", "allocations", "returns", "discounts", "stock group attribution", "margin", "consent", "campaign response", "causal uplift"],
+  "required_checks": [
+    "SNAPSHOT_UNCHANGED", "SCHEMA_EXACT", "KEYS_NOT_NULL", "GRAIN_UNIQUE", "REFERENTIAL_INTEGRITY",
+    "LINE_COVERAGE", "ROW_COUNT_MATCH", "GROUPED_RECONCILIATION", "TOTAL_RECONCILIATION",
+    "DIMENSION_CONSISTENCY", "SCOPE_CONSISTENCY"
+  ],
+  "states": ["PROPOSED", "CREATED", "VALIDATED", "FAILED", "RELEASED"],
+  "release_rule": "Only L2P.RELEASE_CANDIDATE may release. It requires state VALIDATED, all checks PASS in the latest validation run, unchanged candidate content hash, unchanged snapshot hashes, and a release clone whose hash equals the validated hash. Registry update is conditional and transactional.",
+  "registry_objects": {
+    "candidates": "HACKATHON_D2K_PREWORK.L2P.CANDIDATES",
+    "validation_runs": "HACKATHON_D2K_PREWORK.L2P.VALIDATION_RUNS",
+    "check_results": "HACKATHON_D2K_PREWORK.L2P.CHECK_RESULTS",
+    "releases": "HACKATHON_D2K_PREWORK.L2P.RELEASES",
+    "snapshots": "HACKATHON_D2K_PREWORK.L2P.SNAPSHOTS",
+    "events": "HACKATHON_D2K_PREWORK.L2P.EVENT_LOG"
+  }
+}

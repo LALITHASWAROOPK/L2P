@@ -1,0 +1,44 @@
+{
+ "stage": "HACKATHON_D2K_PREWORK.L2P.SKILL_STAGE",
+ "uploaded": [
+  {
+   "skill": "l2p-hana-interpretation",
+   "local_path": "skills/l2p-hana-interpretation/SKILL.md",
+   "sha256": "146cca6904b93ddb71cc8147bf7ae14ea7408b99ecfce2a41467c2a3587aca99",
+   "put_query_id": "01c7edc8-010c-6e5d-0034-28cb001b55b6"
+  },
+  {
+   "skill": "l2p-qlik-interpretation",
+   "local_path": "skills/l2p-qlik-interpretation/SKILL.md",
+   "sha256": "6a5e33bf955e082ad2f4343a545c850adc92aefb6c13472b792844039cecc7df",
+   "put_query_id": "01c7edc8-010c-6e5f-0034-28cb001b34c6"
+  },
+  {
+   "skill": "l2p-create-data-product",
+   "local_path": "skills/l2p-create-data-product/SKILL.md",
+   "sha256": "38bf6449ad4457b85c00afeed751510d8e07b791a0084cf6709586181a34ac39",
+   "put_query_id": "01c7edc8-010c-6e5d-0034-28cb001b55ba"
+  }
+ ],
+ "list": [
+  {
+   "name": "skill_stage/skills/l2p-create-data-product/SKILL.md",
+   "size": 3552,
+   "md5": "23ed6b9b8f991b4b43843354b6572b6a",
+   "last_modified": "Fri, 23 Oct 2026 19:52:44 GMT"
+  },
+  {
+   "name": "skill_stage/skills/l2p-hana-interpretation/SKILL.md",
+   "size": 2896,
+   "md5": "1d0e88395a5e0389c342609119fc3a01",
+   "last_modified": "Fri, 23 Oct 2026 19:52:42 GMT"
+  },
+  {
+   "name": "skill_stage/skills/l2p-qlik-interpretation/SKILL.md",
+   "size": 2608,
+   "md5": "c85ae890fb94b8062d6074d548c6cf12",
+   "last_modified": "Fri, 23 Oct 2026 19:52:44 GMT"
+  }
+ ],
+ "list_query_id": "01c7edc8-010c-6e5e-0034-28cb001bd4d2"
+}

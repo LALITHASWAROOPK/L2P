@@ -1,0 +1,3564 @@
+{
+ "summary": {
+  "harness": "direct procedure regression (not agent orchestration)",
+  "started": "2026-10-23T12:20:52-0700",
+  "finished": "2026-10-23T12:26:09-0700",
+  "asserts_passed": 32,
+  "asserts_failed": 0,
+  "release": {
+   "version": 1,
+   "object": "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0001",
+   "candidate_id": "C00401_2E6502B7"
+  },
+  "candidates": {
+   "B_fanout": "C00101_005995AF",
+   "E_omission": "C00201_92E5550B",
+   "E_order_date": "C00301_59A04978",
+   "C_correct": "C00401_2E6502B7",
+   "D_fanout": "C00102_CE4C1161",
+   "E_mutation": "C00501_B80B46F2"
+  }
+ },
+ "results": [
+  {
+   "step": "E0 pre-release: consumer discover",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P_CONSUMER.DISCOVER_RELEASED_PRODUCT()",
+   "query_id": "01c7eda8-010c-6e5a-0034-28cb001b2452",
+   "elapsed_s": 0.96,
+   "result": {
+    "available": false,
+    "note": "No product has passed validation and been released. No data can be queried.",
+    "products": []
+   }
+  },
+  {
+   "step": "E0 pre-release: consumer rank top 5",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P_CONSUMER.RANK_CUSTOMERS_BY_SALES(5, NULL, NULL)",
+   "query_id": "01c7eda8-010c-6e5d-0034-28cb001b5342",
+   "elapsed_s": 0.57,
+   "result": {
+    "error": "NO_RELEASED_PRODUCT",
+    "note": "Nothing has been released; no ranking is possible.",
+    "ok": false
+   }
+  },
+  {
+   "assert": "Discovery returns no product before first passing release",
+   "passed": true,
+   "detail": {
+    "available": false,
+    "note": "No product has passed validation and been released. No data can be queried.",
+    "products": []
+   }
+  },
+  {
+   "assert": "Ranking refuses before first release",
+   "passed": true,
+   "detail": {
+    "error": "NO_RELEASED_PRODUCT",
+    "note": "Nothing has been released; no ranking is possible.",
+    "ok": false
+   }
+  },
+  {
+   "step": "B fanout: propose STOCKGROUP_FANOUT_DEMO",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.PROPOSE_CANDIDATE('STOCKGROUP_FANOUT_DEMO')",
+   "query_id": "01c7eda8-010c-6e5f-0034-28cb001b33f2",
+   "elapsed_s": 3.49,
+   "result": {
+    "candidate_id": "C00101_005995AF",
+    "contract_version": 1,
+    "mappings": [
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "Invoiced sales: invoice-line ExtendedPrice minus TaxAmount; invoice-date basis",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Business definition.",
+      "source_expression": "definition",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "no designated primary group",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Group attribution not supported.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(stock group allocation)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "No currencies, discounts, returns or cancellations are modeled",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Not modeled.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(discounts/returns)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "Month([INVOICEDATE])",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Spotfire monthly visual uses invoice date.",
+      "source_expression": "INVOICES.INVOICEDATE",
+      "status": "SOURCE_BACKED",
+      "target_field": "INVOICE_DATE"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "\"expression\": \"[INVOICED_SALES_EX_TAX]\"",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Spotfire SalesAmount calculated column.",
+      "source_expression": "INVOICED_SALES_EX_TAX",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "\"currency\": null",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Currency explicitly not modeled.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(currency)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "i.INVOICEDATE",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Date comes from invoice header.",
+      "source_expression": "INVOICES.INVOICEDATE",
+      "status": "SOURCE_BACKED",
+      "target_field": "INVOICE_DATE"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "JOIN CUSTOMERS c ON i.CUSTOMERID = c.CUSTOMERID",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Customer comes from invoice header.",
+      "source_expression": "INVOICES.CUSTOMERID",
+      "status": "SOURCE_BACKED",
+      "target_field": "CUSTOMER_ID"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "JOIN STOCKITEMS p ON l.STOCKITEMID = p.STOCKITEMID",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Item comes from invoice line.",
+      "source_expression": "INVOICELINES.STOCKITEMID",
+      "status": "SOURCE_BACKED",
+      "target_field": "STOCK_ITEM_ID"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.EXTENDEDPRICE - l.TAXAMOUNT AS INVOICED_SALES_EX_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "HANA-style view expression.",
+      "source_expression": "INVOICELINES.EXTENDEDPRICE - INVOICELINES.TAXAMOUNT",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.TAXAMOUNT AS INVOICE_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "INVOICELINES.TAXAMOUNT",
+      "status": "SOURCE_BACKED",
+      "target_field": "TAX_AMOUNT"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.EXTENDEDPRICE AS INVOICE_TOTAL_INCL_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "INVOICELINES.EXTENDEDPRICE",
+      "status": "SOURCE_BACKED",
+      "target_field": "TOTAL_INCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "c.CUSTOMERNAME",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "CUSTOMERS.CUSTOMERNAME",
+      "status": "SOURCE_BACKED",
+      "target_field": "CUSTOMER_NAME"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "p.STOCKITEMNAME",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "STOCKITEMS.STOCKITEMNAME",
+      "status": "SOURCE_BACKED",
+      "target_field": "STOCK_ITEM_NAME"
+     },
+     {
+      "evidence_doc_id": "DAILY_INVOICE_SALES",
+      "evidence_path": "catalog/daily_invoice_sales.sql",
+      "evidence_text": "GROUP BY i.INVOICEDATE",
+      "evidence_version": "c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb",
+      "note": "Existing daily report groups by invoice date only; customer/item grain is new.",
+      "source_expression": "GROUP BY invoice date",
+      "status": "SOURCE_BACKED",
+      "target_field": "(daily grain)"
+     },
+     {
+      "evidence_doc_id": "DAILY_INVOICE_SALES",
+      "evidence_path": "catalog/daily_invoice_sales.sql",
+      "evidence_text": "Days without invoices are omitted",
+      "evidence_version": "c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb",
+      "note": "No zero-fill.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(calendar zero-fill)"
+     },
+     {
+      "note": "No source definition exists in the catalog.",
+      "status": "MISSING_EVIDENCE",
+      "target_field": "(margin / consent / campaign response / uplift)"
+     }
+    ],
+    "note": "Proposal only. Nothing has been created. Call CREATE_CANDIDATE to build from a fresh source snapshot.",
+    "ok": true,
+    "recipe_id": "STOCKGROUP_FANOUT_DEMO",
+    "source_definitions": [
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "efddbcb47e3ff00c0be7131f901d7337a717d689c8a0df817a0afbd9dc596160",
+      "catalog_source_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "doc_id": "CONNECTED_6f53633c096a6b56",
+      "source_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "title": "Synthetic hana: CV_INVOICE_SALES.sql"
+     },
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "94780fe7d03389c97083bb5323e05aa8f23c8a67189bb6fbb3547bab8a7df88c",
+      "catalog_source_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "source_path": "fixtures/business/definitions.md",
+      "title": "Synthetic business: definitions.md"
+     }
+    ],
+    "sql_template": "SELECT h.INVOICEDATE::DATE AS INVOICE_DATE, h.CUSTOMERID::NUMBER(38,0) AS CUSTOMER_ID, l.STOCKITEMID::NUMBER(38,0) AS STOCK_ITEM_ID, c.CUSTOMERNAME::VARCHAR AS CUSTOMER_NAME, s.STOCKITEMNAME::VARCHAR AS STOCK_ITEM_NAME, COUNT(*)::NUMBER(18,0) AS INVOICE_LINE_COUNT, SUM(l.QUANTITY)::NUMBER(18,0) AS QUANTITY, SUM(l.EXTENDEDPRICE - l.TAXAMOUNT)::NUMBER(18,2) AS SALES_EXCLUDING_TAX, SUM(l.TAXAMOUNT)::NUMBER(18,2) AS TAX_AMOUNT, SUM(l.EXTENDEDPRICE)::NUMBER(18,2) AS TOTAL_INCLUDING_TAX FROM {{INVOICELINES}} l JOIN {{INVOICES}} h ON h.INVOICEID = l.INVOICEID JOIN {{STOCKITEMSTOCKGROUPS}} g ON g.STOCKITEMID = l.STOCKITEMID LEFT JOIN {{CUSTOMERS}} c ON c.CUSTOMERID = h.CUSTOMERID LEFT JOIN {{STOCKITEMS}} s ON s.STOCKITEMID = l.STOCKITEMID GROUP BY 1,2,3,4,5",
+    "state": "PROPOSED"
+   }
+  },
+  {
+   "step": "B fanout: create",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.CREATE_CANDIDATE('C00101_005995AF')",
+   "query_id": "01c7eda8-010c-6e58-0034-28cb001b04b6",
+   "elapsed_s": 18.95,
+   "result": {
+    "build_query_id": "01c7eda9-010c-6e58-0034-28cb001b04f2",
+    "candidate_id": "C00101_005995AF",
+    "candidate_object": "HACKATHON_D2K_PREWORK.L2P_STAGE.CAND_C00101_005995AF",
+    "content_hash": "8579072355547557676",
+    "executed_sql": "SELECT h.INVOICEDATE::DATE AS INVOICE_DATE, h.CUSTOMERID::NUMBER(38,0) AS CUSTOMER_ID, l.STOCKITEMID::NUMBER(38,0) AS STOCK_ITEM_ID, c.CUSTOMERNAME::VARCHAR AS CUSTOMER_NAME, s.STOCKITEMNAME::VARCHAR AS STOCK_ITEM_NAME, COUNT(*)::NUMBER(18,0) AS INVOICE_LINE_COUNT, SUM(l.QUANTITY)::NUMBER(18,0) AS QUANTITY, SUM(l.EXTENDEDPRICE - l.TAXAMOUNT)::NUMBER(18,2) AS SALES_EXCLUDING_TAX, SUM(l.TAXAMOUNT)::NUMBER(18,2) AS TAX_AMOUNT, SUM(l.EXTENDEDPRICE)::NUMBER(18,2) AS TOTAL_INCLUDING_TAX FROM HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00101_INVOICELINES l JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00101_INVOICES h ON h.INVOICEID = l.INVOICEID JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00101_STOCKITEMSTOCKGROUPS g ON g.STOCKITEMID = l.STOCKITEMID LEFT JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00101_CUSTOMERS c ON c.CUSTOMERID = h.CUSTOMERID LEFT JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00101_STOCKITEMS s ON s.STOCKITEMID = l.STOCKITEMID GROUP BY 1,2,3,4,5",
+    "note": "Created but NOT validated or released. Call VALIDATE_CANDIDATE.",
+    "ok": true,
+    "row_count": 241,
+    "snapshot_id": "S00101",
+    "state": "CREATED"
+   }
+  },
+  {
+   "step": "B fanout: validate",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.VALIDATE_CANDIDATE('C00101_005995AF')",
+   "query_id": "01c7eda9-010c-6e5a-0034-28cb001b245a",
+   "elapsed_s": 29.03,
+   "result": {
+    "candidate_id": "C00101_005995AF",
+    "checks": [
+     {
+      "check": "SCHEMA_EXACT",
+      "expected": "exact contract v1 fields and types",
+      "observed": {
+       "mismatches": []
+      },
+      "query_id": "01c7eda9-010c-6e5a-0034-28cb001b2496",
+      "status": "PASS"
+     },
+     {
+      "check": "SNAPSHOT_UNCHANGED",
+      "expected": "cf2660acd7160ee46d6e38655d82b65198dda0b9d594210fe9fbde757bb90dd2",
+      "observed": "cf2660acd7160ee46d6e38655d82b65198dda0b9d594210fe9fbde757bb90dd2",
+      "query_id": "01c7eda9-010c-6e5a-0034-28cb001b2486",
+      "status": "PASS"
+     },
+     {
+      "check": "KEYS_NOT_NULL",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7eda9-010c-6e5a-0034-28cb001b24a6",
+      "status": "PASS"
+     },
+     {
+      "check": "GRAIN_UNIQUE",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7eda9-010c-6e5a-0034-28cb001b24b6",
+      "status": "PASS"
+     },
+     {
+      "check": "REFERENTIAL_INTEGRITY",
+      "expected": "all zero",
+      "observed": {
+       "orphan_customers": 0,
+       "orphan_date_customer": 0,
+       "orphan_items": 0,
+       "orphan_lines_in_source": 0
+      },
+      "query_id": "01c7eda9-010c-6e5a-0034-28cb001b24c6",
+      "status": "PASS"
+     },
+     {
+      "check": "LINE_COVERAGE",
+      "expected": 243,
+      "observed": {
+       "candidate_lines": 293,
+       "dropped_lines": 0,
+       "multiplied_lines": 50,
+       "source_lines": 243
+      },
+      "query_id": "01c7eda9-010c-6e5a-0034-28cb001b24d6",
+      "status": "FAIL"
+     },
+     {
+      "check": "ROW_COUNT_MATCH",
+      "expected": 241,
+      "observed": 241,
+      "query_id": "01c7eda9-010c-6e5a-0034-28cb001b24e6",
+      "status": "PASS"
+     },
+     {
+      "check": "GROUPED_RECONCILIATION",
+      "expected": "0 missing, 0 extra, 0 value mismatches",
+      "observed": {
+       "extra_in_candidate": 0,
+       "missing_in_candidate": 0,
+       "sample": [
+        {
+         "cand_amt": 1125.28,
+         "cand_lines": 2,
+         "customer": 17,
+         "date": "2026-02-14",
+         "item": 4,
+         "src_amt": 562.64,
+         "src_lines": 1
+        },
+        {
+         "cand_amt": 28.96,
+         "cand_lines": 2,
+         "customer": 16,
+         "date": "2026-01-10",
+         "item": 12,
+         "src_amt": 14.48,
+         "src_lines": 1
+        },
+        {
+         "cand_amt": 43.44,
+         "cand_lines": 2,
+         "customer": 12,
+         "date": "2026-01-22",
+         "item": 12,
+         "src_amt": 21.72,
+         "src_lines": 1
+        },
+        {
+         "cand_amt": 984.62,
+         "cand_lines": 2,
+         "customer": 6,
+         "date": "2026-01-16",
+         "item": 4,
+         "src_amt": 492.31,
+         "src_lines": 1
+        },
+        {
+         "cand_amt": 785.4,
+         "cand_lines": 2,
+         "customer": 10,
+         "date": "2026-01-05",
+         "item": 8,
+         "src_amt": 392.7,
+         "src_lines": 1
+        }
+       ],
+       "value_mismatches": 50
+      },
+      "query_id": "01c7eda9-010c-6e5a-0034-28cb001b24f6",
+      "status": "FAIL"
+     },
+     {
+      "check": "TOTAL_RECONCILIATION",
+      "expected": {
+       "sales_ex_tax": 53589.47,
+       "tax": 5359.07,
+       "total": 58948.54
+      },
+      "observed": {
+       "sales_ex_tax": 64027.32,
+       "tax": 6402.85,
+       "total": 70430.17
+      },
+      "query_id": "01c7eda9-010c-6e5a-0034-28cb001b2506",
+      "status": "FAIL"
+     },
+     {
+      "check": "DIMENSION_CONSISTENCY",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7eda9-010c-6e5a-0034-28cb001b2516",
+      "status": "PASS"
+     },
+     {
+      "check": "SCOPE_CONSISTENCY",
+      "expected": {
+       "customers": 20,
+       "dates": 48,
+       "items": 15,
+       "max_date": "2026-03-03",
+       "min_date": "2026-01-05"
+      },
+      "observed": {
+       "customers": 20,
+       "dates": 48,
+       "items": 15,
+       "max_date": "2026-03-03",
+       "min_date": "2026-01-05"
+      },
+      "query_id": "01c7eda9-010c-6e5a-0034-28cb001b2526",
+      "status": "PASS"
+     }
+    ],
+    "checks_failed": 3,
+    "checks_passed": 8,
+    "failed_checks": [
+     "LINE_COVERAGE",
+     "GROUPED_RECONCILIATION",
+     "TOTAL_RECONCILIATION"
+    ],
+    "note": "Failed. This candidate can never be released.",
+    "ok": true,
+    "state": "FAILED",
+    "validation_run_id": "V00101"
+   }
+  },
+  {
+   "step": "B fanout: release attempt",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.RELEASE_CANDIDATE('C00101_005995AF')",
+   "query_id": "01c7eda9-010c-6e59-0034-28cb001b141a",
+   "elapsed_s": 1.86,
+   "result": {
+    "error": "NOT_VALIDATED",
+    "ok": false,
+    "state": "FAILED"
+   }
+  },
+  {
+   "assert": "B fanout candidate FAILED validation",
+   "passed": true,
+   "detail": [
+    "LINE_COVERAGE",
+    "GROUPED_RECONCILIATION",
+    "TOTAL_RECONCILIATION"
+   ]
+  },
+  {
+   "assert": "B fanout flagged multiplied lines (LINE_COVERAGE, GROUPED_RECONCILIATION, TOTAL_RECONCILIATION)",
+   "passed": true,
+   "detail": [
+    "LINE_COVERAGE",
+    "GROUPED_RECONCILIATION",
+    "TOTAL_RECONCILIATION"
+   ]
+  },
+  {
+   "assert": "B fanout release rejected",
+   "passed": true,
+   "detail": {
+    "error": "NOT_VALIDATED",
+    "ok": false,
+    "state": "FAILED"
+   }
+  },
+  {
+   "step": "B after fanout: consumer discover",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P_CONSUMER.DISCOVER_RELEASED_PRODUCT()",
+   "query_id": "01c7eda9-010c-6d8c-0034-28cb001b647e",
+   "elapsed_s": 0.7,
+   "result": {
+    "available": false,
+    "note": "No product has passed validation and been released. No data can be queried.",
+    "products": []
+   }
+  },
+  {
+   "step": "B after fanout: consumer rank top 5",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P_CONSUMER.RANK_CUSTOMERS_BY_SALES(5, NULL, NULL)",
+   "query_id": "01c7eda9-010c-6e59-0034-28cb001b142e",
+   "elapsed_s": 0.47,
+   "result": {
+    "error": "NO_RELEASED_PRODUCT",
+    "note": "Nothing has been released; no ranking is possible.",
+    "ok": false
+   }
+  },
+  {
+   "assert": "B consumer still sees no product",
+   "passed": true,
+   "detail": {
+    "available": false,
+    "note": "No product has passed validation and been released. No data can be queried.",
+    "products": []
+   }
+  },
+  {
+   "step": "E omission: propose SINGLE_GROUP_OMISSION_DEMO",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.PROPOSE_CANDIDATE('SINGLE_GROUP_OMISSION_DEMO')",
+   "query_id": "01c7eda9-010c-6e5b-0034-28cb001af406",
+   "elapsed_s": 3.0,
+   "result": {
+    "candidate_id": "C00201_92E5550B",
+    "contract_version": 1,
+    "mappings": [
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "Invoiced sales: invoice-line ExtendedPrice minus TaxAmount; invoice-date basis",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Business definition.",
+      "source_expression": "definition",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "no designated primary group",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Group attribution not supported.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(stock group allocation)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "No currencies, discounts, returns or cancellations are modeled",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Not modeled.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(discounts/returns)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "Month([INVOICEDATE])",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Spotfire monthly visual uses invoice date.",
+      "source_expression": "INVOICES.INVOICEDATE",
+      "status": "SOURCE_BACKED",
+      "target_field": "INVOICE_DATE"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "\"expression\": \"[INVOICED_SALES_EX_TAX]\"",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Spotfire SalesAmount calculated column.",
+      "source_expression": "INVOICED_SALES_EX_TAX",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "\"currency\": null",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Currency explicitly not modeled.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(currency)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "i.INVOICEDATE",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Date comes from invoice header.",
+      "source_expression": "INVOICES.INVOICEDATE",
+      "status": "SOURCE_BACKED",
+      "target_field": "INVOICE_DATE"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "JOIN CUSTOMERS c ON i.CUSTOMERID = c.CUSTOMERID",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Customer comes from invoice header.",
+      "source_expression": "INVOICES.CUSTOMERID",
+      "status": "SOURCE_BACKED",
+      "target_field": "CUSTOMER_ID"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "JOIN STOCKITEMS p ON l.STOCKITEMID = p.STOCKITEMID",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Item comes from invoice line.",
+      "source_expression": "INVOICELINES.STOCKITEMID",
+      "status": "SOURCE_BACKED",
+      "target_field": "STOCK_ITEM_ID"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.EXTENDEDPRICE - l.TAXAMOUNT AS INVOICED_SALES_EX_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "HANA-style view expression.",
+      "source_expression": "INVOICELINES.EXTENDEDPRICE - INVOICELINES.TAXAMOUNT",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.TAXAMOUNT AS INVOICE_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "INVOICELINES.TAXAMOUNT",
+      "status": "SOURCE_BACKED",
+      "target_field": "TAX_AMOUNT"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.EXTENDEDPRICE AS INVOICE_TOTAL_INCL_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "INVOICELINES.EXTENDEDPRICE",
+      "status": "SOURCE_BACKED",
+      "target_field": "TOTAL_INCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "c.CUSTOMERNAME",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "CUSTOMERS.CUSTOMERNAME",
+      "status": "SOURCE_BACKED",
+      "target_field": "CUSTOMER_NAME"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "p.STOCKITEMNAME",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "STOCKITEMS.STOCKITEMNAME",
+      "status": "SOURCE_BACKED",
+      "target_field": "STOCK_ITEM_NAME"
+     },
+     {
+      "evidence_doc_id": "DAILY_INVOICE_SALES",
+      "evidence_path": "catalog/daily_invoice_sales.sql",
+      "evidence_text": "GROUP BY i.INVOICEDATE",
+      "evidence_version": "c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb",
+      "note": "Existing daily report groups by invoice date only; customer/item grain is new.",
+      "source_expression": "GROUP BY invoice date",
+      "status": "SOURCE_BACKED",
+      "target_field": "(daily grain)"
+     },
+     {
+      "evidence_doc_id": "DAILY_INVOICE_SALES",
+      "evidence_path": "catalog/daily_invoice_sales.sql",
+      "evidence_text": "Days without invoices are omitted",
+      "evidence_version": "c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb",
+      "note": "No zero-fill.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(calendar zero-fill)"
+     },
+     {
+      "note": "No source definition exists in the catalog.",
+      "status": "MISSING_EVIDENCE",
+      "target_field": "(margin / consent / campaign response / uplift)"
+     }
+    ],
+    "note": "Proposal only. Nothing has been created. Call CREATE_CANDIDATE to build from a fresh source snapshot.",
+    "ok": true,
+    "recipe_id": "SINGLE_GROUP_OMISSION_DEMO",
+    "source_definitions": [
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "efddbcb47e3ff00c0be7131f901d7337a717d689c8a0df817a0afbd9dc596160",
+      "catalog_source_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "doc_id": "CONNECTED_6f53633c096a6b56",
+      "source_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "title": "Synthetic hana: CV_INVOICE_SALES.sql"
+     },
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "94780fe7d03389c97083bb5323e05aa8f23c8a67189bb6fbb3547bab8a7df88c",
+      "catalog_source_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "source_path": "fixtures/business/definitions.md",
+      "title": "Synthetic business: definitions.md"
+     }
+    ],
+    "sql_template": "SELECT h.INVOICEDATE::DATE AS INVOICE_DATE, h.CUSTOMERID::NUMBER(38,0) AS CUSTOMER_ID, l.STOCKITEMID::NUMBER(38,0) AS STOCK_ITEM_ID, c.CUSTOMERNAME::VARCHAR AS CUSTOMER_NAME, s.STOCKITEMNAME::VARCHAR AS STOCK_ITEM_NAME, COUNT(*)::NUMBER(18,0) AS INVOICE_LINE_COUNT, SUM(l.QUANTITY)::NUMBER(18,0) AS QUANTITY, SUM(l.EXTENDEDPRICE - l.TAXAMOUNT)::NUMBER(18,2) AS SALES_EXCLUDING_TAX, SUM(l.TAXAMOUNT)::NUMBER(18,2) AS TAX_AMOUNT, SUM(l.EXTENDEDPRICE)::NUMBER(18,2) AS TOTAL_INCLUDING_TAX FROM {{INVOICELINES}} l JOIN {{INVOICES}} h ON h.INVOICEID = l.INVOICEID JOIN {{STOCKITEMSTOCKGROUPS}} g ON g.STOCKITEMID = l.STOCKITEMID AND g.STOCKGROUPID = (SELECT MIN(STOCKGROUPID) FROM {{STOCKITEMSTOCKGROUPS}}) LEFT JOIN {{CUSTOMERS}} c ON c.CUSTOMERID = h.CUSTOMERID LEFT JOIN {{STOCKITEMS}} s ON s.STOCKITEMID = l.STOCKITEMID GROUP BY 1,2,3,4,5",
+    "state": "PROPOSED"
+   }
+  },
+  {
+   "step": "E omission: create",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.CREATE_CANDIDATE('C00201_92E5550B')",
+   "query_id": "01c7eda9-010c-6e5e-0034-28cb001bd3d2",
+   "elapsed_s": 13.96,
+   "result": {
+    "build_query_id": "01c7edaa-010c-6e5e-0034-28cb001bd40e",
+    "candidate_id": "C00201_92E5550B",
+    "candidate_object": "HACKATHON_D2K_PREWORK.L2P_STAGE.CAND_C00201_92E5550B",
+    "content_hash": "-9212517029692601508",
+    "executed_sql": "SELECT h.INVOICEDATE::DATE AS INVOICE_DATE, h.CUSTOMERID::NUMBER(38,0) AS CUSTOMER_ID, l.STOCKITEMID::NUMBER(38,0) AS STOCK_ITEM_ID, c.CUSTOMERNAME::VARCHAR AS CUSTOMER_NAME, s.STOCKITEMNAME::VARCHAR AS STOCK_ITEM_NAME, COUNT(*)::NUMBER(18,0) AS INVOICE_LINE_COUNT, SUM(l.QUANTITY)::NUMBER(18,0) AS QUANTITY, SUM(l.EXTENDEDPRICE - l.TAXAMOUNT)::NUMBER(18,2) AS SALES_EXCLUDING_TAX, SUM(l.TAXAMOUNT)::NUMBER(18,2) AS TAX_AMOUNT, SUM(l.EXTENDEDPRICE)::NUMBER(18,2) AS TOTAL_INCLUDING_TAX FROM HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00201_INVOICELINES l JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00201_INVOICES h ON h.INVOICEID = l.INVOICEID JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00201_STOCKITEMSTOCKGROUPS g ON g.STOCKITEMID = l.STOCKITEMID AND g.STOCKGROUPID = (SELECT MIN(STOCKGROUPID) FROM HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00201_STOCKITEMSTOCKGROUPS) LEFT JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00201_CUSTOMERS c ON c.CUSTOMERID = h.CUSTOMERID LEFT JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00201_STOCKITEMS s ON s.STOCKITEMID = l.STOCKITEMID GROUP BY 1,2,3,4,5",
+    "note": "Created but NOT validated or released. Call VALIDATE_CANDIDATE.",
+    "ok": true,
+    "row_count": 121,
+    "snapshot_id": "S00201",
+    "state": "CREATED"
+   }
+  },
+  {
+   "step": "E omission: validate",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.VALIDATE_CANDIDATE('C00201_92E5550B')",
+   "query_id": "01c7edaa-010c-6e5b-0034-28cb001af426",
+   "elapsed_s": 25.77,
+   "result": {
+    "candidate_id": "C00201_92E5550B",
+    "checks": [
+     {
+      "check": "SCHEMA_EXACT",
+      "expected": "exact contract v1 fields and types",
+      "observed": {
+       "mismatches": []
+      },
+      "query_id": "01c7edaa-010c-6e5b-0034-28cb001af462",
+      "status": "PASS"
+     },
+     {
+      "check": "SNAPSHOT_UNCHANGED",
+      "expected": "cf2660acd7160ee46d6e38655d82b65198dda0b9d594210fe9fbde757bb90dd2",
+      "observed": "cf2660acd7160ee46d6e38655d82b65198dda0b9d594210fe9fbde757bb90dd2",
+      "query_id": "01c7edaa-010c-6e5b-0034-28cb001af452",
+      "status": "PASS"
+     },
+     {
+      "check": "KEYS_NOT_NULL",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7edaa-010c-6e5b-0034-28cb001af472",
+      "status": "PASS"
+     },
+     {
+      "check": "GRAIN_UNIQUE",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7edaa-010c-6e5b-0034-28cb001af482",
+      "status": "PASS"
+     },
+     {
+      "check": "REFERENTIAL_INTEGRITY",
+      "expected": "all zero",
+      "observed": {
+       "orphan_customers": 0,
+       "orphan_date_customer": 0,
+       "orphan_items": 0,
+       "orphan_lines_in_source": 0
+      },
+      "query_id": "01c7edaa-010c-6e5b-0034-28cb001af492",
+      "status": "PASS"
+     },
+     {
+      "check": "LINE_COVERAGE",
+      "expected": 243,
+      "observed": {
+       "candidate_lines": 121,
+       "dropped_lines": 122,
+       "multiplied_lines": 0,
+       "source_lines": 243
+      },
+      "query_id": "01c7edaa-010c-6e5b-0034-28cb001af4a2",
+      "status": "FAIL"
+     },
+     {
+      "check": "ROW_COUNT_MATCH",
+      "expected": 241,
+      "observed": 121,
+      "query_id": "01c7edaa-010c-6e5b-0034-28cb001af4b2",
+      "status": "FAIL"
+     },
+     {
+      "check": "GROUPED_RECONCILIATION",
+      "expected": "0 missing, 0 extra, 0 value mismatches",
+      "observed": {
+       "extra_in_candidate": 0,
+       "missing_in_candidate": 120,
+       "sample": [
+        {
+         "customer": 12,
+         "date": "2026-02-13",
+         "item": 5,
+         "src_amt": 56.46,
+         "src_lines": 1
+        },
+        {
+         "customer": 10,
+         "date": "2026-01-23",
+         "item": 7,
+         "src_amt": 44.19,
+         "src_lines": 1
+        },
+        {
+         "customer": 10,
+         "date": "2026-01-23",
+         "item": 15,
+         "src_amt": 350.16,
+         "src_lines": 1
+        },
+        {
+         "customer": 4,
+         "date": "2026-02-21",
+         "item": 5,
+         "src_amt": 225.84,
+         "src_lines": 1
+        },
+        {
+         "customer": 4,
+         "date": "2026-01-14",
+         "item": 5,
+         "src_amt": 451.68,
+         "src_lines": 1
+        }
+       ],
+       "value_mismatches": 0
+      },
+      "query_id": "01c7edaa-010c-6e5b-0034-28cb001af4c2",
+      "status": "FAIL"
+     },
+     {
+      "check": "TOTAL_RECONCILIATION",
+      "expected": {
+       "sales_ex_tax": 53589.47,
+       "tax": 5359.07,
+       "total": 58948.54
+      },
+      "observed": {
+       "sales_ex_tax": 22468.67,
+       "tax": 2246.97,
+       "total": 24715.64
+      },
+      "query_id": "01c7edaa-010c-6e5b-0034-28cb001af4d2",
+      "status": "FAIL"
+     },
+     {
+      "check": "DIMENSION_CONSISTENCY",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7edaa-010c-6e5b-0034-28cb001af4e2",
+      "status": "PASS"
+     },
+     {
+      "check": "SCOPE_CONSISTENCY",
+      "expected": {
+       "customers": 20,
+       "dates": 48,
+       "items": 15,
+       "max_date": "2026-03-03",
+       "min_date": "2026-01-05"
+      },
+      "observed": {
+       "customers": 20,
+       "dates": 43,
+       "items": 7,
+       "max_date": "2026-03-03",
+       "min_date": "2026-01-05"
+      },
+      "query_id": "01c7edaa-010c-6e5b-0034-28cb001af4f2",
+      "status": "FAIL"
+     }
+    ],
+    "checks_failed": 5,
+    "checks_passed": 6,
+    "failed_checks": [
+     "LINE_COVERAGE",
+     "ROW_COUNT_MATCH",
+     "GROUPED_RECONCILIATION",
+     "TOTAL_RECONCILIATION",
+     "SCOPE_CONSISTENCY"
+    ],
+    "note": "Failed. This candidate can never be released.",
+    "ok": true,
+    "state": "FAILED",
+    "validation_run_id": "V00201"
+   }
+  },
+  {
+   "step": "E omission: release attempt",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.RELEASE_CANDIDATE('C00201_92E5550B')",
+   "query_id": "01c7edaa-010c-6d8c-0034-28cb001b6486",
+   "elapsed_s": 2.1,
+   "result": {
+    "error": "NOT_VALIDATED",
+    "ok": false,
+    "state": "FAILED"
+   }
+  },
+  {
+   "assert": "E omission candidate FAILED",
+   "passed": true,
+   "detail": [
+    "LINE_COVERAGE",
+    "ROW_COUNT_MATCH",
+    "GROUPED_RECONCILIATION",
+    "TOTAL_RECONCILIATION",
+    "SCOPE_CONSISTENCY"
+   ]
+  },
+  {
+   "assert": "E omission flagged dropped lines in LINE_COVERAGE",
+   "passed": true,
+   "detail": [
+    "LINE_COVERAGE",
+    "ROW_COUNT_MATCH",
+    "GROUPED_RECONCILIATION",
+    "TOTAL_RECONCILIATION",
+    "SCOPE_CONSISTENCY"
+   ]
+  },
+  {
+   "assert": "E omission release rejected",
+   "passed": true,
+   "detail": {
+    "error": "NOT_VALIDATED",
+    "ok": false,
+    "state": "FAILED"
+   }
+  },
+  {
+   "step": "E order-date basis: propose ORDER_DATE_BASIS_DEMO",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.PROPOSE_CANDIDATE('ORDER_DATE_BASIS_DEMO')",
+   "query_id": "01c7edaa-010c-6e5a-0034-28cb001b254a",
+   "elapsed_s": 3.07,
+   "result": {
+    "candidate_id": "C00301_59A04978",
+    "contract_version": 1,
+    "mappings": [
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "Invoiced sales: invoice-line ExtendedPrice minus TaxAmount; invoice-date basis",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Business definition.",
+      "source_expression": "definition",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "no designated primary group",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Group attribution not supported.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(stock group allocation)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "No currencies, discounts, returns or cancellations are modeled",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Not modeled.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(discounts/returns)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "Month([INVOICEDATE])",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Spotfire monthly visual uses invoice date.",
+      "source_expression": "INVOICES.INVOICEDATE",
+      "status": "SOURCE_BACKED",
+      "target_field": "INVOICE_DATE"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "\"expression\": \"[INVOICED_SALES_EX_TAX]\"",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Spotfire SalesAmount calculated column.",
+      "source_expression": "INVOICED_SALES_EX_TAX",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "\"currency\": null",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Currency explicitly not modeled.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(currency)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "i.INVOICEDATE",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Date comes from invoice header.",
+      "source_expression": "INVOICES.INVOICEDATE",
+      "status": "SOURCE_BACKED",
+      "target_field": "INVOICE_DATE"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "JOIN CUSTOMERS c ON i.CUSTOMERID = c.CUSTOMERID",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Customer comes from invoice header.",
+      "source_expression": "INVOICES.CUSTOMERID",
+      "status": "SOURCE_BACKED",
+      "target_field": "CUSTOMER_ID"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "JOIN STOCKITEMS p ON l.STOCKITEMID = p.STOCKITEMID",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Item comes from invoice line.",
+      "source_expression": "INVOICELINES.STOCKITEMID",
+      "status": "SOURCE_BACKED",
+      "target_field": "STOCK_ITEM_ID"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.EXTENDEDPRICE - l.TAXAMOUNT AS INVOICED_SALES_EX_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "HANA-style view expression.",
+      "source_expression": "INVOICELINES.EXTENDEDPRICE - INVOICELINES.TAXAMOUNT",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.TAXAMOUNT AS INVOICE_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "INVOICELINES.TAXAMOUNT",
+      "status": "SOURCE_BACKED",
+      "target_field": "TAX_AMOUNT"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.EXTENDEDPRICE AS INVOICE_TOTAL_INCL_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "INVOICELINES.EXTENDEDPRICE",
+      "status": "SOURCE_BACKED",
+      "target_field": "TOTAL_INCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "c.CUSTOMERNAME",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "CUSTOMERS.CUSTOMERNAME",
+      "status": "SOURCE_BACKED",
+      "target_field": "CUSTOMER_NAME"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "p.STOCKITEMNAME",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "STOCKITEMS.STOCKITEMNAME",
+      "status": "SOURCE_BACKED",
+      "target_field": "STOCK_ITEM_NAME"
+     },
+     {
+      "evidence_doc_id": "DAILY_INVOICE_SALES",
+      "evidence_path": "catalog/daily_invoice_sales.sql",
+      "evidence_text": "GROUP BY i.INVOICEDATE",
+      "evidence_version": "c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb",
+      "note": "Existing daily report groups by invoice date only; customer/item grain is new.",
+      "source_expression": "GROUP BY invoice date",
+      "status": "SOURCE_BACKED",
+      "target_field": "(daily grain)"
+     },
+     {
+      "evidence_doc_id": "DAILY_INVOICE_SALES",
+      "evidence_path": "catalog/daily_invoice_sales.sql",
+      "evidence_text": "Days without invoices are omitted",
+      "evidence_version": "c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb",
+      "note": "No zero-fill.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(calendar zero-fill)"
+     },
+     {
+      "note": "No source definition exists in the catalog.",
+      "status": "MISSING_EVIDENCE",
+      "target_field": "(margin / consent / campaign response / uplift)"
+     }
+    ],
+    "note": "Proposal only. Nothing has been created. Call CREATE_CANDIDATE to build from a fresh source snapshot.",
+    "ok": true,
+    "recipe_id": "ORDER_DATE_BASIS_DEMO",
+    "source_definitions": [
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "b855690ccd1018bd576cc21a9f67ac639c9c4eb0ea8e364bd247e6c463e46595",
+      "catalog_source_version": "1f197fd3d2da50b70767619a1088fd0b7835501688a40efc73ca7e98fd0a3002",
+      "doc_id": "CONNECTED_d8398680328033bb",
+      "source_path": "fixtures/hana/CV_ORDER_SALES.sql",
+      "title": "Synthetic hana: CV_ORDER_SALES.sql"
+     },
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "94780fe7d03389c97083bb5323e05aa8f23c8a67189bb6fbb3547bab8a7df88c",
+      "catalog_source_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "source_path": "fixtures/business/definitions.md",
+      "title": "Synthetic business: definitions.md"
+     }
+    ],
+    "sql_template": "SELECT o.ORDERDATE::DATE AS INVOICE_DATE, h.CUSTOMERID::NUMBER(38,0) AS CUSTOMER_ID, l.STOCKITEMID::NUMBER(38,0) AS STOCK_ITEM_ID, c.CUSTOMERNAME::VARCHAR AS CUSTOMER_NAME, s.STOCKITEMNAME::VARCHAR AS STOCK_ITEM_NAME, COUNT(*)::NUMBER(18,0) AS INVOICE_LINE_COUNT, SUM(l.QUANTITY)::NUMBER(18,0) AS QUANTITY, SUM(l.EXTENDEDPRICE - l.TAXAMOUNT)::NUMBER(18,2) AS SALES_EXCLUDING_TAX, SUM(l.TAXAMOUNT)::NUMBER(18,2) AS TAX_AMOUNT, SUM(l.EXTENDEDPRICE)::NUMBER(18,2) AS TOTAL_INCLUDING_TAX FROM {{INVOICELINES}} l JOIN {{INVOICES}} h ON h.INVOICEID = l.INVOICEID JOIN {{ORDERS}} o ON o.ORDERID = h.ORDERID LEFT JOIN {{CUSTOMERS}} c ON c.CUSTOMERID = h.CUSTOMERID LEFT JOIN {{STOCKITEMS}} s ON s.STOCKITEMID = l.STOCKITEMID GROUP BY 1,2,3,4,5",
+    "state": "PROPOSED"
+   }
+  },
+  {
+   "step": "E order-date basis: create",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.CREATE_CANDIDATE('C00301_59A04978')",
+   "query_id": "01c7edaa-010c-6e5d-0034-28cb001b534a",
+   "elapsed_s": 17.25,
+   "result": {
+    "build_query_id": "01c7edaa-010c-6e5d-0034-28cb001b5386",
+    "candidate_id": "C00301_59A04978",
+    "candidate_object": "HACKATHON_D2K_PREWORK.L2P_STAGE.CAND_C00301_59A04978",
+    "content_hash": "734241587753900905",
+    "executed_sql": "SELECT o.ORDERDATE::DATE AS INVOICE_DATE, h.CUSTOMERID::NUMBER(38,0) AS CUSTOMER_ID, l.STOCKITEMID::NUMBER(38,0) AS STOCK_ITEM_ID, c.CUSTOMERNAME::VARCHAR AS CUSTOMER_NAME, s.STOCKITEMNAME::VARCHAR AS STOCK_ITEM_NAME, COUNT(*)::NUMBER(18,0) AS INVOICE_LINE_COUNT, SUM(l.QUANTITY)::NUMBER(18,0) AS QUANTITY, SUM(l.EXTENDEDPRICE - l.TAXAMOUNT)::NUMBER(18,2) AS SALES_EXCLUDING_TAX, SUM(l.TAXAMOUNT)::NUMBER(18,2) AS TAX_AMOUNT, SUM(l.EXTENDEDPRICE)::NUMBER(18,2) AS TOTAL_INCLUDING_TAX FROM HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00301_INVOICELINES l JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00301_INVOICES h ON h.INVOICEID = l.INVOICEID JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00301_ORDERS o ON o.ORDERID = h.ORDERID LEFT JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00301_CUSTOMERS c ON c.CUSTOMERID = h.CUSTOMERID LEFT JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00301_STOCKITEMS s ON s.STOCKITEMID = l.STOCKITEMID GROUP BY 1,2,3,4,5",
+    "note": "Created but NOT validated or released. Call VALIDATE_CANDIDATE.",
+    "ok": true,
+    "row_count": 241,
+    "snapshot_id": "S00301",
+    "state": "CREATED"
+   }
+  },
+  {
+   "step": "E order-date basis: validate",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.VALIDATE_CANDIDATE('C00301_59A04978')",
+   "query_id": "01c7edaa-010c-6e5d-0034-28cb001b5396",
+   "elapsed_s": 26.29,
+   "result": {
+    "candidate_id": "C00301_59A04978",
+    "checks": [
+     {
+      "check": "SNAPSHOT_UNCHANGED",
+      "expected": "cf2660acd7160ee46d6e38655d82b65198dda0b9d594210fe9fbde757bb90dd2",
+      "observed": "cf2660acd7160ee46d6e38655d82b65198dda0b9d594210fe9fbde757bb90dd2",
+      "query_id": "01c7edaa-010c-6e5d-0034-28cb001b53c2",
+      "status": "PASS"
+     },
+     {
+      "check": "SCHEMA_EXACT",
+      "expected": "exact contract v1 fields and types",
+      "observed": {
+       "mismatches": []
+      },
+      "query_id": "01c7edaa-010c-6e5d-0034-28cb001b53d2",
+      "status": "PASS"
+     },
+     {
+      "check": "KEYS_NOT_NULL",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7edab-010c-6e5d-0034-28cb001b53e2",
+      "status": "PASS"
+     },
+     {
+      "check": "GRAIN_UNIQUE",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7edab-010c-6e5d-0034-28cb001b53f2",
+      "status": "PASS"
+     },
+     {
+      "check": "REFERENTIAL_INTEGRITY",
+      "expected": "all zero",
+      "observed": {
+       "orphan_customers": 0,
+       "orphan_date_customer": 227,
+       "orphan_items": 0,
+       "orphan_lines_in_source": 0
+      },
+      "query_id": "01c7edab-010c-6e5d-0034-28cb001b5402",
+      "status": "FAIL"
+     },
+     {
+      "check": "LINE_COVERAGE",
+      "expected": 243,
+      "observed": {
+       "candidate_lines": 243,
+       "dropped_lines": 0,
+       "multiplied_lines": 0,
+       "source_lines": 243
+      },
+      "query_id": "01c7edab-010c-6e5d-0034-28cb001b5412",
+      "status": "PASS"
+     },
+     {
+      "check": "ROW_COUNT_MATCH",
+      "expected": 241,
+      "observed": 241,
+      "query_id": "01c7edab-010c-6e5d-0034-28cb001b5422",
+      "status": "PASS"
+     },
+     {
+      "check": "GROUPED_RECONCILIATION",
+      "expected": "0 missing, 0 extra, 0 value mismatches",
+      "observed": {
+       "extra_in_candidate": 240,
+       "missing_in_candidate": 240,
+       "sample": [
+        {
+         "customer": 12,
+         "date": "2026-02-13",
+         "item": 5,
+         "src_amt": 56.46,
+         "src_lines": 1
+        },
+        {
+         "customer": 12,
+         "date": "2026-02-13",
+         "item": 6,
+         "src_amt": 209.65,
+         "src_lines": 1
+        },
+        {
+         "customer": 10,
+         "date": "2026-01-23",
+         "item": 7,
+         "src_amt": 44.19,
+         "src_lines": 1
+        },
+        {
+         "customer": 10,
+         "date": "2026-01-23",
+         "item": 15,
+         "src_amt": 350.16,
+         "src_lines": 1
+        },
+        {
+         "customer": 4,
+         "date": "2026-02-21",
+         "item": 10,
+         "src_amt": 398.24,
+         "src_lines": 1
+        }
+       ],
+       "value_mismatches": 1
+      },
+      "query_id": "01c7edab-010c-6e5d-0034-28cb001b5432",
+      "status": "FAIL"
+     },
+     {
+      "check": "TOTAL_RECONCILIATION",
+      "expected": {
+       "sales_ex_tax": 53589.47,
+       "tax": 5359.07,
+       "total": 58948.54
+      },
+      "observed": {
+       "sales_ex_tax": 53589.47,
+       "tax": 5359.07,
+       "total": 58948.54
+      },
+      "query_id": "01c7edab-010c-6e5d-0034-28cb001b5442",
+      "status": "PASS"
+     },
+     {
+      "check": "DIMENSION_CONSISTENCY",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7edab-010c-6e5d-0034-28cb001b5452",
+      "status": "PASS"
+     },
+     {
+      "check": "SCOPE_CONSISTENCY",
+      "expected": {
+       "customers": 20,
+       "dates": 48,
+       "items": 15,
+       "max_date": "2026-03-03",
+       "min_date": "2026-01-05"
+      },
+      "observed": {
+       "customers": 20,
+       "dates": 48,
+       "items": 15,
+       "max_date": "2026-03-01",
+       "min_date": "2026-01-03"
+      },
+      "query_id": "01c7edab-010c-6e5d-0034-28cb001b5462",
+      "status": "FAIL"
+     }
+    ],
+    "checks_failed": 3,
+    "checks_passed": 8,
+    "failed_checks": [
+     "REFERENTIAL_INTEGRITY",
+     "GROUPED_RECONCILIATION",
+     "SCOPE_CONSISTENCY"
+    ],
+    "note": "Failed. This candidate can never be released.",
+    "ok": true,
+    "state": "FAILED",
+    "validation_run_id": "V00301"
+   }
+  },
+  {
+   "step": "E order-date basis: release attempt",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.RELEASE_CANDIDATE('C00301_59A04978')",
+   "query_id": "01c7edab-010c-6e5b-0034-28cb001af516",
+   "elapsed_s": 1.4,
+   "result": {
+    "error": "NOT_VALIDATED",
+    "ok": false,
+    "state": "FAILED"
+   }
+  },
+  {
+   "assert": "E order-date: TOTAL_RECONCILIATION passes (totals alone look fine)",
+   "passed": true,
+   "detail": {
+    "SNAPSHOT_UNCHANGED": "PASS",
+    "SCHEMA_EXACT": "PASS",
+    "KEYS_NOT_NULL": "PASS",
+    "GRAIN_UNIQUE": "PASS",
+    "REFERENTIAL_INTEGRITY": "FAIL",
+    "LINE_COVERAGE": "PASS",
+    "ROW_COUNT_MATCH": "PASS",
+    "GROUPED_RECONCILIATION": "FAIL",
+    "TOTAL_RECONCILIATION": "PASS",
+    "DIMENSION_CONSISTENCY": "PASS",
+    "SCOPE_CONSISTENCY": "FAIL"
+   }
+  },
+  {
+   "assert": "E order-date: GROUPED_RECONCILIATION fails",
+   "passed": true,
+   "detail": {
+    "SNAPSHOT_UNCHANGED": "PASS",
+    "SCHEMA_EXACT": "PASS",
+    "KEYS_NOT_NULL": "PASS",
+    "GRAIN_UNIQUE": "PASS",
+    "REFERENTIAL_INTEGRITY": "FAIL",
+    "LINE_COVERAGE": "PASS",
+    "ROW_COUNT_MATCH": "PASS",
+    "GROUPED_RECONCILIATION": "FAIL",
+    "TOTAL_RECONCILIATION": "PASS",
+    "DIMENSION_CONSISTENCY": "PASS",
+    "SCOPE_CONSISTENCY": "FAIL"
+   }
+  },
+  {
+   "assert": "E order-date candidate FAILED and not released",
+   "passed": true,
+   "detail": {
+    "error": "NOT_VALIDATED",
+    "ok": false,
+    "state": "FAILED"
+   }
+  },
+  {
+   "step": "C correct: propose DAILY_INVOICED_SALES_V1",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.PROPOSE_CANDIDATE('DAILY_INVOICED_SALES_V1')",
+   "query_id": "01c7edab-010c-6d8c-0034-28cb001b649a",
+   "elapsed_s": 2.76,
+   "result": {
+    "candidate_id": "C00401_2E6502B7",
+    "contract_version": 1,
+    "mappings": [
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "Invoiced sales: invoice-line ExtendedPrice minus TaxAmount; invoice-date basis",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Business definition.",
+      "source_expression": "definition",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "no designated primary group",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Group attribution not supported.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(stock group allocation)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "No currencies, discounts, returns or cancellations are modeled",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Not modeled.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(discounts/returns)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "Month([INVOICEDATE])",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Spotfire monthly visual uses invoice date.",
+      "source_expression": "INVOICES.INVOICEDATE",
+      "status": "SOURCE_BACKED",
+      "target_field": "INVOICE_DATE"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "\"expression\": \"[INVOICED_SALES_EX_TAX]\"",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Spotfire SalesAmount calculated column.",
+      "source_expression": "INVOICED_SALES_EX_TAX",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "\"currency\": null",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Currency explicitly not modeled.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(currency)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "i.INVOICEDATE",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Date comes from invoice header.",
+      "source_expression": "INVOICES.INVOICEDATE",
+      "status": "SOURCE_BACKED",
+      "target_field": "INVOICE_DATE"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "JOIN CUSTOMERS c ON i.CUSTOMERID = c.CUSTOMERID",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Customer comes from invoice header.",
+      "source_expression": "INVOICES.CUSTOMERID",
+      "status": "SOURCE_BACKED",
+      "target_field": "CUSTOMER_ID"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "JOIN STOCKITEMS p ON l.STOCKITEMID = p.STOCKITEMID",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Item comes from invoice line.",
+      "source_expression": "INVOICELINES.STOCKITEMID",
+      "status": "SOURCE_BACKED",
+      "target_field": "STOCK_ITEM_ID"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.EXTENDEDPRICE - l.TAXAMOUNT AS INVOICED_SALES_EX_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "HANA-style view expression.",
+      "source_expression": "INVOICELINES.EXTENDEDPRICE - INVOICELINES.TAXAMOUNT",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.TAXAMOUNT AS INVOICE_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "INVOICELINES.TAXAMOUNT",
+      "status": "SOURCE_BACKED",
+      "target_field": "TAX_AMOUNT"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.EXTENDEDPRICE AS INVOICE_TOTAL_INCL_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "INVOICELINES.EXTENDEDPRICE",
+      "status": "SOURCE_BACKED",
+      "target_field": "TOTAL_INCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "c.CUSTOMERNAME",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "CUSTOMERS.CUSTOMERNAME",
+      "status": "SOURCE_BACKED",
+      "target_field": "CUSTOMER_NAME"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "p.STOCKITEMNAME",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "STOCKITEMS.STOCKITEMNAME",
+      "status": "SOURCE_BACKED",
+      "target_field": "STOCK_ITEM_NAME"
+     },
+     {
+      "evidence_doc_id": "DAILY_INVOICE_SALES",
+      "evidence_path": "catalog/daily_invoice_sales.sql",
+      "evidence_text": "GROUP BY i.INVOICEDATE",
+      "evidence_version": "c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb",
+      "note": "Existing daily report groups by invoice date only; customer/item grain is new.",
+      "source_expression": "GROUP BY invoice date",
+      "status": "SOURCE_BACKED",
+      "target_field": "(daily grain)"
+     },
+     {
+      "evidence_doc_id": "DAILY_INVOICE_SALES",
+      "evidence_path": "catalog/daily_invoice_sales.sql",
+      "evidence_text": "Days without invoices are omitted",
+      "evidence_version": "c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb",
+      "note": "No zero-fill.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(calendar zero-fill)"
+     },
+     {
+      "note": "No source definition exists in the catalog.",
+      "status": "MISSING_EVIDENCE",
+      "target_field": "(margin / consent / campaign response / uplift)"
+     }
+    ],
+    "note": "Proposal only. Nothing has been created. Call CREATE_CANDIDATE to build from a fresh source snapshot.",
+    "ok": true,
+    "recipe_id": "DAILY_INVOICED_SALES_V1",
+    "source_definitions": [
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "94780fe7d03389c97083bb5323e05aa8f23c8a67189bb6fbb3547bab8a7df88c",
+      "catalog_source_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "source_path": "fixtures/business/definitions.md",
+      "title": "Synthetic business: definitions.md"
+     },
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "5801e9134a786cfd9a054fcbd94b99a90cf95322be0809155adacbc99a989d8b",
+      "catalog_source_version": "f67352b5a51bba4566da228ea9c31326007138b0e8e05aabca4de2686370f561",
+      "doc_id": "CONNECTED_1055b17d75582621",
+      "source_path": "fixtures/spotfire/customer_sales.source.sql",
+      "title": "Synthetic spotfire: customer_sales.source.sql"
+     },
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "1e038d8e25332e2d22203d6d5b1b9e0a38bdd4827b6f4d9a59c6409ef6a9e64c",
+      "catalog_source_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "doc_id": "CONNECTED_a5086dc0ef985e23",
+      "source_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "title": "Synthetic spotfire: customer_sales.metadata.json"
+     },
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "efddbcb47e3ff00c0be7131f901d7337a717d689c8a0df817a0afbd9dc596160",
+      "catalog_source_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "doc_id": "CONNECTED_6f53633c096a6b56",
+      "source_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "title": "Synthetic hana: CV_INVOICE_SALES.sql"
+     },
+     {
+      "artifact_type": "SYNTHETIC_REPORT",
+      "catalog_content_sha256": "97e31e34ed7bc26ed8a17f626aa03658aab201ba98d5d4d587d8772f9b29d693",
+      "catalog_source_version": "c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb",
+      "doc_id": "DAILY_INVOICE_SALES",
+      "source_path": "catalog/daily_invoice_sales.sql",
+      "title": "Daily invoiced sales"
+     }
+    ],
+    "sql_template": "SELECT h.INVOICEDATE::DATE AS INVOICE_DATE, h.CUSTOMERID::NUMBER(38,0) AS CUSTOMER_ID, l.STOCKITEMID::NUMBER(38,0) AS STOCK_ITEM_ID, c.CUSTOMERNAME::VARCHAR AS CUSTOMER_NAME, s.STOCKITEMNAME::VARCHAR AS STOCK_ITEM_NAME, COUNT(*)::NUMBER(18,0) AS INVOICE_LINE_COUNT, SUM(l.QUANTITY)::NUMBER(18,0) AS QUANTITY, SUM(l.EXTENDEDPRICE - l.TAXAMOUNT)::NUMBER(18,2) AS SALES_EXCLUDING_TAX, SUM(l.TAXAMOUNT)::NUMBER(18,2) AS TAX_AMOUNT, SUM(l.EXTENDEDPRICE)::NUMBER(18,2) AS TOTAL_INCLUDING_TAX FROM {{INVOICELINES}} l JOIN {{INVOICES}} h ON h.INVOICEID = l.INVOICEID LEFT JOIN {{CUSTOMERS}} c ON c.CUSTOMERID = h.CUSTOMERID LEFT JOIN {{STOCKITEMS}} s ON s.STOCKITEMID = l.STOCKITEMID GROUP BY 1,2,3,4,5",
+    "state": "PROPOSED"
+   }
+  },
+  {
+   "step": "C correct: create",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.CREATE_CANDIDATE('C00401_2E6502B7')",
+   "query_id": "01c7edab-010c-6e58-0034-28cb001b0502",
+   "elapsed_s": 13.83,
+   "result": {
+    "build_query_id": "01c7edab-010c-6e58-0034-28cb001b053e",
+    "candidate_id": "C00401_2E6502B7",
+    "candidate_object": "HACKATHON_D2K_PREWORK.L2P_STAGE.CAND_C00401_2E6502B7",
+    "content_hash": "118407673939843085",
+    "executed_sql": "SELECT h.INVOICEDATE::DATE AS INVOICE_DATE, h.CUSTOMERID::NUMBER(38,0) AS CUSTOMER_ID, l.STOCKITEMID::NUMBER(38,0) AS STOCK_ITEM_ID, c.CUSTOMERNAME::VARCHAR AS CUSTOMER_NAME, s.STOCKITEMNAME::VARCHAR AS STOCK_ITEM_NAME, COUNT(*)::NUMBER(18,0) AS INVOICE_LINE_COUNT, SUM(l.QUANTITY)::NUMBER(18,0) AS QUANTITY, SUM(l.EXTENDEDPRICE - l.TAXAMOUNT)::NUMBER(18,2) AS SALES_EXCLUDING_TAX, SUM(l.TAXAMOUNT)::NUMBER(18,2) AS TAX_AMOUNT, SUM(l.EXTENDEDPRICE)::NUMBER(18,2) AS TOTAL_INCLUDING_TAX FROM HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00102_INVOICELINES l JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00102_INVOICES h ON h.INVOICEID = l.INVOICEID LEFT JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00102_CUSTOMERS c ON c.CUSTOMERID = h.CUSTOMERID LEFT JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00102_STOCKITEMS s ON s.STOCKITEMID = l.STOCKITEMID GROUP BY 1,2,3,4,5",
+    "note": "Created but NOT validated or released. Call VALIDATE_CANDIDATE.",
+    "ok": true,
+    "row_count": 241,
+    "snapshot_id": "S00102",
+    "state": "CREATED"
+   }
+  },
+  {
+   "step": "C correct: validate",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.VALIDATE_CANDIDATE('C00401_2E6502B7')",
+   "query_id": "01c7edab-010c-6e5a-0034-28cb001b256e",
+   "elapsed_s": 24.07,
+   "result": {
+    "candidate_id": "C00401_2E6502B7",
+    "checks": [
+     {
+      "check": "SCHEMA_EXACT",
+      "expected": "exact contract v1 fields and types",
+      "observed": {
+       "mismatches": []
+      },
+      "query_id": "01c7edab-010c-6e5a-0034-28cb001b25aa",
+      "status": "PASS"
+     },
+     {
+      "check": "SNAPSHOT_UNCHANGED",
+      "expected": "cf2660acd7160ee46d6e38655d82b65198dda0b9d594210fe9fbde757bb90dd2",
+      "observed": "cf2660acd7160ee46d6e38655d82b65198dda0b9d594210fe9fbde757bb90dd2",
+      "query_id": "01c7edab-010c-6e5a-0034-28cb001b259a",
+      "status": "PASS"
+     },
+     {
+      "check": "KEYS_NOT_NULL",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7edab-010c-6e5a-0034-28cb001b25ba",
+      "status": "PASS"
+     },
+     {
+      "check": "GRAIN_UNIQUE",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7edab-010c-6e5a-0034-28cb001b25ca",
+      "status": "PASS"
+     },
+     {
+      "check": "REFERENTIAL_INTEGRITY",
+      "expected": "all zero",
+      "observed": {
+       "orphan_customers": 0,
+       "orphan_date_customer": 0,
+       "orphan_items": 0,
+       "orphan_lines_in_source": 0
+      },
+      "query_id": "01c7edab-010c-6e5a-0034-28cb001b25da",
+      "status": "PASS"
+     },
+     {
+      "check": "LINE_COVERAGE",
+      "expected": 243,
+      "observed": {
+       "candidate_lines": 243,
+       "dropped_lines": 0,
+       "multiplied_lines": 0,
+       "source_lines": 243
+      },
+      "query_id": "01c7edab-010c-6e5a-0034-28cb001b25ea",
+      "status": "PASS"
+     },
+     {
+      "check": "ROW_COUNT_MATCH",
+      "expected": 241,
+      "observed": 241,
+      "query_id": "01c7edab-010c-6e5a-0034-28cb001b25fa",
+      "status": "PASS"
+     },
+     {
+      "check": "GROUPED_RECONCILIATION",
+      "expected": "0 missing, 0 extra, 0 value mismatches",
+      "observed": {
+       "extra_in_candidate": 0,
+       "missing_in_candidate": 0,
+       "sample": [],
+       "value_mismatches": 0
+      },
+      "query_id": "01c7edab-010c-6e5a-0034-28cb001b260a",
+      "status": "PASS"
+     },
+     {
+      "check": "TOTAL_RECONCILIATION",
+      "expected": {
+       "sales_ex_tax": 53589.47,
+       "tax": 5359.07,
+       "total": 58948.54
+      },
+      "observed": {
+       "sales_ex_tax": 53589.47,
+       "tax": 5359.07,
+       "total": 58948.54
+      },
+      "query_id": "01c7edab-010c-6e5a-0034-28cb001b261a",
+      "status": "PASS"
+     },
+     {
+      "check": "DIMENSION_CONSISTENCY",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7edab-010c-6e5a-0034-28cb001b262a",
+      "status": "PASS"
+     },
+     {
+      "check": "SCOPE_CONSISTENCY",
+      "expected": {
+       "customers": 20,
+       "dates": 48,
+       "items": 15,
+       "max_date": "2026-03-03",
+       "min_date": "2026-01-05"
+      },
+      "observed": {
+       "customers": 20,
+       "dates": 48,
+       "items": 15,
+       "max_date": "2026-03-03",
+       "min_date": "2026-01-05"
+      },
+      "query_id": "01c7edab-010c-6e5a-0034-28cb001b263a",
+      "status": "PASS"
+     }
+    ],
+    "checks_failed": 0,
+    "checks_passed": 11,
+    "failed_checks": [],
+    "note": "Validated. Not yet released: call RELEASE_CANDIDATE.",
+    "ok": true,
+    "state": "VALIDATED",
+    "validation_run_id": "V00102"
+   }
+  },
+  {
+   "step": "C correct: release attempt",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.RELEASE_CANDIDATE('C00401_2E6502B7')",
+   "query_id": "01c7edac-010c-6e5f-0034-28cb001b3412",
+   "elapsed_s": 8.93,
+   "result": {
+    "candidate_id": "C00401_2E6502B7",
+    "clone_query_id": "01c7edac-010c-6e5f-0034-28cb001b343a",
+    "content_hash": "118407673939843085",
+    "ok": true,
+    "release_object": "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0001",
+    "released_version": 1,
+    "row_count": 241,
+    "snapshot_id": "S00102",
+    "state": "RELEASED",
+    "validation_run_id": "V00102"
+   }
+  },
+  {
+   "assert": "C correct candidate VALIDATED with 11/11 checks",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "assert": "C correct candidate RELEASED",
+   "passed": true,
+   "detail": {
+    "candidate_id": "C00401_2E6502B7",
+    "clone_query_id": "01c7edac-010c-6e5f-0034-28cb001b343a",
+    "content_hash": "118407673939843085",
+    "ok": true,
+    "release_object": "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0001",
+    "released_version": 1,
+    "row_count": 241,
+    "snapshot_id": "S00102",
+    "state": "RELEASED",
+    "validation_run_id": "V00102"
+   }
+  },
+  {
+   "step": "C after release: consumer discover",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P_CONSUMER.DISCOVER_RELEASED_PRODUCT()",
+   "query_id": "01c7edac-010c-6e59-0034-28cb001b1436",
+   "elapsed_s": 1.76,
+   "result": {
+    "available": true,
+    "content_hash": "118407673939843085",
+    "date_range": "2026-01-05..2026-03-03",
+    "fields": [
+     {
+      "definition": "INVOICES.INVOICEDATE",
+      "name": "INVOICE_DATE",
+      "type": "DATE"
+     },
+     {
+      "definition": "INVOICES.CUSTOMERID",
+      "name": "CUSTOMER_ID",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "INVOICELINES.STOCKITEMID",
+      "name": "STOCK_ITEM_ID",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "CUSTOMERS.CUSTOMERNAME via INVOICES.CUSTOMERID",
+      "name": "CUSTOMER_NAME",
+      "type": "TEXT"
+     },
+     {
+      "definition": "STOCKITEMS.STOCKITEMNAME via INVOICELINES.STOCKITEMID",
+      "name": "STOCK_ITEM_NAME",
+      "type": "TEXT"
+     },
+     {
+      "definition": "COUNT(INVOICELINES)",
+      "name": "INVOICE_LINE_COUNT",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "SUM(INVOICELINES.QUANTITY)",
+      "name": "QUANTITY",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "SUM(INVOICELINES.EXTENDEDPRICE - INVOICELINES.TAXAMOUNT)",
+      "name": "SALES_EXCLUDING_TAX",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "SUM(INVOICELINES.TAXAMOUNT)",
+      "name": "TAX_AMOUNT",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "SUM(INVOICELINES.EXTENDEDPRICE)",
+      "name": "TOTAL_INCLUDING_TAX",
+      "type": "NUMBER"
+     }
+    ],
+    "grain": [
+     "INVOICE_DATE",
+     "CUSTOMER_ID",
+     "STOCK_ITEM_ID"
+    ],
+    "not_available": [
+     "currency",
+     "margin",
+     "marketing consent",
+     "campaign response",
+     "causal uplift",
+     "returns",
+     "discounts",
+     "calendar zero-fill"
+    ],
+    "product": "DAILY_INVOICED_SALES",
+    "release_object": "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0001",
+    "released_at": "2026-10-23 12:24:08.935 -0700",
+    "row_count": 241,
+    "source_snapshot_id": "S00102",
+    "validation_run_id": "V00102",
+    "version": 1
+   }
+  },
+  {
+   "step": "C after release: consumer rank top 5",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P_CONSUMER.RANK_CUSTOMERS_BY_SALES(5, NULL, NULL)",
+   "query_id": "01c7edac-010c-6d8c-0034-28cb001b64ba",
+   "elapsed_s": 1.67,
+   "result": {
+    "content_hash_verified": "118407673939843085",
+    "evidence_boundary": "Ranking is by computed invoiced sales only. No consent, campaign response, margin or uplift data exists in this product.",
+    "measure": "SUM(SALES_EXCLUDING_TAX) = invoice ExtendedPrice minus TaxAmount; no currency modeled",
+    "ok": true,
+    "product": "DAILY_INVOICED_SALES",
+    "queried_object": "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0001",
+    "query_id": "01c7edac-010c-6d8c-0034-28cb001b64ca",
+    "ranking": [
+     {
+      "active_days": 7,
+      "customer_id": 10,
+      "customer_name": "Fictional Customer 010",
+      "distinct_items": 11,
+      "first_invoice_date": "2026-01-05",
+      "invoice_lines": 17,
+      "last_invoice_date": "2026-02-22",
+      "rank": 1,
+      "sales_excluding_tax": 4964.45
+     },
+     {
+      "active_days": 7,
+      "customer_id": 8,
+      "customer_name": "Fictional Customer 008",
+      "distinct_items": 13,
+      "first_invoice_date": "2026-01-11",
+      "invoice_lines": 22,
+      "last_invoice_date": "2026-03-03",
+      "rank": 2,
+      "sales_excluding_tax": 4719.06
+     },
+     {
+      "active_days": 6,
+      "customer_id": 19,
+      "customer_name": "Fictional Customer 019",
+      "distinct_items": 11,
+      "first_invoice_date": "2026-01-08",
+      "invoice_lines": 16,
+      "last_invoice_date": "2026-02-21",
+      "rank": 3,
+      "sales_excluding_tax": 4297.74
+     },
+     {
+      "active_days": 8,
+      "customer_id": 18,
+      "customer_name": "Fictional Customer 018",
+      "distinct_items": 10,
+      "first_invoice_date": "2026-01-08",
+      "invoice_lines": 18,
+      "last_invoice_date": "2026-02-26",
+      "rank": 4,
+      "sales_excluding_tax": 4072.6
+     },
+     {
+      "active_days": 9,
+      "customer_id": 4,
+      "customer_name": "Fictional Customer 004",
+      "distinct_items": 12,
+      "first_invoice_date": "2026-01-06",
+      "invoice_lines": 22,
+      "last_invoice_date": "2026-02-21",
+      "rank": 5,
+      "sales_excluding_tax": 3756.35
+     }
+    ],
+    "top_n": 5,
+    "version": 1
+   }
+  },
+  {
+   "assert": "C consumer discovers released version",
+   "passed": true,
+   "detail": 1
+  },
+  {
+   "assert": "C consumer ranking read the released object",
+   "passed": true,
+   "detail": "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0001"
+  },
+  {
+   "step": "C independent ranking from snapshot sources",
+   "query_id": "01c7edac-010c-6e5b-0034-28cb001af52a",
+   "result": [
+    [
+     10,
+     4964.45
+    ],
+    [
+     8,
+     4719.06
+    ],
+    [
+     19,
+     4297.74
+    ],
+    [
+     18,
+     4072.6
+    ],
+    [
+     4,
+     3756.35
+    ]
+   ]
+  },
+  {
+   "assert": "C consumer ranking equals independent snapshot ranking",
+   "passed": true,
+   "detail": {
+    "consumer": [
+     [
+      10,
+      4964.45
+     ],
+     [
+      8,
+      4719.06
+     ],
+     [
+      19,
+      4297.74
+     ],
+     [
+      18,
+      4072.6
+     ],
+     [
+      4,
+      3756.35
+     ]
+    ],
+    "independent": [
+     [
+      10,
+      4964.45
+     ],
+     [
+      8,
+      4719.06
+     ],
+     [
+      19,
+      4297.74
+     ],
+     [
+      18,
+      4072.6
+     ],
+     [
+      4,
+      3756.35
+     ]
+    ]
+   }
+  },
+  {
+   "assert": "C release total equals live RAW baseline 53589.47",
+   "passed": true,
+   "detail": [
+    53589.47,
+    53589.47
+   ]
+  },
+  {
+   "assert": "C release row count equals expected grain 241",
+   "passed": true,
+   "detail": 241
+  },
+  {
+   "step": "E repeated release",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.RELEASE_CANDIDATE('C00401_2E6502B7')",
+   "query_id": "01c7edac-010c-6e5f-0034-28cb001b345e",
+   "elapsed_s": 0.95,
+   "result": {
+    "error": "ALREADY_RELEASED",
+    "note": "No new version created.",
+    "ok": false,
+    "released_version": 1
+   }
+  },
+  {
+   "assert": "E repeated release rejected as ALREADY_RELEASED",
+   "passed": true,
+   "detail": {
+    "error": "ALREADY_RELEASED",
+    "note": "No new version created.",
+    "ok": false,
+    "released_version": 1
+   }
+  },
+  {
+   "step": "D fanout after release: propose STOCKGROUP_FANOUT_DEMO",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.PROPOSE_CANDIDATE('STOCKGROUP_FANOUT_DEMO')",
+   "query_id": "01c7edac-010c-6e5f-0034-28cb001b346a",
+   "elapsed_s": 2.12,
+   "result": {
+    "candidate_id": "C00102_CE4C1161",
+    "contract_version": 1,
+    "mappings": [
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "Invoiced sales: invoice-line ExtendedPrice minus TaxAmount; invoice-date basis",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Business definition.",
+      "source_expression": "definition",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "no designated primary group",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Group attribution not supported.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(stock group allocation)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "No currencies, discounts, returns or cancellations are modeled",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Not modeled.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(discounts/returns)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "Month([INVOICEDATE])",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Spotfire monthly visual uses invoice date.",
+      "source_expression": "INVOICES.INVOICEDATE",
+      "status": "SOURCE_BACKED",
+      "target_field": "INVOICE_DATE"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "\"expression\": \"[INVOICED_SALES_EX_TAX]\"",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Spotfire SalesAmount calculated column.",
+      "source_expression": "INVOICED_SALES_EX_TAX",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "\"currency\": null",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Currency explicitly not modeled.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(currency)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "i.INVOICEDATE",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Date comes from invoice header.",
+      "source_expression": "INVOICES.INVOICEDATE",
+      "status": "SOURCE_BACKED",
+      "target_field": "INVOICE_DATE"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "JOIN CUSTOMERS c ON i.CUSTOMERID = c.CUSTOMERID",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Customer comes from invoice header.",
+      "source_expression": "INVOICES.CUSTOMERID",
+      "status": "SOURCE_BACKED",
+      "target_field": "CUSTOMER_ID"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "JOIN STOCKITEMS p ON l.STOCKITEMID = p.STOCKITEMID",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Item comes from invoice line.",
+      "source_expression": "INVOICELINES.STOCKITEMID",
+      "status": "SOURCE_BACKED",
+      "target_field": "STOCK_ITEM_ID"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.EXTENDEDPRICE - l.TAXAMOUNT AS INVOICED_SALES_EX_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "HANA-style view expression.",
+      "source_expression": "INVOICELINES.EXTENDEDPRICE - INVOICELINES.TAXAMOUNT",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.TAXAMOUNT AS INVOICE_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "INVOICELINES.TAXAMOUNT",
+      "status": "SOURCE_BACKED",
+      "target_field": "TAX_AMOUNT"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.EXTENDEDPRICE AS INVOICE_TOTAL_INCL_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "INVOICELINES.EXTENDEDPRICE",
+      "status": "SOURCE_BACKED",
+      "target_field": "TOTAL_INCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "c.CUSTOMERNAME",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "CUSTOMERS.CUSTOMERNAME",
+      "status": "SOURCE_BACKED",
+      "target_field": "CUSTOMER_NAME"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "p.STOCKITEMNAME",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "STOCKITEMS.STOCKITEMNAME",
+      "status": "SOURCE_BACKED",
+      "target_field": "STOCK_ITEM_NAME"
+     },
+     {
+      "evidence_doc_id": "DAILY_INVOICE_SALES",
+      "evidence_path": "catalog/daily_invoice_sales.sql",
+      "evidence_text": "GROUP BY i.INVOICEDATE",
+      "evidence_version": "c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb",
+      "note": "Existing daily report groups by invoice date only; customer/item grain is new.",
+      "source_expression": "GROUP BY invoice date",
+      "status": "SOURCE_BACKED",
+      "target_field": "(daily grain)"
+     },
+     {
+      "evidence_doc_id": "DAILY_INVOICE_SALES",
+      "evidence_path": "catalog/daily_invoice_sales.sql",
+      "evidence_text": "Days without invoices are omitted",
+      "evidence_version": "c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb",
+      "note": "No zero-fill.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(calendar zero-fill)"
+     },
+     {
+      "note": "No source definition exists in the catalog.",
+      "status": "MISSING_EVIDENCE",
+      "target_field": "(margin / consent / campaign response / uplift)"
+     }
+    ],
+    "note": "Proposal only. Nothing has been created. Call CREATE_CANDIDATE to build from a fresh source snapshot.",
+    "ok": true,
+    "recipe_id": "STOCKGROUP_FANOUT_DEMO",
+    "source_definitions": [
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "efddbcb47e3ff00c0be7131f901d7337a717d689c8a0df817a0afbd9dc596160",
+      "catalog_source_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "doc_id": "CONNECTED_6f53633c096a6b56",
+      "source_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "title": "Synthetic hana: CV_INVOICE_SALES.sql"
+     },
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "94780fe7d03389c97083bb5323e05aa8f23c8a67189bb6fbb3547bab8a7df88c",
+      "catalog_source_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "source_path": "fixtures/business/definitions.md",
+      "title": "Synthetic business: definitions.md"
+     }
+    ],
+    "sql_template": "SELECT h.INVOICEDATE::DATE AS INVOICE_DATE, h.CUSTOMERID::NUMBER(38,0) AS CUSTOMER_ID, l.STOCKITEMID::NUMBER(38,0) AS STOCK_ITEM_ID, c.CUSTOMERNAME::VARCHAR AS CUSTOMER_NAME, s.STOCKITEMNAME::VARCHAR AS STOCK_ITEM_NAME, COUNT(*)::NUMBER(18,0) AS INVOICE_LINE_COUNT, SUM(l.QUANTITY)::NUMBER(18,0) AS QUANTITY, SUM(l.EXTENDEDPRICE - l.TAXAMOUNT)::NUMBER(18,2) AS SALES_EXCLUDING_TAX, SUM(l.TAXAMOUNT)::NUMBER(18,2) AS TAX_AMOUNT, SUM(l.EXTENDEDPRICE)::NUMBER(18,2) AS TOTAL_INCLUDING_TAX FROM {{INVOICELINES}} l JOIN {{INVOICES}} h ON h.INVOICEID = l.INVOICEID JOIN {{STOCKITEMSTOCKGROUPS}} g ON g.STOCKITEMID = l.STOCKITEMID LEFT JOIN {{CUSTOMERS}} c ON c.CUSTOMERID = h.CUSTOMERID LEFT JOIN {{STOCKITEMS}} s ON s.STOCKITEMID = l.STOCKITEMID GROUP BY 1,2,3,4,5",
+    "state": "PROPOSED"
+   }
+  },
+  {
+   "step": "D fanout after release: create",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.CREATE_CANDIDATE('C00102_CE4C1161')",
+   "query_id": "01c7edac-010c-6e5e-0034-28cb001bd41e",
+   "elapsed_s": 13.66,
+   "result": {
+    "build_query_id": "01c7edac-010c-6e5e-0034-28cb001bd45a",
+    "candidate_id": "C00102_CE4C1161",
+    "candidate_object": "HACKATHON_D2K_PREWORK.L2P_STAGE.CAND_C00102_CE4C1161",
+    "content_hash": "8579072355547557676",
+    "executed_sql": "SELECT h.INVOICEDATE::DATE AS INVOICE_DATE, h.CUSTOMERID::NUMBER(38,0) AS CUSTOMER_ID, l.STOCKITEMID::NUMBER(38,0) AS STOCK_ITEM_ID, c.CUSTOMERNAME::VARCHAR AS CUSTOMER_NAME, s.STOCKITEMNAME::VARCHAR AS STOCK_ITEM_NAME, COUNT(*)::NUMBER(18,0) AS INVOICE_LINE_COUNT, SUM(l.QUANTITY)::NUMBER(18,0) AS QUANTITY, SUM(l.EXTENDEDPRICE - l.TAXAMOUNT)::NUMBER(18,2) AS SALES_EXCLUDING_TAX, SUM(l.TAXAMOUNT)::NUMBER(18,2) AS TAX_AMOUNT, SUM(l.EXTENDEDPRICE)::NUMBER(18,2) AS TOTAL_INCLUDING_TAX FROM HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00202_INVOICELINES l JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00202_INVOICES h ON h.INVOICEID = l.INVOICEID JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00202_STOCKITEMSTOCKGROUPS g ON g.STOCKITEMID = l.STOCKITEMID LEFT JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00202_CUSTOMERS c ON c.CUSTOMERID = h.CUSTOMERID LEFT JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00202_STOCKITEMS s ON s.STOCKITEMID = l.STOCKITEMID GROUP BY 1,2,3,4,5",
+    "note": "Created but NOT validated or released. Call VALIDATE_CANDIDATE.",
+    "ok": true,
+    "row_count": 241,
+    "snapshot_id": "S00202",
+    "state": "CREATED"
+   }
+  },
+  {
+   "step": "D fanout after release: validate",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.VALIDATE_CANDIDATE('C00102_CE4C1161')",
+   "query_id": "01c7edac-010c-6e5d-0034-28cb001b548a",
+   "elapsed_s": 24.35,
+   "result": {
+    "candidate_id": "C00102_CE4C1161",
+    "checks": [
+     {
+      "check": "SCHEMA_EXACT",
+      "expected": "exact contract v1 fields and types",
+      "observed": {
+       "mismatches": []
+      },
+      "query_id": "01c7edac-010c-6e5d-0034-28cb001b54c6",
+      "status": "PASS"
+     },
+     {
+      "check": "SNAPSHOT_UNCHANGED",
+      "expected": "cf2660acd7160ee46d6e38655d82b65198dda0b9d594210fe9fbde757bb90dd2",
+      "observed": "cf2660acd7160ee46d6e38655d82b65198dda0b9d594210fe9fbde757bb90dd2",
+      "query_id": "01c7edac-010c-6e5d-0034-28cb001b54b6",
+      "status": "PASS"
+     },
+     {
+      "check": "KEYS_NOT_NULL",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7edac-010c-6e5d-0034-28cb001b54d6",
+      "status": "PASS"
+     },
+     {
+      "check": "GRAIN_UNIQUE",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7edac-010c-6e5d-0034-28cb001b54e6",
+      "status": "PASS"
+     },
+     {
+      "check": "REFERENTIAL_INTEGRITY",
+      "expected": "all zero",
+      "observed": {
+       "orphan_customers": 0,
+       "orphan_date_customer": 0,
+       "orphan_items": 0,
+       "orphan_lines_in_source": 0
+      },
+      "query_id": "01c7edac-010c-6e5d-0034-28cb001b54f6",
+      "status": "PASS"
+     },
+     {
+      "check": "LINE_COVERAGE",
+      "expected": 243,
+      "observed": {
+       "candidate_lines": 293,
+       "dropped_lines": 0,
+       "multiplied_lines": 50,
+       "source_lines": 243
+      },
+      "query_id": "01c7edac-010c-6e5d-0034-28cb001b5506",
+      "status": "FAIL"
+     },
+     {
+      "check": "ROW_COUNT_MATCH",
+      "expected": 241,
+      "observed": 241,
+      "query_id": "01c7edac-010c-6e5d-0034-28cb001b5516",
+      "status": "PASS"
+     },
+     {
+      "check": "GROUPED_RECONCILIATION",
+      "expected": "0 missing, 0 extra, 0 value mismatches",
+      "observed": {
+       "extra_in_candidate": 0,
+       "missing_in_candidate": 0,
+       "sample": [
+        {
+         "cand_amt": 1125.28,
+         "cand_lines": 2,
+         "customer": 17,
+         "date": "2026-02-14",
+         "item": 4,
+         "src_amt": 562.64,
+         "src_lines": 1
+        },
+        {
+         "cand_amt": 28.96,
+         "cand_lines": 2,
+         "customer": 16,
+         "date": "2026-01-10",
+         "item": 12,
+         "src_amt": 14.48,
+         "src_lines": 1
+        },
+        {
+         "cand_amt": 984.62,
+         "cand_lines": 2,
+         "customer": 6,
+         "date": "2026-01-16",
+         "item": 4,
+         "src_amt": 492.31,
+         "src_lines": 1
+        },
+        {
+         "cand_amt": 43.44,
+         "cand_lines": 2,
+         "customer": 12,
+         "date": "2026-02-07",
+         "item": 12,
+         "src_amt": 21.72,
+         "src_lines": 1
+        },
+        {
+         "cand_amt": 421.98,
+         "cand_lines": 2,
+         "customer": 5,
+         "date": "2026-02-19",
+         "item": 4,
+         "src_amt": 210.99,
+         "src_lines": 1
+        }
+       ],
+       "value_mismatches": 50
+      },
+      "query_id": "01c7edac-010c-6e5d-0034-28cb001b5526",
+      "status": "FAIL"
+     },
+     {
+      "check": "TOTAL_RECONCILIATION",
+      "expected": {
+       "sales_ex_tax": 53589.47,
+       "tax": 5359.07,
+       "total": 58948.54
+      },
+      "observed": {
+       "sales_ex_tax": 64027.32,
+       "tax": 6402.85,
+       "total": 70430.17
+      },
+      "query_id": "01c7edac-010c-6e5d-0034-28cb001b5536",
+      "status": "FAIL"
+     },
+     {
+      "check": "DIMENSION_CONSISTENCY",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7edac-010c-6e5d-0034-28cb001b5546",
+      "status": "PASS"
+     },
+     {
+      "check": "SCOPE_CONSISTENCY",
+      "expected": {
+       "customers": 20,
+       "dates": 48,
+       "items": 15,
+       "max_date": "2026-03-03",
+       "min_date": "2026-01-05"
+      },
+      "observed": {
+       "customers": 20,
+       "dates": 48,
+       "items": 15,
+       "max_date": "2026-03-03",
+       "min_date": "2026-01-05"
+      },
+      "query_id": "01c7edac-010c-6e5d-0034-28cb001b5556",
+      "status": "PASS"
+     }
+    ],
+    "checks_failed": 3,
+    "checks_passed": 8,
+    "failed_checks": [
+     "LINE_COVERAGE",
+     "GROUPED_RECONCILIATION",
+     "TOTAL_RECONCILIATION"
+    ],
+    "note": "Failed. This candidate can never be released.",
+    "ok": true,
+    "state": "FAILED",
+    "validation_run_id": "V00302"
+   }
+  },
+  {
+   "step": "D fanout after release: release attempt",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.RELEASE_CANDIDATE('C00102_CE4C1161')",
+   "query_id": "01c7edac-010c-6e5f-0034-28cb001b348a",
+   "elapsed_s": 1.86,
+   "result": {
+    "current_release": {
+     "object": "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0001",
+     "version": 1
+    },
+    "error": "NOT_VALIDATED",
+    "ok": false,
+    "state": "FAILED"
+   }
+  },
+  {
+   "step": "D after second bad candidate: consumer discover",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P_CONSUMER.DISCOVER_RELEASED_PRODUCT()",
+   "query_id": "01c7edac-010c-6e58-0034-28cb001b054e",
+   "elapsed_s": 1.44,
+   "result": {
+    "available": true,
+    "content_hash": "118407673939843085",
+    "date_range": "2026-01-05..2026-03-03",
+    "fields": [
+     {
+      "definition": "INVOICES.INVOICEDATE",
+      "name": "INVOICE_DATE",
+      "type": "DATE"
+     },
+     {
+      "definition": "INVOICES.CUSTOMERID",
+      "name": "CUSTOMER_ID",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "INVOICELINES.STOCKITEMID",
+      "name": "STOCK_ITEM_ID",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "CUSTOMERS.CUSTOMERNAME via INVOICES.CUSTOMERID",
+      "name": "CUSTOMER_NAME",
+      "type": "TEXT"
+     },
+     {
+      "definition": "STOCKITEMS.STOCKITEMNAME via INVOICELINES.STOCKITEMID",
+      "name": "STOCK_ITEM_NAME",
+      "type": "TEXT"
+     },
+     {
+      "definition": "COUNT(INVOICELINES)",
+      "name": "INVOICE_LINE_COUNT",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "SUM(INVOICELINES.QUANTITY)",
+      "name": "QUANTITY",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "SUM(INVOICELINES.EXTENDEDPRICE - INVOICELINES.TAXAMOUNT)",
+      "name": "SALES_EXCLUDING_TAX",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "SUM(INVOICELINES.TAXAMOUNT)",
+      "name": "TAX_AMOUNT",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "SUM(INVOICELINES.EXTENDEDPRICE)",
+      "name": "TOTAL_INCLUDING_TAX",
+      "type": "NUMBER"
+     }
+    ],
+    "grain": [
+     "INVOICE_DATE",
+     "CUSTOMER_ID",
+     "STOCK_ITEM_ID"
+    ],
+    "not_available": [
+     "currency",
+     "margin",
+     "marketing consent",
+     "campaign response",
+     "causal uplift",
+     "returns",
+     "discounts",
+     "calendar zero-fill"
+    ],
+    "product": "DAILY_INVOICED_SALES",
+    "release_object": "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0001",
+    "released_at": "2026-10-23 12:24:08.935 -0700",
+    "row_count": 241,
+    "source_snapshot_id": "S00102",
+    "validation_run_id": "V00102",
+    "version": 1
+   }
+  },
+  {
+   "step": "D after second bad candidate: consumer rank top 5",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P_CONSUMER.RANK_CUSTOMERS_BY_SALES(5, NULL, NULL)",
+   "query_id": "01c7edac-010c-6e5e-0034-28cb001bd46a",
+   "elapsed_s": 1.07,
+   "result": {
+    "content_hash_verified": "118407673939843085",
+    "evidence_boundary": "Ranking is by computed invoiced sales only. No consent, campaign response, margin or uplift data exists in this product.",
+    "measure": "SUM(SALES_EXCLUDING_TAX) = invoice ExtendedPrice minus TaxAmount; no currency modeled",
+    "ok": true,
+    "product": "DAILY_INVOICED_SALES",
+    "queried_object": "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0001",
+    "query_id": "01c7edad-010c-6e5e-0034-28cb001bd47a",
+    "ranking": [
+     {
+      "active_days": 7,
+      "customer_id": 10,
+      "customer_name": "Fictional Customer 010",
+      "distinct_items": 11,
+      "first_invoice_date": "2026-01-05",
+      "invoice_lines": 17,
+      "last_invoice_date": "2026-02-22",
+      "rank": 1,
+      "sales_excluding_tax": 4964.45
+     },
+     {
+      "active_days": 7,
+      "customer_id": 8,
+      "customer_name": "Fictional Customer 008",
+      "distinct_items": 13,
+      "first_invoice_date": "2026-01-11",
+      "invoice_lines": 22,
+      "last_invoice_date": "2026-03-03",
+      "rank": 2,
+      "sales_excluding_tax": 4719.06
+     },
+     {
+      "active_days": 6,
+      "customer_id": 19,
+      "customer_name": "Fictional Customer 019",
+      "distinct_items": 11,
+      "first_invoice_date": "2026-01-08",
+      "invoice_lines": 16,
+      "last_invoice_date": "2026-02-21",
+      "rank": 3,
+      "sales_excluding_tax": 4297.74
+     },
+     {
+      "active_days": 8,
+      "customer_id": 18,
+      "customer_name": "Fictional Customer 018",
+      "distinct_items": 10,
+      "first_invoice_date": "2026-01-08",
+      "invoice_lines": 18,
+      "last_invoice_date": "2026-02-26",
+      "rank": 4,
+      "sales_excluding_tax": 4072.6
+     },
+     {
+      "active_days": 9,
+      "customer_id": 4,
+      "customer_name": "Fictional Customer 004",
+      "distinct_items": 12,
+      "first_invoice_date": "2026-01-06",
+      "invoice_lines": 22,
+      "last_invoice_date": "2026-02-21",
+      "rank": 5,
+      "sales_excluding_tax": 3756.35
+     }
+    ],
+    "top_n": 5,
+    "version": 1
+   }
+  },
+  {
+   "assert": "D bad candidate FAILED and not released",
+   "passed": true,
+   "detail": {
+    "current_release": {
+     "object": "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0001",
+     "version": 1
+    },
+    "error": "NOT_VALIDATED",
+    "ok": false,
+    "state": "FAILED"
+   }
+  },
+  {
+   "assert": "D current release unchanged",
+   "passed": true,
+   "detail": 1
+  },
+  {
+   "assert": "D consumer ranking unchanged",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "step": "E mutation: propose",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.PROPOSE_CANDIDATE('DAILY_INVOICED_SALES_V1')",
+   "query_id": "01c7edad-010c-6e59-0034-28cb001b144e",
+   "elapsed_s": 3.33,
+   "result": {
+    "candidate_id": "C00501_B80B46F2",
+    "contract_version": 1,
+    "mappings": [
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "Invoiced sales: invoice-line ExtendedPrice minus TaxAmount; invoice-date basis",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Business definition.",
+      "source_expression": "definition",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "no designated primary group",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Group attribution not supported.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(stock group allocation)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "No currencies, discounts, returns or cancellations are modeled",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Not modeled.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(discounts/returns)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "Month([INVOICEDATE])",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Spotfire monthly visual uses invoice date.",
+      "source_expression": "INVOICES.INVOICEDATE",
+      "status": "SOURCE_BACKED",
+      "target_field": "INVOICE_DATE"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "\"expression\": \"[INVOICED_SALES_EX_TAX]\"",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Spotfire SalesAmount calculated column.",
+      "source_expression": "INVOICED_SALES_EX_TAX",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "\"currency\": null",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Currency explicitly not modeled.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(currency)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "i.INVOICEDATE",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Date comes from invoice header.",
+      "source_expression": "INVOICES.INVOICEDATE",
+      "status": "SOURCE_BACKED",
+      "target_field": "INVOICE_DATE"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "JOIN CUSTOMERS c ON i.CUSTOMERID = c.CUSTOMERID",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Customer comes from invoice header.",
+      "source_expression": "INVOICES.CUSTOMERID",
+      "status": "SOURCE_BACKED",
+      "target_field": "CUSTOMER_ID"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "JOIN STOCKITEMS p ON l.STOCKITEMID = p.STOCKITEMID",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Item comes from invoice line.",
+      "source_expression": "INVOICELINES.STOCKITEMID",
+      "status": "SOURCE_BACKED",
+      "target_field": "STOCK_ITEM_ID"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.EXTENDEDPRICE - l.TAXAMOUNT AS INVOICED_SALES_EX_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "HANA-style view expression.",
+      "source_expression": "INVOICELINES.EXTENDEDPRICE - INVOICELINES.TAXAMOUNT",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.TAXAMOUNT AS INVOICE_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "INVOICELINES.TAXAMOUNT",
+      "status": "SOURCE_BACKED",
+      "target_field": "TAX_AMOUNT"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.EXTENDEDPRICE AS INVOICE_TOTAL_INCL_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "INVOICELINES.EXTENDEDPRICE",
+      "status": "SOURCE_BACKED",
+      "target_field": "TOTAL_INCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "c.CUSTOMERNAME",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "CUSTOMERS.CUSTOMERNAME",
+      "status": "SOURCE_BACKED",
+      "target_field": "CUSTOMER_NAME"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "p.STOCKITEMNAME",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "STOCKITEMS.STOCKITEMNAME",
+      "status": "SOURCE_BACKED",
+      "target_field": "STOCK_ITEM_NAME"
+     },
+     {
+      "evidence_doc_id": "DAILY_INVOICE_SALES",
+      "evidence_path": "catalog/daily_invoice_sales.sql",
+      "evidence_text": "GROUP BY i.INVOICEDATE",
+      "evidence_version": "c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb",
+      "note": "Existing daily report groups by invoice date only; customer/item grain is new.",
+      "source_expression": "GROUP BY invoice date",
+      "status": "SOURCE_BACKED",
+      "target_field": "(daily grain)"
+     },
+     {
+      "evidence_doc_id": "DAILY_INVOICE_SALES",
+      "evidence_path": "catalog/daily_invoice_sales.sql",
+      "evidence_text": "Days without invoices are omitted",
+      "evidence_version": "c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb",
+      "note": "No zero-fill.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(calendar zero-fill)"
+     },
+     {
+      "note": "No source definition exists in the catalog.",
+      "status": "MISSING_EVIDENCE",
+      "target_field": "(margin / consent / campaign response / uplift)"
+     }
+    ],
+    "note": "Proposal only. Nothing has been created. Call CREATE_CANDIDATE to build from a fresh source snapshot.",
+    "ok": true,
+    "recipe_id": "DAILY_INVOICED_SALES_V1",
+    "source_definitions": [
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "94780fe7d03389c97083bb5323e05aa8f23c8a67189bb6fbb3547bab8a7df88c",
+      "catalog_source_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "source_path": "fixtures/business/definitions.md",
+      "title": "Synthetic business: definitions.md"
+     },
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "5801e9134a786cfd9a054fcbd94b99a90cf95322be0809155adacbc99a989d8b",
+      "catalog_source_version": "f67352b5a51bba4566da228ea9c31326007138b0e8e05aabca4de2686370f561",
+      "doc_id": "CONNECTED_1055b17d75582621",
+      "source_path": "fixtures/spotfire/customer_sales.source.sql",
+      "title": "Synthetic spotfire: customer_sales.source.sql"
+     },
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "1e038d8e25332e2d22203d6d5b1b9e0a38bdd4827b6f4d9a59c6409ef6a9e64c",
+      "catalog_source_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "doc_id": "CONNECTED_a5086dc0ef985e23",
+      "source_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "title": "Synthetic spotfire: customer_sales.metadata.json"
+     },
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "efddbcb47e3ff00c0be7131f901d7337a717d689c8a0df817a0afbd9dc596160",
+      "catalog_source_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "doc_id": "CONNECTED_6f53633c096a6b56",
+      "source_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "title": "Synthetic hana: CV_INVOICE_SALES.sql"
+     },
+     {
+      "artifact_type": "SYNTHETIC_REPORT",
+      "catalog_content_sha256": "97e31e34ed7bc26ed8a17f626aa03658aab201ba98d5d4d587d8772f9b29d693",
+      "catalog_source_version": "c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb",
+      "doc_id": "DAILY_INVOICE_SALES",
+      "source_path": "catalog/daily_invoice_sales.sql",
+      "title": "Daily invoiced sales"
+     }
+    ],
+    "sql_template": "SELECT h.INVOICEDATE::DATE AS INVOICE_DATE, h.CUSTOMERID::NUMBER(38,0) AS CUSTOMER_ID, l.STOCKITEMID::NUMBER(38,0) AS STOCK_ITEM_ID, c.CUSTOMERNAME::VARCHAR AS CUSTOMER_NAME, s.STOCKITEMNAME::VARCHAR AS STOCK_ITEM_NAME, COUNT(*)::NUMBER(18,0) AS INVOICE_LINE_COUNT, SUM(l.QUANTITY)::NUMBER(18,0) AS QUANTITY, SUM(l.EXTENDEDPRICE - l.TAXAMOUNT)::NUMBER(18,2) AS SALES_EXCLUDING_TAX, SUM(l.TAXAMOUNT)::NUMBER(18,2) AS TAX_AMOUNT, SUM(l.EXTENDEDPRICE)::NUMBER(18,2) AS TOTAL_INCLUDING_TAX FROM {{INVOICELINES}} l JOIN {{INVOICES}} h ON h.INVOICEID = l.INVOICEID LEFT JOIN {{CUSTOMERS}} c ON c.CUSTOMERID = h.CUSTOMERID LEFT JOIN {{STOCKITEMS}} s ON s.STOCKITEMID = l.STOCKITEMID GROUP BY 1,2,3,4,5",
+    "state": "PROPOSED"
+   }
+  },
+  {
+   "step": "E mutation: create",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.CREATE_CANDIDATE('C00501_B80B46F2')",
+   "query_id": "01c7edad-010c-6d8c-0034-28cb001b64ce",
+   "elapsed_s": 15.11,
+   "result": {
+    "build_query_id": "01c7edad-010c-6d8c-0034-28cb001b650a",
+    "candidate_id": "C00501_B80B46F2",
+    "candidate_object": "HACKATHON_D2K_PREWORK.L2P_STAGE.CAND_C00501_B80B46F2",
+    "content_hash": "118407673939843085",
+    "executed_sql": "SELECT h.INVOICEDATE::DATE AS INVOICE_DATE, h.CUSTOMERID::NUMBER(38,0) AS CUSTOMER_ID, l.STOCKITEMID::NUMBER(38,0) AS STOCK_ITEM_ID, c.CUSTOMERNAME::VARCHAR AS CUSTOMER_NAME, s.STOCKITEMNAME::VARCHAR AS STOCK_ITEM_NAME, COUNT(*)::NUMBER(18,0) AS INVOICE_LINE_COUNT, SUM(l.QUANTITY)::NUMBER(18,0) AS QUANTITY, SUM(l.EXTENDEDPRICE - l.TAXAMOUNT)::NUMBER(18,2) AS SALES_EXCLUDING_TAX, SUM(l.TAXAMOUNT)::NUMBER(18,2) AS TAX_AMOUNT, SUM(l.EXTENDEDPRICE)::NUMBER(18,2) AS TOTAL_INCLUDING_TAX FROM HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00401_INVOICELINES l JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00401_INVOICES h ON h.INVOICEID = l.INVOICEID LEFT JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00401_CUSTOMERS c ON c.CUSTOMERID = h.CUSTOMERID LEFT JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00401_STOCKITEMS s ON s.STOCKITEMID = l.STOCKITEMID GROUP BY 1,2,3,4,5",
+    "note": "Created but NOT validated or released. Call VALIDATE_CANDIDATE.",
+    "ok": true,
+    "row_count": 241,
+    "snapshot_id": "S00401",
+    "state": "CREATED"
+   }
+  },
+  {
+   "step": "E mutation: validate",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.VALIDATE_CANDIDATE('C00501_B80B46F2')",
+   "query_id": "01c7edad-010c-6d8c-0034-28cb001b651a",
+   "elapsed_s": 23.19,
+   "result": {
+    "candidate_id": "C00501_B80B46F2",
+    "checks": [
+     {
+      "check": "SCHEMA_EXACT",
+      "expected": "exact contract v1 fields and types",
+      "observed": {
+       "mismatches": []
+      },
+      "query_id": "01c7edad-010c-6d8c-0034-28cb001b6556",
+      "status": "PASS"
+     },
+     {
+      "check": "SNAPSHOT_UNCHANGED",
+      "expected": "cf2660acd7160ee46d6e38655d82b65198dda0b9d594210fe9fbde757bb90dd2",
+      "observed": "cf2660acd7160ee46d6e38655d82b65198dda0b9d594210fe9fbde757bb90dd2",
+      "query_id": "01c7edad-010c-6d8c-0034-28cb001b6546",
+      "status": "PASS"
+     },
+     {
+      "check": "KEYS_NOT_NULL",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7edad-010c-6d8c-0034-28cb001b6566",
+      "status": "PASS"
+     },
+     {
+      "check": "GRAIN_UNIQUE",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7edad-010c-6d8c-0034-28cb001b6576",
+      "status": "PASS"
+     },
+     {
+      "check": "REFERENTIAL_INTEGRITY",
+      "expected": "all zero",
+      "observed": {
+       "orphan_customers": 0,
+       "orphan_date_customer": 0,
+       "orphan_items": 0,
+       "orphan_lines_in_source": 0
+      },
+      "query_id": "01c7edad-010c-6d8c-0034-28cb001b6586",
+      "status": "PASS"
+     },
+     {
+      "check": "LINE_COVERAGE",
+      "expected": 243,
+      "observed": {
+       "candidate_lines": 243,
+       "dropped_lines": 0,
+       "multiplied_lines": 0,
+       "source_lines": 243
+      },
+      "query_id": "01c7edad-010c-6d8c-0034-28cb001b6596",
+      "status": "PASS"
+     },
+     {
+      "check": "ROW_COUNT_MATCH",
+      "expected": 241,
+      "observed": 241,
+      "query_id": "01c7edad-010c-6d8c-0034-28cb001b65a6",
+      "status": "PASS"
+     },
+     {
+      "check": "GROUPED_RECONCILIATION",
+      "expected": "0 missing, 0 extra, 0 value mismatches",
+      "observed": {
+       "extra_in_candidate": 0,
+       "missing_in_candidate": 0,
+       "sample": [],
+       "value_mismatches": 0
+      },
+      "query_id": "01c7edad-010c-6d8c-0034-28cb001b65b6",
+      "status": "PASS"
+     },
+     {
+      "check": "TOTAL_RECONCILIATION",
+      "expected": {
+       "sales_ex_tax": 53589.47,
+       "tax": 5359.07,
+       "total": 58948.54
+      },
+      "observed": {
+       "sales_ex_tax": 53589.47,
+       "tax": 5359.07,
+       "total": 58948.54
+      },
+      "query_id": "01c7edad-010c-6d8c-0034-28cb001b65c6",
+      "status": "PASS"
+     },
+     {
+      "check": "DIMENSION_CONSISTENCY",
+      "expected": 0,
+      "observed": 0,
+      "query_id": "01c7edad-010c-6d8c-0034-28cb001b65d6",
+      "status": "PASS"
+     },
+     {
+      "check": "SCOPE_CONSISTENCY",
+      "expected": {
+       "customers": 20,
+       "dates": 48,
+       "items": 15,
+       "max_date": "2026-03-03",
+       "min_date": "2026-01-05"
+      },
+      "observed": {
+       "customers": 20,
+       "dates": 48,
+       "items": 15,
+       "max_date": "2026-03-03",
+       "min_date": "2026-01-05"
+      },
+      "query_id": "01c7edad-010c-6d8c-0034-28cb001b65e6",
+      "status": "PASS"
+     }
+    ],
+    "checks_failed": 0,
+    "checks_passed": 11,
+    "failed_checks": [],
+    "note": "Validated. Not yet released: call RELEASE_CANDIDATE.",
+    "ok": true,
+    "state": "VALIDATED",
+    "validation_run_id": "V00401"
+   }
+  },
+  {
+   "assert": "E mutation candidate validated before tamper",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "step": "E mutation: owner tampers candidate table after validation (test harness only)",
+   "query_id": "01c7edad-010c-6d8c-0034-28cb001b660a",
+   "rows": 14
+  },
+  {
+   "step": "E mutation: release attempt",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.RELEASE_CANDIDATE('C00501_B80B46F2')",
+   "query_id": "01c7edad-010c-6e5b-0034-28cb001af52e",
+   "elapsed_s": 4.32,
+   "result": {
+    "current_hash": "6832653591882845017",
+    "error": "CHANGED_AFTER_VALIDATION",
+    "ok": false,
+    "state": "FAILED",
+    "validated_hash": "118407673939843085"
+   }
+  },
+  {
+   "assert": "E mutated candidate release rejected CHANGED_AFTER_VALIDATION",
+   "passed": true,
+   "detail": {
+    "current_hash": "6832653591882845017",
+    "error": "CHANGED_AFTER_VALIDATION",
+    "ok": false,
+    "state": "FAILED",
+    "validated_hash": "118407673939843085"
+   }
+  },
+  {
+   "step": "E after mutation attempt: consumer discover",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P_CONSUMER.DISCOVER_RELEASED_PRODUCT()",
+   "query_id": "01c7edad-010c-6e5a-0034-28cb001b265e",
+   "elapsed_s": 1.09,
+   "result": {
+    "available": true,
+    "content_hash": "118407673939843085",
+    "date_range": "2026-01-05..2026-03-03",
+    "fields": [
+     {
+      "definition": "INVOICES.INVOICEDATE",
+      "name": "INVOICE_DATE",
+      "type": "DATE"
+     },
+     {
+      "definition": "INVOICES.CUSTOMERID",
+      "name": "CUSTOMER_ID",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "INVOICELINES.STOCKITEMID",
+      "name": "STOCK_ITEM_ID",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "CUSTOMERS.CUSTOMERNAME via INVOICES.CUSTOMERID",
+      "name": "CUSTOMER_NAME",
+      "type": "TEXT"
+     },
+     {
+      "definition": "STOCKITEMS.STOCKITEMNAME via INVOICELINES.STOCKITEMID",
+      "name": "STOCK_ITEM_NAME",
+      "type": "TEXT"
+     },
+     {
+      "definition": "COUNT(INVOICELINES)",
+      "name": "INVOICE_LINE_COUNT",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "SUM(INVOICELINES.QUANTITY)",
+      "name": "QUANTITY",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "SUM(INVOICELINES.EXTENDEDPRICE - INVOICELINES.TAXAMOUNT)",
+      "name": "SALES_EXCLUDING_TAX",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "SUM(INVOICELINES.TAXAMOUNT)",
+      "name": "TAX_AMOUNT",
+      "type": "NUMBER"
+     },
+     {
+      "definition": "SUM(INVOICELINES.EXTENDEDPRICE)",
+      "name": "TOTAL_INCLUDING_TAX",
+      "type": "NUMBER"
+     }
+    ],
+    "grain": [
+     "INVOICE_DATE",
+     "CUSTOMER_ID",
+     "STOCK_ITEM_ID"
+    ],
+    "not_available": [
+     "currency",
+     "margin",
+     "marketing consent",
+     "campaign response",
+     "causal uplift",
+     "returns",
+     "discounts",
+     "calendar zero-fill"
+    ],
+    "product": "DAILY_INVOICED_SALES",
+    "release_object": "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0001",
+    "released_at": "2026-10-23 12:24:08.935 -0700",
+    "row_count": 241,
+    "source_snapshot_id": "S00102",
+    "validation_run_id": "V00102",
+    "version": 1
+   }
+  },
+  {
+   "step": "E after mutation attempt: consumer rank top 5",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P_CONSUMER.RANK_CUSTOMERS_BY_SALES(5, NULL, NULL)",
+   "query_id": "01c7edad-010c-6e5d-0034-28cb001b557a",
+   "elapsed_s": 1.42,
+   "result": {
+    "content_hash_verified": "118407673939843085",
+    "evidence_boundary": "Ranking is by computed invoiced sales only. No consent, campaign response, margin or uplift data exists in this product.",
+    "measure": "SUM(SALES_EXCLUDING_TAX) = invoice ExtendedPrice minus TaxAmount; no currency modeled",
+    "ok": true,
+    "product": "DAILY_INVOICED_SALES",
+    "queried_object": "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0001",
+    "query_id": "01c7edad-010c-6e5d-0034-28cb001b558a",
+    "ranking": [
+     {
+      "active_days": 7,
+      "customer_id": 10,
+      "customer_name": "Fictional Customer 010",
+      "distinct_items": 11,
+      "first_invoice_date": "2026-01-05",
+      "invoice_lines": 17,
+      "last_invoice_date": "2026-02-22",
+      "rank": 1,
+      "sales_excluding_tax": 4964.45
+     },
+     {
+      "active_days": 7,
+      "customer_id": 8,
+      "customer_name": "Fictional Customer 008",
+      "distinct_items": 13,
+      "first_invoice_date": "2026-01-11",
+      "invoice_lines": 22,
+      "last_invoice_date": "2026-03-03",
+      "rank": 2,
+      "sales_excluding_tax": 4719.06
+     },
+     {
+      "active_days": 6,
+      "customer_id": 19,
+      "customer_name": "Fictional Customer 019",
+      "distinct_items": 11,
+      "first_invoice_date": "2026-01-08",
+      "invoice_lines": 16,
+      "last_invoice_date": "2026-02-21",
+      "rank": 3,
+      "sales_excluding_tax": 4297.74
+     },
+     {
+      "active_days": 8,
+      "customer_id": 18,
+      "customer_name": "Fictional Customer 018",
+      "distinct_items": 10,
+      "first_invoice_date": "2026-01-08",
+      "invoice_lines": 18,
+      "last_invoice_date": "2026-02-26",
+      "rank": 4,
+      "sales_excluding_tax": 4072.6
+     },
+     {
+      "active_days": 9,
+      "customer_id": 4,
+      "customer_name": "Fictional Customer 004",
+      "distinct_items": 12,
+      "first_invoice_date": "2026-01-06",
+      "invoice_lines": 22,
+      "last_invoice_date": "2026-02-21",
+      "rank": 5,
+      "sales_excluding_tax": 3756.35
+     }
+    ],
+    "top_n": 5,
+    "version": 1
+   }
+  },
+  {
+   "assert": "E release still the original version after mutation attempt",
+   "passed": true,
+   "detail": 1
+  },
+  {
+   "step": "E unknown candidate release",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.RELEASE_CANDIDATE('C99999_DEADBEEF')",
+   "query_id": "01c7edad-010c-6e59-0034-28cb001b146e",
+   "elapsed_s": 0.66,
+   "result": {
+    "candidate_id": "C99999_DEADBEEF",
+    "error": "UNKNOWN_CANDIDATE",
+    "ok": false
+   }
+  },
+  {
+   "assert": "E unknown candidate rejected",
+   "passed": true,
+   "detail": {
+    "candidate_id": "C99999_DEADBEEF",
+    "error": "UNKNOWN_CANDIDATE",
+    "ok": false
+   }
+  },
+  {
+   "step": "E malformed/injection-shaped candidate ID",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.VALIDATE_CANDIDATE('X; DROP TABLE L2P.RELEASES')",
+   "query_id": "01c7edad-010c-6d8c-0034-28cb001b660e",
+   "elapsed_s": 0.3,
+   "result": {
+    "error": "INVALID_CANDIDATE_ID_FORMAT",
+    "ok": false
+   }
+  },
+  {
+   "assert": "E malformed candidate ID rejected by format check",
+   "passed": true,
+   "detail": {
+    "error": "INVALID_CANDIDATE_ID_FORMAT",
+    "ok": false
+   }
+  },
+  {
+   "step": "E unsupported recipe / object name",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.PROPOSE_CANDIDATE('RAW.INVOICELINES')",
+   "query_id": "01c7edad-010c-6d8c-0034-28cb001b6612",
+   "elapsed_s": 1.01,
+   "result": {
+    "error": "UNSUPPORTED_RECIPE",
+    "ok": false,
+    "supported_recipes": [
+     "DAILY_INVOICED_SALES_V1",
+     "STOCKGROUP_FANOUT_DEMO",
+     "SINGLE_GROUP_OMISSION_DEMO",
+     "ORDER_DATE_BASIS_DEMO"
+    ]
+   }
+  },
+  {
+   "assert": "E unsupported recipe rejected",
+   "passed": true,
+   "detail": {
+    "error": "UNSUPPORTED_RECIPE",
+    "ok": false,
+    "supported_recipes": [
+     "DAILY_INVOICED_SALES_V1",
+     "STOCKGROUP_FANOUT_DEMO",
+     "SINGLE_GROUP_OMISSION_DEMO",
+     "ORDER_DATE_BASIS_DEMO"
+    ]
+   }
+  },
+  {
+   "step": "E skip-validation: propose",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.PROPOSE_CANDIDATE('DAILY_INVOICED_SALES_V1')",
+   "query_id": "01c7edad-010c-6e5f-0034-28cb001b349e",
+   "elapsed_s": 2.24,
+   "result": {
+    "candidate_id": "C00103_ED24DAF1",
+    "contract_version": 1,
+    "mappings": [
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "Invoiced sales: invoice-line ExtendedPrice minus TaxAmount; invoice-date basis",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Business definition.",
+      "source_expression": "definition",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "no designated primary group",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Group attribution not supported.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(stock group allocation)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "evidence_path": "fixtures/business/definitions.md",
+      "evidence_text": "No currencies, discounts, returns or cancellations are modeled",
+      "evidence_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "note": "Not modeled.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(discounts/returns)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "Month([INVOICEDATE])",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Spotfire monthly visual uses invoice date.",
+      "source_expression": "INVOICES.INVOICEDATE",
+      "status": "SOURCE_BACKED",
+      "target_field": "INVOICE_DATE"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "\"expression\": \"[INVOICED_SALES_EX_TAX]\"",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Spotfire SalesAmount calculated column.",
+      "source_expression": "INVOICED_SALES_EX_TAX",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_a5086dc0ef985e23",
+      "evidence_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "evidence_text": "\"currency\": null",
+      "evidence_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "note": "Currency explicitly not modeled.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(currency)"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "i.INVOICEDATE",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Date comes from invoice header.",
+      "source_expression": "INVOICES.INVOICEDATE",
+      "status": "SOURCE_BACKED",
+      "target_field": "INVOICE_DATE"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "JOIN CUSTOMERS c ON i.CUSTOMERID = c.CUSTOMERID",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Customer comes from invoice header.",
+      "source_expression": "INVOICES.CUSTOMERID",
+      "status": "SOURCE_BACKED",
+      "target_field": "CUSTOMER_ID"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "JOIN STOCKITEMS p ON l.STOCKITEMID = p.STOCKITEMID",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "Item comes from invoice line.",
+      "source_expression": "INVOICELINES.STOCKITEMID",
+      "status": "SOURCE_BACKED",
+      "target_field": "STOCK_ITEM_ID"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.EXTENDEDPRICE - l.TAXAMOUNT AS INVOICED_SALES_EX_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "note": "HANA-style view expression.",
+      "source_expression": "INVOICELINES.EXTENDEDPRICE - INVOICELINES.TAXAMOUNT",
+      "status": "SOURCE_BACKED",
+      "target_field": "SALES_EXCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.TAXAMOUNT AS INVOICE_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "INVOICELINES.TAXAMOUNT",
+      "status": "SOURCE_BACKED",
+      "target_field": "TAX_AMOUNT"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "l.EXTENDEDPRICE AS INVOICE_TOTAL_INCL_TAX",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "INVOICELINES.EXTENDEDPRICE",
+      "status": "SOURCE_BACKED",
+      "target_field": "TOTAL_INCLUDING_TAX"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "c.CUSTOMERNAME",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "CUSTOMERS.CUSTOMERNAME",
+      "status": "SOURCE_BACKED",
+      "target_field": "CUSTOMER_NAME"
+     },
+     {
+      "evidence_doc_id": "CONNECTED_6f53633c096a6b56",
+      "evidence_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "evidence_text": "p.STOCKITEMNAME",
+      "evidence_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "source_expression": "STOCKITEMS.STOCKITEMNAME",
+      "status": "SOURCE_BACKED",
+      "target_field": "STOCK_ITEM_NAME"
+     },
+     {
+      "evidence_doc_id": "DAILY_INVOICE_SALES",
+      "evidence_path": "catalog/daily_invoice_sales.sql",
+      "evidence_text": "GROUP BY i.INVOICEDATE",
+      "evidence_version": "c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb",
+      "note": "Existing daily report groups by invoice date only; customer/item grain is new.",
+      "source_expression": "GROUP BY invoice date",
+      "status": "SOURCE_BACKED",
+      "target_field": "(daily grain)"
+     },
+     {
+      "evidence_doc_id": "DAILY_INVOICE_SALES",
+      "evidence_path": "catalog/daily_invoice_sales.sql",
+      "evidence_text": "Days without invoices are omitted",
+      "evidence_version": "c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb",
+      "note": "No zero-fill.",
+      "status": "SOURCE_BACKED_NOT_MODELED",
+      "target_field": "(calendar zero-fill)"
+     },
+     {
+      "note": "No source definition exists in the catalog.",
+      "status": "MISSING_EVIDENCE",
+      "target_field": "(margin / consent / campaign response / uplift)"
+     }
+    ],
+    "note": "Proposal only. Nothing has been created. Call CREATE_CANDIDATE to build from a fresh source snapshot.",
+    "ok": true,
+    "recipe_id": "DAILY_INVOICED_SALES_V1",
+    "source_definitions": [
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "94780fe7d03389c97083bb5323e05aa8f23c8a67189bb6fbb3547bab8a7df88c",
+      "catalog_source_version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "doc_id": "CONNECTED_d6d252dc2b0538ee",
+      "source_path": "fixtures/business/definitions.md",
+      "title": "Synthetic business: definitions.md"
+     },
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "5801e9134a786cfd9a054fcbd94b99a90cf95322be0809155adacbc99a989d8b",
+      "catalog_source_version": "f67352b5a51bba4566da228ea9c31326007138b0e8e05aabca4de2686370f561",
+      "doc_id": "CONNECTED_1055b17d75582621",
+      "source_path": "fixtures/spotfire/customer_sales.source.sql",
+      "title": "Synthetic spotfire: customer_sales.source.sql"
+     },
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "1e038d8e25332e2d22203d6d5b1b9e0a38bdd4827b6f4d9a59c6409ef6a9e64c",
+      "catalog_source_version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "doc_id": "CONNECTED_a5086dc0ef985e23",
+      "source_path": "fixtures/spotfire/customer_sales.metadata.json",
+      "title": "Synthetic spotfire: customer_sales.metadata.json"
+     },
+     {
+      "artifact_type": "SYNTHETIC_CONNECTED_METADATA",
+      "catalog_content_sha256": "efddbcb47e3ff00c0be7131f901d7337a717d689c8a0df817a0afbd9dc596160",
+      "catalog_source_version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "doc_id": "CONNECTED_6f53633c096a6b56",
+      "source_path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "title": "Synthetic hana: CV_INVOICE_SALES.sql"
+     },
+     {
+      "artifact_type": "SYNTHETIC_REPORT",
+      "catalog_content_sha256": "97e31e34ed7bc26ed8a17f626aa03658aab201ba98d5d4d587d8772f9b29d693",
+      "catalog_source_version": "c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb",
+      "doc_id": "DAILY_INVOICE_SALES",
+      "source_path": "catalog/daily_invoice_sales.sql",
+      "title": "Daily invoiced sales"
+     }
+    ],
+    "sql_template": "SELECT h.INVOICEDATE::DATE AS INVOICE_DATE, h.CUSTOMERID::NUMBER(38,0) AS CUSTOMER_ID, l.STOCKITEMID::NUMBER(38,0) AS STOCK_ITEM_ID, c.CUSTOMERNAME::VARCHAR AS CUSTOMER_NAME, s.STOCKITEMNAME::VARCHAR AS STOCK_ITEM_NAME, COUNT(*)::NUMBER(18,0) AS INVOICE_LINE_COUNT, SUM(l.QUANTITY)::NUMBER(18,0) AS QUANTITY, SUM(l.EXTENDEDPRICE - l.TAXAMOUNT)::NUMBER(18,2) AS SALES_EXCLUDING_TAX, SUM(l.TAXAMOUNT)::NUMBER(18,2) AS TAX_AMOUNT, SUM(l.EXTENDEDPRICE)::NUMBER(18,2) AS TOTAL_INCLUDING_TAX FROM {{INVOICELINES}} l JOIN {{INVOICES}} h ON h.INVOICEID = l.INVOICEID LEFT JOIN {{CUSTOMERS}} c ON c.CUSTOMERID = h.CUSTOMERID LEFT JOIN {{STOCKITEMS}} s ON s.STOCKITEMID = l.STOCKITEMID GROUP BY 1,2,3,4,5",
+    "state": "PROPOSED"
+   }
+  },
+  {
+   "step": "E skip-validation: release a PROPOSED candidate",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.RELEASE_CANDIDATE('C00103_ED24DAF1')",
+   "query_id": "01c7edad-010c-6e5d-0034-28cb001b558e",
+   "elapsed_s": 1.69,
+   "result": {
+    "current_release": {
+     "object": "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0001",
+     "version": 1
+    },
+    "error": "NOT_VALIDATED",
+    "ok": false,
+    "state": "PROPOSED"
+   }
+  },
+  {
+   "assert": "E releasing an unvalidated candidate rejected",
+   "passed": true,
+   "detail": {
+    "current_release": {
+     "object": "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0001",
+     "version": 1
+    },
+    "error": "NOT_VALIDATED",
+    "ok": false,
+    "state": "PROPOSED"
+   }
+  },
+  {
+   "step": "E re-create a released candidate",
+   "sql": "CALL HACKATHON_D2K_PREWORK.L2P.CREATE_CANDIDATE('C00401_2E6502B7')",
+   "query_id": "01c7edad-010c-6e5e-0034-28cb001bd47e",
+   "elapsed_s": 13.77,
+   "result": {
+    "candidate_id": "C00401_2E6502B7",
+    "error": "INVALID_STATE",
+    "ok": false,
+    "state": "RELEASED"
+   }
+  },
+  {
+   "assert": "E re-create of released candidate rejected",
+   "passed": true,
+   "detail": {
+    "candidate_id": "C00401_2E6502B7",
+    "error": "INVALID_STATE",
+    "ok": false,
+    "state": "RELEASED"
+   }
+  },
+  {
+   "assert": "Exactly one current release",
+   "passed": true,
+   "detail": null
+  }
+ ]
+}

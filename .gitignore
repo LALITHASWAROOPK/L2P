@@ -2,3 +2,8 @@ source/repository-tree.json
 *.png
 *.ax.txt
 __pycache__/
+
+# EVENT L2P: local-only artifacts
+__pycache__/
+*.pyc
+event/l2p/evidence/agent_runs/*.raw.json
