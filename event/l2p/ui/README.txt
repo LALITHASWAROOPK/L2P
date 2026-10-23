@@ -18,9 +18,11 @@ No public hosting or remote-user authentication is implemented.
 The Build tab offers evidence tracing, report reconciliation, and a bounded
 negative/positive build demonstration. Test and release a product writes new
 candidates and may create a new release version; its button states this explicitly.
-The Use tab calls the read-only consumer agent. Every button starts a fresh turn.
-Only one request can run at a time. Agent responses are displayed as safe plain text.
+The Use tab calls the read-only consumer agent. Builder and analyst have separate short conversation histories. Suggested prompts and free-text questions use the same chat path.
+Only one request can run at a time. Reloading the page currently clears its chat display, so wait for an active run to complete before refreshing. Agent text is rendered safely; structured result tables use text-only cells.
 Query IDs, latency and actual tool traces are available under Execution evidence.
 
 Do not include credential files or private source material in the submission.
 These files contain no credentials. Runtime traces are written outside this folder.
+
+Semantic extension: the builder can publish a guarded semantic view after release. The analyst uses Cortex Analyst over that view. The local backend verifies recorded contract checks and current release integrity before and after each analyst call, and withholds responses if the release changes. This is not a rerun of all source reconciliation. Native Observability captures agent execution traces.

@@ -1,0 +1,102 @@
+[
+  {
+    "label": "current_contract",
+    "query_id": "01c7ee1f-010c-6e59-0034-28cb001b1d7e",
+    "columns": [
+      "VERIFY_RELEASED_CONTRACT"
+    ],
+    "rows": [
+      [
+        "{\"ok\": true, \"product\": \"DAILY_INVOICED_SALES\", \"version\": 603, \"release_object\": \"HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0603\", \"validation_run_id\": \"V00104\", \"contract_version\": 1, \"contract_checks\": [{\"CHECK_NAME\": \"SNAPSHOT_UNCHANGED\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"SCHEMA_EXACT\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"KEYS_NOT_NULL\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"GRAIN_UNIQUE\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"REFERENTIAL_INTEGRITY\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"LINE_COVERAGE\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"ROW_COUNT_MATCH\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"GROUPED_RECONCILIATION\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"TOTAL_RECONCILIATION\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"DIMENSION_CONSISTENCY\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"SCOPE_CONSISTENCY\", \"STATUS\": \"PASS\"}], \"recorded_contract_passed\": true, \"release_hash_matches\": true, \"row_count\": 241, \"semantic_view\": \"HACKATHON_D2K_PREWORK.L2P_CONSUMER.DAILY_SALES_SEMANTIC\", \"scope\": \"Recorded contract results plus current release integrity; not a rerun of source reconciliation.\"}"
+      ]
+    ]
+  },
+  {
+    "label": "guard_before_publish",
+    "query_id": "01c7ee1f-010c-6e5e-0034-28cb001bdf7e",
+    "columns": [
+      "COUNT(*)",
+      "MIN(RELEASE_VERSION)",
+      "MAX(RELEASE_VERSION)"
+    ],
+    "rows": [
+      [
+        241,
+        603,
+        603
+      ]
+    ]
+  },
+  {
+    "label": "publish_current",
+    "query_id": "01c7ee1f-010c-6e59-0034-28cb001b1d9e",
+    "columns": [
+      "PUBLISH_RELEASED_SEMANTIC_PRODUCT"
+    ],
+    "rows": [
+      [
+        "{\"ok\": true, \"product\": \"DAILY_INVOICED_SALES\", \"version\": 603, \"release_object\": \"HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0603\", \"validation_run_id\": \"V00104\", \"contract_version\": 1, \"contract_checks\": [{\"CHECK_NAME\": \"SNAPSHOT_UNCHANGED\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"SCHEMA_EXACT\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"KEYS_NOT_NULL\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"GRAIN_UNIQUE\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"REFERENTIAL_INTEGRITY\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"LINE_COVERAGE\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"ROW_COUNT_MATCH\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"GROUPED_RECONCILIATION\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"TOTAL_RECONCILIATION\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"DIMENSION_CONSISTENCY\", \"STATUS\": \"PASS\"}, {\"CHECK_NAME\": \"SCOPE_CONSISTENCY\", \"STATUS\": \"PASS\"}], \"recorded_contract_passed\": true, \"release_hash_matches\": true, \"row_count\": 241, \"semantic_view\": \"HACKATHON_D2K_PREWORK.L2P_CONSUMER.DAILY_SALES_SEMANTIC\", \"scope\": \"Recorded contract results plus current release integrity; not a rerun of source reconciliation.\", \"semantic_published\": true, \"guarded_source\": \"HACKATHON_D2K_PREWORK.L2P_CONSUMER.CURRENT_SALES_GUARDED\"}"
+      ]
+    ]
+  },
+  {
+    "label": "guard_after_publish",
+    "query_id": "01c7ee1f-010c-6e5d-0034-28cb001e9212",
+    "columns": [
+      "COUNT(*)",
+      "MIN(RELEASE_VERSION)",
+      "MAX(RELEASE_VERSION)",
+      "SUM(SALES_EXCLUDING_TAX)"
+    ],
+    "rows": [
+      [
+        241,
+        603,
+        603,
+        "53589.47"
+      ]
+    ]
+  },
+  {
+    "label": "semantic_ranking",
+    "query_id": "01c7ee1f-010c-6e5b-0034-28cb001afbb6",
+    "columns": [
+      "CUSTOMER_ID",
+      "CUSTOMER_NAME",
+      "RELEASE_VERSION",
+      "INVOICED_SALES_EXCLUDING_TAX"
+    ],
+    "rows": [
+      [
+        10,
+        "Fictional Customer 010",
+        603,
+        "4964.45"
+      ],
+      [
+        8,
+        "Fictional Customer 008",
+        603,
+        "4719.06"
+      ],
+      [
+        19,
+        "Fictional Customer 019",
+        603,
+        "4297.74"
+      ],
+      [
+        18,
+        "Fictional Customer 018",
+        603,
+        "4072.60"
+      ],
+      [
+        4,
+        "Fictional Customer 004",
+        603,
+        "3756.35"
+      ]
+    ]
+  }
+]

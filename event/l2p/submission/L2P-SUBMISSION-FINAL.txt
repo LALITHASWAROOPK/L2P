@@ -1,0 +1,46 @@
+L2P — Logic to Product
+Final review copy. No form has been submitted.
+
+PRESENTATION OPENING
+“Moving data is easier. What we are doing now is moving knowledge, with Snowflake, CoCo and Claude.” By knowledge, we mean the business definitions embedded in reports and source models.
+
+TEAM / PROJECT NAME
+L2P — Logic to Product. Confirm team membership in the submission form.
+
+PROJECT DESCRIPTION
+L2P helps a data developer reuse business logic already present in report definitions and source models to create a tested Snowflake data product. Two Claude Opus agents separate creation from consumption. The Builder retrieves normalized synthetic HANA-style, Qlik and additional Spotfire metadata, explains mappings, and uses bounded recipes to create candidates. Eleven deterministic contract checks gate release. A passing product is versioned with its source snapshot and validation evidence, then exposed through a guarded semantic view. A separate Analyst uses Cortex Analyst over that view to produce a human-reviewed account shortlist. The local chat backend verifies recorded contract results and release integrity before and after the answer.
+
+DEMONSTRATION
+A stock-group fanout inflates sales from 53,589.47 to 64,027.32 and counts 293 invoice lines instead of 243. Validation fails and release is refused. The corrected product has 241 date/customer/item rows and passes eleven checks. An additional test catches order-date substitution through grouped reconciliation even when the grand total matches. The final verified consumer run reads release 603 and returns the expected top five customers. No currency is modeled.
+
+VALUE CASE
+User: a data developer reconstructing report meaning; beneficiary: analysts consuming a governed reusable metric. Baseline: prework starter could retrieve and query but lacked product-writing tools. The event workflow adds candidate creation, deterministic rejection, versioned release and semantic consumption. The baseline comparison demonstrates new workflow capability, not superior model intelligence. Measured results are synthetic validation outcomes and matched rankings, not production savings. Proposed sponsor/owner: a data-platform or analytics-engineering team, with domain owners reviewing metric definitions. A pilot would measure task time, manual interventions, mapping correctness and escaped defects. Illustrative only: ten builds per month with one hour saved each would save ten developer hours per month, before operating cost. No time-saving claim has been measured.
+
+ARCHITECTURE
+Local browser chat -> Python backend -> saved Cortex Agents with explicit claude-opus-5-5. Builder: Cortex Search, exact definition retrieval, reconciliation and bounded create/validate/release procedures. Snowflake holds candidates, source snapshots, check results and release registry. PublishReleasedSemanticProduct exposes DAILY_SALES_SEMANTIC over CURRENT_SALES_GUARDED. Analyst: Cortex Analyst plus contract verification and read tools. Verification checks recorded passing results and current content hash, not a rerun of source reconciliation. Both agents use ATTENDEE_ROLE; tool separation is not per-user RBAC. Future MCP/Fabric adapters would need their own authentication and contracts.
+
+BUILD STORY / FEEDBACK
+Preparation supplied synthetic data, normalized source/report fixtures, search and a starter. During the event CoCo built the product workflow, agents, deterministic checks and custom evaluation suite. Codex assisted the chat UI, native evaluations, semantic extension and presentation artifacts. Evaluation uncovered non-monotonic sequence-based version IDs; release allocation was changed to highest released version plus one, with two follow-up agent builds passing. The current pointer had remained correct. Native evaluation also exposed a citation-discipline gap: citing a search snippet without fetching the full definition. Native evaluation required EXECUTE TASK permission in the workshop account. Evaluations and traces were preserved by modifying live agent specifications, not dropping agents.
+
+EVALUATION SCOPE
+Historical procedure regression: 32/32 assertions. Historical custom agent suite run_20261023_133220: 19/19 across ten fixed synthetic cases, with wording/unsupported-claim review findings. Post-version-fix agent run_20261023_140625: 2/2 build cases. Fresh native L2P_SEMANTIC_20261023_1405: two read-only cases per agent, all four answer-correctness scores 1.00; consumer consistency 1.00/1.00, builder 1.00/0.67. These are small samples on recorded revisions, not general reliability. Latest semantic procedure verification and UI consumer ranking use release 603.
+
+LIMITATIONS / NEXT STEPS
+Three skills are attached but invocation remains unverified. Retrieval uses 24 whole documents; chunking and a baseline/chunking/skills comparison have not been run. Qlik currently demonstrates aliases and aggregation; the richer cross-layer filter scenario is not built. The unsupported “about two days” invoice delay claim is an open finding. Missing-release behavior has procedure coverage but not agent-level coverage. Native BI connectors, separate user roles, larger evals and a developer-efficiency pilot are future work. There is no marketing consent, margin, campaign response or causal uplift in this fixture. No campaigns are sent.
+
+OPTIONAL FUTURE EXPERIMENT
+Evaluate Snowflake Decision after full evidence retrieval to classify evidence as sufficient, conflicting or missing and route uncertain cases to more retrieval or review. It is unavailable in the current session and has not been integrated or evaluated. This is not an explanation for the observed score or a replacement for deterministic release checks.
+
+DATA / LICENSING
+Northstar Supply is fictional. The schema is a simplified adaptation of public Microsoft Wide World Importers, MIT licensed, pinned source commit dac9747acaca4e54a3b5ea4c6de1c4be6c1b964a. All rows are independently generated synthetic data, not imported Microsoft sample rows. HANA/Qlik/Spotfire artifacts are synthetic normalized definitions, not live connectors. No employer data, code, screenshots or proprietary assets are included.
+
+LINKS
+Public build branch: https://github.com/LALITHASWAROOPK/d2k-inspired-sales-hackathon/tree/codex/l2p-hackathon-build
+Video: https://raw.githubusercontent.com/LALITHASWAROOPK/d2k-inspired-sales-hackathon/codex/l2p-hackathon-build/event/l2p/submission/L2P-One-Minute-Demo.mp4
+Repository video page: https://github.com/LALITHASWAROOPK/d2k-inspired-sales-hackathon/blob/codex/l2p-hackathon-build/event/l2p/submission/L2P-One-Minute-Demo.mp4
+Snowflake account: SFSEHOL-ANTHROPIC_SNOWFLAKE_HACKATHON_BXVLTM
+Submission: https://cerebralvalley.ai/e/intelligence-at-work-hackathon/hackathon/submit
+Deadline: October 23, 2026, 4:30 p.m. Pacific. Target ready by 4:00 p.m.
+
+PARTNER TOOLS
+Snowflake Cortex Code, Cortex Agents, Cortex Search, Cortex Analyst, semantic views, Snowflake SQL/procedures, native agent evaluations/Observability; Claude Opus orchestration. Codex assisted the supplementary work noted above. Snowflake Decision, Fabric and additional MCP integrations are not implemented tools.

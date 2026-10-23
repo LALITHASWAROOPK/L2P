@@ -1,3 +1,9 @@
+# L2P — Logic to Product: event build
+
+Start with [the event demo, video, architecture and evidence](event/l2p/START-HERE.md). This branch is `codex/l2p-hackathon-build`. The preparation baseline below is retained for provenance and is not claimed as event-built functionality.
+
+---
+
 # Hackathon pre-work baseline — 2026-10-23
 
 This folder is preparation, not claimed as functionality built during the hackathon.

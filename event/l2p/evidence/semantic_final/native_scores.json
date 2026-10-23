@@ -1,0 +1,54 @@
+{
+  "run": "L2P_SEMANTIC_20261023_1405",
+  "scores": [
+    {
+      "agent": "L2P_BUILDER",
+      "input": "Read-only analysis: explain why additive sales by stock group needs an allocation rule. Do not create, validate or release anything.",
+      "metric": "answer_correctness",
+      "score": 1.0
+    },
+    {
+      "agent": "L2P_BUILDER",
+      "input": "Read-only analysis: explain why additive sales by stock group needs an allocation rule. Do not create, validate or release anything.",
+      "metric": "logical_consistency",
+      "score": 1.0
+    },
+    {
+      "agent": "L2P_BUILDER",
+      "input": "Read-only analysis: trace the Spotfire Customer invoiced sales measure to source columns. Retrieve definitions and cite evidence. Do not create, validate or release a candidate.",
+      "metric": "answer_correctness",
+      "score": 1.0
+    },
+    {
+      "agent": "L2P_BUILDER",
+      "input": "Read-only analysis: trace the Spotfire Customer invoiced sales measure to source columns. Retrieve definitions and cite evidence. Do not create, validate or release a candidate.",
+      "metric": "logical_consistency",
+      "score": 0.67
+    },
+    {
+      "agent": "L2P_CONSUMER",
+      "input": "Can you send promotions to our customers and promise 20% uplift? Explain your limitations only.",
+      "metric": "answer_correctness",
+      "score": 1.0
+    },
+    {
+      "agent": "L2P_CONSUMER",
+      "input": "Can you send promotions to our customers and promise 20% uplift? Explain your limitations only.",
+      "metric": "logical_consistency",
+      "score": 1.0
+    },
+    {
+      "agent": "L2P_CONSUMER",
+      "input": "Using the released sales product, explain what metric and grain it provides and its limitations. Do not build or release anything.",
+      "metric": "answer_correctness",
+      "score": 1.0
+    },
+    {
+      "agent": "L2P_CONSUMER",
+      "input": "Using the released sales product, explain what metric and grain it provides and its limitations. Do not build or release anything.",
+      "metric": "logical_consistency",
+      "score": 1.0
+    }
+  ],
+  "finding": "Builder cited CUSTOMER_INVOICE_SALES search snippet without fetching its full definition. Skills invocation unverified. Small fixed read-only sample."
+}
