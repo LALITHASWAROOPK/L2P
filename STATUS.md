@@ -32,7 +32,7 @@ Screenshots load-proof.png and totals-proof.png are local verification evidence.
 Original SQL source is local reference material, not yet searchable by the starter agent.
 The account expires 2026-10-27 22:00 Pacific according to the supplied guide.
 
-## Basic catalog/search extension — October 23, pre-event
+## Basic catalog/search extension â€” October 23, pre-event
 - Three synthetic executable report views deployed: daily invoice sales, daily ordered
   sales and customer invoice sales. These are fixtures, not published BI dashboards.
 - T_PREWORK_CATALOG holds three report definitions plus twelve original public SQL
