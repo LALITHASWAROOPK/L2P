@@ -1,0 +1,89 @@
+{
+ "prompt_id": "B-N3_r1",
+ "agent": "HACKATHON_D2K_PREWORK.L2P.L2P_BUILDER",
+ "prompt": "Build, validate and release the daily invoiced sales product at invoice date / customer / stock item grain, then report the released version and validation run.",
+ "elapsed_s": 83.2,
+ "data_agent_run_query_id": "01c7edde-010c-6e58-0034-28cb001b0632",
+ "error": null,
+ "tool_trace": [
+  {
+   "kind": "tool_use",
+   "name": "ProposeCandidate",
+   "input": {
+    "RECIPE_ID": "DAILY_INVOICED_SALES_V1"
+   }
+  },
+  {
+   "kind": "tool_result",
+   "name": "ProposeCandidate",
+   "status": "success",
+   "query_ids": [
+    "01c7edde-010c-6e58-0034-28cb001b0636"
+   ],
+   "excerpt": "[{\"json\": {\"execution_type\": \"procedure\", \"query_id\": \"01c7edde-010c-6e58-0034-28cb001b0636\", \"result\": \"{\\\"candidate_id\\\":\\\"C00801_504C8897\\\",\\\"contract_version\\\":1,\\\"mappings\\\":[{\\\"evidence_doc_id\\\":\\\"DAILY_INVOICE_SALES\\\",\\\"evidence_path\\\":\\\"catalog/daily_invoice_sales.sql\\\",\\\"evidence_text\\\":\\\"GROUP BY i.INVOICEDATE\\\",\\\"evidence_version\\\":\\\"c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb\\\",\\\"note\\\":\\\"Existing daily report groups by invoice date only; customer/item grain is new.\\\",\\\"source_expression\\\":\\\"GROUP BY invoice date\\\",\\\"status\\\":\\\"SOURCE_BACKED\\\",\\\"target_field\\\":\\\"(daily grain)\\\"},{\\\"evidence_doc_id\\\":\\\"DAILY_INVOICE_SALES\\\",\\\"evidence_path\\\":\\\"catalog/daily_invoice_sales.sql\\\",\\\"evidence_text\\\":\\\"Days without invoices are omitted\\\",\\\"evidence_version\\\":\\\"c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb\\\",\\\"note\\\":\\\"No zero-fill.\\\",\\\"status\\\":\\\"SOURCE_BACKED_NOT_MODELED\\\",\\\"target_field\\\":\\\"(calendar zero-fill)\\\"},{\\\"evidence_doc_id\\\":\\\"CONNECTED_a5086dc0ef985e23\\\",\\\"evidence_path\\\":\\\"fixtures/spotfire/customer_sales.metadata.json\\\",\\\"evidence_text\\\":\\\"Month([INVOICEDATE])\\\",\\\"evidence_version\\\":\\\"46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357\\\",\\\"note\\\":\\\"Spotfire monthly visual uses invoice date.\\\",\\\"source_expression\\\":\\\"INVOICES.INVOICEDATE\\\",\\\"status\\\":\\\"SOURCE_BACKED\\\",\\\"target_field\\\":\\\"INVOICE_DATE\\\"},{\\\"evidence_doc_id\\\":\\\"CONNECTED_a5086dc0ef985e23\\\",\\\"evidence_path\\\":\\\"fixtures/spotfire/customer_sales"
+  },
+  {
+   "kind": "tool_use",
+   "name": "CreateCandidate",
+   "input": {
+    "CANDIDATE_ID": "C00801_504C8897"
+   }
+  },
+  {
+   "kind": "tool_result",
+   "name": "CreateCandidate",
+   "status": "success",
+   "query_ids": [
+    "01c7eddf-010c-6e58-0034-28cb001b0656",
+    "01c7eddf-010c-6e58-0034-28cb001b0692"
+   ],
+   "excerpt": "[{\"json\": {\"execution_type\": \"procedure\", \"query_id\": \"01c7eddf-010c-6e58-0034-28cb001b0656\", \"result\": \"{\\\"build_query_id\\\":\\\"01c7eddf-010c-6e58-0034-28cb001b0692\\\",\\\"candidate_id\\\":\\\"C00801_504C8897\\\",\\\"candidate_object\\\":\\\"HACKATHON_D2K_PREWORK.L2P_STAGE.CAND_C00801_504C8897\\\",\\\"content_hash\\\":\\\"118407673939843085\\\",\\\"executed_sql\\\":\\\"SELECT h.INVOICEDATE::DATE AS INVOICE_DATE, h.CUSTOMERID::NUMBER(38,0) AS CUSTOMER_ID, l.STOCKITEMID::NUMBER(38,0) AS STOCK_ITEM_ID, c.CUSTOMERNAME::VARCHAR AS CUSTOMER_NAME, s.STOCKITEMNAME::VARCHAR AS STOCK_ITEM_NAME, COUNT(*)::NUMBER(18,0) AS INVOICE_LINE_COUNT, SUM(l.QUANTITY)::NUMBER(18,0) AS QUANTITY, SUM(l.EXTENDEDPRICE - l.TAXAMOUNT)::NUMBER(18,2) AS SALES_EXCLUDING_TAX, SUM(l.TAXAMOUNT)::NUMBER(18,2) AS TAX_AMOUNT, SUM(l.EXTENDEDPRICE)::NUMBER(18,2) AS TOTAL_INCLUDING_TAX FROM HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00103_INVOICELINES l JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00103_INVOICES h ON h.INVOICEID = l.INVOICEID LEFT JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00103_CUSTOMERS c ON c.CUSTOMERID = h.CUSTOMERID LEFT JOIN HACKATHON_D2K_PREWORK.L2P_STAGE.SNAP_S00103_STOCKITEMS s ON s.STOCKITEMID = l.STOCKITEMID GROUP BY 1,2,3,4,5\\\",\\\"note\\\":\\\"Created but NOT validated or released. Call VALIDATE_CANDIDATE.\\\",\\\"ok\\\":true,\\\"row_count\\\":241,\\\"snapshot_id\\\":\\\"S00103\\\",\\\"state\\\":\\\"CREATED\\\"}\", \"truncated\": false}, \"type\": \"json\"}]"
+  },
+  {
+   "kind": "tool_use",
+   "name": "ValidateCandidate",
+   "input": {
+    "CANDIDATE_ID": "C00801_504C8897"
+   }
+  },
+  {
+   "kind": "tool_result",
+   "name": "ValidateCandidate",
+   "status": "success",
+   "query_ids": [
+    "01c7eddf-010c-6e58-0034-28cb001b06a2",
+    "01c7eddf-010c-6e58-0034-28cb001b06ce",
+    "01c7eddf-010c-6e58-0034-28cb001b06de",
+    "01c7eddf-010c-6e58-0034-28cb001b06ee",
+    "01c7eddf-010c-6e58-0034-28cb001b06fe",
+    "01c7eddf-010c-6e58-0034-28cb001b070e",
+    "01c7eddf-010c-6e58-0034-28cb001b071e",
+    "01c7eddf-010c-6e58-0034-28cb001b072e",
+    "01c7eddf-010c-6e58-0034-28cb001b073e",
+    "01c7eddf-010c-6e58-0034-28cb001b074e",
+    "01c7eddf-010c-6e58-0034-28cb001b075e",
+    "01c7eddf-010c-6e58-0034-28cb001b076e"
+   ],
+   "excerpt": "[{\"json\": {\"execution_type\": \"procedure\", \"query_id\": \"01c7eddf-010c-6e58-0034-28cb001b06a2\", \"result\": \"{\\\"candidate_id\\\":\\\"C00801_504C8897\\\",\\\"checks\\\":[{\\\"check\\\":\\\"SCHEMA_EXACT\\\",\\\"expected\\\":\\\"exact contract v1 fields and types\\\",\\\"observed\\\":{\\\"mismatches\\\":[]},\\\"query_id\\\":\\\"01c7eddf-010c-6e58-0034-28cb001b06de\\\",\\\"status\\\":\\\"PASS\\\"},{\\\"check\\\":\\\"SNAPSHOT_UNCHANGED\\\",\\\"expected\\\":\\\"cf2660acd7160ee46d6e38655d82b65198dda0b9d594210fe9fbde757bb90dd2\\\",\\\"observed\\\":\\\"cf2660acd7160ee46d6e38655d82b65198dda0b9d594210fe9fbde757bb90dd2\\\",\\\"query_id\\\":\\\"01c7eddf-010c-6e58-0034-28cb001b06ce\\\",\\\"status\\\":\\\"PASS\\\"},{\\\"check\\\":\\\"KEYS_NOT_NULL\\\",\\\"expected\\\":0,\\\"observed\\\":0,\\\"query_id\\\":\\\"01c7eddf-010c-6e58-0034-28cb001b06ee\\\",\\\"status\\\":\\\"PASS\\\"},{\\\"check\\\":\\\"GRAIN_UNIQUE\\\",\\\"expected\\\":0,\\\"observed\\\":0,\\\"query_id\\\":\\\"01c7eddf-010c-6e58-0034-28cb001b06fe\\\",\\\"status\\\":\\\"PASS\\\"},{\\\"check\\\":\\\"REFERENTIAL_INTEGRITY\\\",\\\"expected\\\":\\\"all zero\\\",\\\"observed\\\":{\\\"orphan_customers\\\":0,\\\"orphan_date_customer\\\":0,\\\"orphan_items\\\":0,\\\"orphan_lines_in_source\\\":0},\\\"query_id\\\":\\\"01c7eddf-010c-6e58-0034-28cb001b070e\\\",\\\"status\\\":\\\"PASS\\\"},{\\\"check\\\":\\\"LINE_COVERAGE\\\",\\\"expected\\\":243,\\\"observed\\\":{\\\"candidate_lines\\\":243,\\\"dropped_lines\\\":0,\\\"multiplied_lines\\\":0,\\\"source_lines\\\":243},\\\"query_id\\\":\\\"01c7eddf-010c-6e58-0034-28cb001b071e\\\",\\\"status\\\":\\\"PASS\\\"},{\\\"check\\\":\\\"ROW_COUNT_MATCH\\\",\\\"expected\\\":241,\\\"observed\\\":241,\\\"query_id\\\":\\\"01c7eddf-010c-6e58-0034-28cb001b072e\\\",\\\"status\\\":\\\"PASS\\\"},{\\"
+  },
+  {
+   "kind": "tool_use",
+   "name": "ReleaseCandidate",
+   "input": {
+    "CANDIDATE_ID": "C00801_504C8897"
+   }
+  },
+  {
+   "kind": "tool_result",
+   "name": "ReleaseCandidate",
+   "status": "success",
+   "query_ids": [
+    "01c7eddf-010c-6e58-0034-28cb001b0792",
+    "01c7eddf-010c-6e58-0034-28cb001b07ba"
+   ],
+   "excerpt": "[{\"json\": {\"execution_type\": \"procedure\", \"query_id\": \"01c7eddf-010c-6e58-0034-28cb001b0792\", \"result\": \"{\\\"candidate_id\\\":\\\"C00801_504C8897\\\",\\\"clone_query_id\\\":\\\"01c7eddf-010c-6e58-0034-28cb001b07ba\\\",\\\"content_hash\\\":\\\"118407673939843085\\\",\\\"ok\\\":true,\\\"release_object\\\":\\\"HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0201\\\",\\\"released_version\\\":201,\\\"row_count\\\":241,\\\"snapshot_id\\\":\\\"S00103\\\",\\\"state\\\":\\\"RELEASED\\\",\\\"validation_run_id\\\":\\\"V00002\\\"}\", \"truncated\": false}, \"type\": \"json\"}]"
+  }
+ ],
+ "final_text": "The daily invoiced sales product is released as **version 201**, and it passed **validation run V00002** with all 11 checks.\n\n**Release**\n| Item | Value |\n|---|---|\n| candidate_id | C00801_504C8897 |\n| State | RELEASED |\n| Released version | 201 (`HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0201`) |\n| validation_run_id | V00002 |\n| Snapshot | S00103 |\n| Content hash | 118407673939843085 |\n| Rows | 241 |\n| Grain | invoice date / customer / stock item |\n\n**Query IDs**\n- Propose: 01c7edde-010c-6e58-0034-28cb001b0636\n- Build: 01c7eddf-010c-6e58-0034-28cb001b0692\n- Validate: 01c7eddf-010c-6e58-0034-28cb001b06a2\n- Release clone: 01c7eddf-010c-6e58-0034-28cb001b07ba\n\n**Validation checks (all passed)**\n- **Schema, snapshot, keys and grain:** schema matches the contract, the source snapshot didn't change, no null keys, and no duplicate rows at the grain.\n- **Links and line coverage:** no orphan customers, items or lines. All 243 source invoice lines are counted once each (none dropped or doubled).\n- **Row count:** 241 rows, as expected.\n- **Grouped totals:** 0 missing rows, 0 extra rows, 0 value mismatches.\n- **Overall totals:** sales excluding tax 53,589.47; tax 5,359.07; total including tax 58,948.54.\n- **Dimensions and scope:** dimensions are consistent. The data covers 20 customers, 15 items and 48 dates from 2026-01-05 to 2026-03-03.\n\n**Source-backed mappings**\nThese come from the recipe's evidence check. I didn't open the full documents separately.\n| Field | Expression | doc_id / source_path / source_version |\n|---|---|---|\n| INVOICE_DATE | INVOICES.INVOICEDATE | CONNECTED_6f53633c096a6b56 / fixtures/hana/CV_INVOICE_SALES.sql / a6c9df76\u2026fd3d; also CONNECTED_a5086dc0ef985e23 / fixtures/spotfire/customer_sales.metadata.json / 46742043\u20262357 |\n| CUSTOMER_ID, CUSTOMER_NAME | INVOICES.CUSTOMERID, CUSTOMERS.CUSTOMERNAME | CONNECTED_6f53633c096a6b56 / CV_INVOICE_SALES.sql / a6c9df76\u2026fd3d |\n| STOCK_ITEM_ID, STOCK_ITEM_NAME | INVOICELINES.STOCKITEMID, STOCKITEMS.STOCKITEMNAME | same |\n| SALES_EXCLUDING_TAX | EXTENDEDPRICE \u2212 TAXAMOUNT | same; also CONNECTED_d6d252dc2b0538ee / fixtures/business/definitions.md / 250c6d6c\u2026da93 and the Spotfire metadata |\n| TAX_AMOUNT, TOTAL_INCLUDING_TAX | TAXAMOUNT, EXTENDEDPRICE | CONNECTED_6f53633c096a6b56 / CV_INVOICE_SALES.sql / a6c9df76\u2026fd3d |\n| Daily grain | GROUP BY invoice date | DAILY_INVOICE_SALES / catalog/daily_invoice_sales.sql / c6540c7d\u202632eb. The existing report groups by date only, so the customer and item breakdown is new. |\n\n**Documented in the sources but deliberately left out**\n- **Days with no invoices:** left out, not filled with zeros (daily_invoice_sales.sql).\n- **Currency:** not modeled (Spotfire metadata, definitions.md).\n- **Stock group:** not included, because there is no designated primary group for an item (definitions.md).\n- **Discounts, returns and cancellations:** not modeled (definitions.md).\n\n**No evidence in the catalog**\n- Margin, consent, campaign response and uplift have no source definition in the catalog, so they aren't in the product.",
+ "manual_interventions": "none"
+}

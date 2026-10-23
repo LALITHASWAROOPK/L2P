@@ -1,0 +1,43 @@
+{
+ "prompt_id": "S1_starter_trace",
+ "agent": "HACKATHON_D2K_PREWORK.ANALYTICS.PREWORK_QUERY_AGENT",
+ "prompt": "Trace the Spotfire 'Customer invoiced sales' visual measure all the way to source table columns. Cite each document's id, path and version, and say which mappings are source-backed versus missing.",
+ "elapsed_s": 28.1,
+ "data_agent_run_query_id": "01c7edd2-010c-6e5d-0034-28cb001b590a",
+ "error": null,
+ "tool_trace": [
+  {
+   "kind": "tool_use",
+   "name": "ReportCodeSearch",
+   "input": {
+    "analytical_search": false,
+    "columns": [
+     "DOC_ID",
+     "TITLE",
+     "ARTIFACT_TYPE",
+     "SOURCE_PATH",
+     "SOURCE_VERSION",
+     "CONTENT"
+    ],
+    "limit": 5,
+    "num_chunks_per_doc": 0,
+    "query": "Spotfire Customer invoiced sales visual measure"
+   }
+  },
+  {
+   "kind": "tool_result",
+   "name": "ReportCodeSearch",
+   "status": "success",
+   "query_ids": [
+    "3f86b841-6941-4dc5-a218-4363b5ba4ebc",
+    "4c3daf8f-ad2d-4604-8391-4237bf0200e9",
+    "7e9cb55e-9b5d-4f89-bd9a-c3caef7b574c",
+    "bd5b60a3-482d-4388-bdc0-0a0156a564e6",
+    "c06586e3-427d-4d79-bcfb-587839c16e8e"
+   ],
+   "excerpt": "[{\"json\": {\"search_results\": [{\"columns\": {\"ARTIFACT_TYPE\": \"SYNTHETIC_CONNECTED_METADATA\", \"SOURCE_PATH\": \"fixtures/spotfire/customer_sales.metadata.json\", \"SOURCE_VERSION\": \"46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357\"}, \"doc_id\": \"CONNECTED_a5086dc0ef985e23\", \"doc_title\": \"Synthetic spotfire: customer_sales.metadata.json\", \"id\": \"cs_3f86b841-6941-4dc5-a218-4363b5ba4ebc\", \"search_service_name\": \"ReportCodeSearch\", \"source_id\": 0, \"text\": \"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\n{\\n\\n  \\\"notice\\\": \\\"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\\",\\n\\n  \\\"format\\\": \\\"normalized-fixture-v1\\\",\\n\\n  \\\"platform\\\": \\\"Spotfire\\\",\\n\\n  \\\"analysis_id\\\": \\\"SYN_SPOTFIRE_CUSTOMER\\\",\\n\\n  \\\"name\\\": \\\"Customer Sales\\\",\\n\\n  \\\"description\\\": \\\"Invoiced sales by customer and invoice month, excluding tax.\\\",\\n\\n  \\\"library_path\\\": \\\"/Synthetic/Finance/Customer Sales\\\",\\n\\n  \\\"data_tables\\\": [\\n\\n    {\\n\\n      \\\"name\\\": \\\"InvoiceSales\\\",\\n\\n      \\\"source_sql\\\": \\\"fixtures/spotfire/customer_sales.source.sql\\\",\\n\\n      \\\"calculated_columns\\\": [\\n\\n        {\\n\\n          \\\"name\\\": \\\"SalesAmount\\\",\\n\\n          \\\"expression\\\": \\\"[INVOICED_SALES_EX_TAX]\\\"\\n\\n        }\\n\\n      ]\\n\\n    }\\n\\n  ],\\n\\n  \\\"pages\\\": "
+  }
+ ],
+ "final_text": "I traced the 'Customer invoiced sales' visual through four steps, from the visual down to the source table columns. **All of these artifacts are synthetic fixtures** for a made-up company called Northstar Supply. None of them is a real Spotfire or HANA export or a running dashboard.\n\n## The chain\n\n| Step | Artifact | Mapping | Backed by a document? |\n|---|---|---|---|\n| 1. Visual | Spotfire visual `SYN_VIZ_CUSTOMER`, 'Customer invoiced sales' | value = `Sum([SalesAmount])`, category = `[CUSTOMERNAME]`, data table `InvoiceSales` | Yes |\n| 2. Calculated column | `InvoiceSales.SalesAmount` | `[INVOICED_SALES_EX_TAX]`; the data table's source is `fixtures/spotfire/customer_sales.source.sql` | Yes |\n| 3. Source query | Spotfire source SQL | selects `INVOICED_SALES_EX_TAX` and `CUSTOMERNAME` from `\"SYNTHETIC_SALES\".\"CV_INVOICE_SALES\"` | Yes |\n| 4. HANA-style model | `CV_INVOICE_SALES` (one row per `INVOICELINEID`) | `INVOICED_SALES_EX_TAX = INVOICELINES.EXTENDEDPRICE \u2212 INVOICELINES.TAXAMOUNT`; `CUSTOMERNAME = CUSTOMERS.CUSTOMERNAME`. Joins: lines\u2192invoices on `INVOICEID`, invoices\u2192customers on `CUSTOMERID`, lines\u2192stock items on `STOCKITEMID` (all inner joins) | Yes |\n\nSo the measure works out to **Sum(INVOICELINES.EXTENDEDPRICE \u2212 INVOICELINES.TAXAMOUNT), grouped by CUSTOMERS.CUSTOMERNAME**. It's dated by invoice date and covers all loaded dates.\n\n## Documents cited\n\n| Doc id | Path | Version (SHA256) |\n|---|---|---|\n| CONNECTED_a5086dc0ef985e23 | fixtures/spotfire/customer_sales.metadata.json | 46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357 |\n| CONNECTED_1055b17d75582621 | fixtures/spotfire/customer_sales.source.sql | f67352b5a51bba4566da228ea9c31326007138b0e8e05aabca4de2686370f561 |\n| CONNECTED_c321fb5572f5ed86 | fixtures/hana/CV_INVOICE_SALES.model.xml | d33d0ec9211725e359b399623b46396df45aca42fac9800473bebb08cc061ce3 |\n| CONNECTED_d6d252dc2b0538ee | fixtures/business/definitions.md | 250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93 |\n| CUSTOMER_INVOICE_SALES | catalog/customer_invoice_sales.sql | 00ff3721b9a717a97dfe6d8b343d6c1be29fb3cdd5298d425a103a050bfb63b0 |\n\nThe business definitions document agrees with this chain. It defines invoiced sales as ExtendedPrice minus TaxAmount on an invoice-date basis, says ExtendedPrice includes tax, and says Spotfire Customer Sales uses invoices.\n\n## Missing or not backed by the documents\n\n- **Which physical tables the HANA model uses:** the model names `INVOICELINES`, `INVOICES`, `CUSTOMERS` and `STOCKITEMS` without a schema. None of the Spotfire or HANA documents says these are `HACKATHON_D2K_PREWORK.RAW.*`.\n- **The Snowflake report isn't part of the Spotfire chain:** a separate synthetic report computes the same formula directly on the `RAW` tables. It backs the formula up, but nothing links it to the Spotfire visual.\n- **Grouping by name:** the visual groups by `CUSTOMERNAME`, but the report says customers are identified by `CUSTOMERID` and the name is only a label. If two customers share a name, the visual would combine them.\n- **Stock item join:** the inner join to `STOCKITEMS` could drop invoice lines with no matching stock item. The Snowflake report doesn't have this join.\n- **Not checked:** I haven't run anything against live data, so this is a reading of the documents, not a full lineage trace or a reconciliation. Search results are ranked, so they don't prove there are no other related artifacts.",
+ "manual_interventions": "none"
+}

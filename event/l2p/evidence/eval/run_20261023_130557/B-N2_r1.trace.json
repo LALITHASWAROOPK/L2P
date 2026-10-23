@@ -1,0 +1,117 @@
+{
+ "prompt_id": "B-N2_r1",
+ "agent": "HACKATHON_D2K_PREWORK.L2P.L2P_BUILDER",
+ "prompt": "Trace the Qlik Sales Performance 'Sales by month' chart measure through the load script to the HANA-style model and source columns. Then explain ordered versus invoiced sales and reconcile them numerically.",
+ "elapsed_s": 34.3,
+ "data_agent_run_query_id": "01c7edda-010c-6e5d-0034-28cb001b5982",
+ "error": null,
+ "tool_trace": [
+  {
+   "kind": "tool_use",
+   "name": "ReconcileOrderedVsInvoiced",
+   "input": {}
+  },
+  {
+   "kind": "tool_use",
+   "name": "ReportCodeSearch",
+   "input": {
+    "analytical_search": false,
+    "columns": [
+     "DOC_ID",
+     "TITLE"
+    ],
+    "limit": 5,
+    "num_chunks_per_doc": 0,
+    "query": "Qlik Sales Performance Sales by month chart measure"
+   }
+  },
+  {
+   "kind": "tool_result",
+   "name": "ReportCodeSearch",
+   "status": "success",
+   "query_ids": [
+    "03f41521-422b-4c67-95e7-f90db42674ee",
+    "677dca80-2929-4bfb-8809-f46c58ed5659",
+    "e0024c35-7ce6-479f-9d56-1fa6cfa14853",
+    "e36ed415-9c16-4c62-98f4-e36341ec1ad3",
+    "efe6faf1-caa6-4dd9-9278-be4aac14924c"
+   ],
+   "excerpt": "[{\"json\": {\"search_results\": [{\"doc_id\": \"CONNECTED_c09c9d6a14cfbebb\", \"doc_title\": \"Synthetic qlik: sales_performance.metadata.json\", \"id\": \"cs_efe6faf1-caa6-4dd9-9278-be4aac14924c\", \"search_service_name\": \"ReportCodeSearch\", \"source_id\": 0, \"text\": \"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\n{\\n\\n  \\\"notice\\\": \\\"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\\",\\n\\n  \\\"format\\\": \\\"normalized-fixture-v1\\\",\\n\\n  \\\"platform\\\": \\\"Qlik\\\",\\n\\n  \\\"app_id\\\": \\\"SYN_QLIK_SALES\\\",\\n\\n  \\\"app_name\\\": \\\"Sales Performance\\\",\\n\\n  \\\"description\\\": \\\"Customer sales bookings and monthly ordered value, excluding tax.\\\",\\n\\n  \\\"load_script\\\": \\\"fixtures/qlik/sales_performance.qvs\\\",\\n\\n  \\\"sheets\\\": [\\n\\n    {\\n\\n      \\\"id\\\": \\\"SYN_SHEET_ORDERS\\\",\\n\\n      \\\"name\\\": \\\"Monthly Sales\\\",\\n\\n      \\\"charts\\\": [\\n\\n        {\\n\\n          \\\"id\\\": \\\"SYN_CHART_ORDERED\\\",\\n\\n          \\\"title\\\": \\\"Sales by month\\\",\\n\\n          \\\"dimension\\\": \\\"MonthStart(SalesDate)\\\",\\n\\n          \\\"measure\\\": \\\"Sum(SalesAmount)\\\",\\n\\n          \\\"measure_label\\\": \\\"Sales (ordered, excluding tax)\\\"\\n\\n        },\\n\\n        {\\n\\n          \\\"id\\\": \\\"SYN_CHART_CUSTOMER\\\",\\n\\n          \\\"title\\\": \\\"Customer sales\\\",\\n\\n          \\\"dimension\\\": \\\"CUSTOMERNAME\\\",\\n\\"
+  },
+  {
+   "kind": "tool_result",
+   "name": "ReconcileOrderedVsInvoiced",
+   "status": "success",
+   "query_ids": [
+    "01c7edda-010c-6e5d-0034-28cb001b5986"
+   ],
+   "excerpt": "[{\"json\": {\"execution_type\": \"procedure\", \"query_id\": \"01c7edda-010c-6e5d-0034-28cb001b5986\", \"result\": \"{\\\"basis\\\":\\\"Ordered = ROUND(ORDERLINES.QUANTITY*UNITPRICE,2) by ORDERDATE (Qlik Sales Performance). Invoiced = INVOICELINES.EXTENDEDPRICE-TAXAMOUNT by INVOICEDATE (Spotfire Customer Sales). Both exclude tax.\\\",\\\"invoice_date_range\\\":\\\"2026-01-05..2026-03-03\\\",\\\"invoiced_sales_ex_tax\\\":53589.47,\\\"invoices\\\":96,\\\"order_date_range\\\":\\\"2026-01-03..2026-03-01\\\",\\\"ordered_value_ex_tax_all_orders\\\":65893.02,\\\"ordered_value_ex_tax_invoiced_orders\\\":53589.47,\\\"ordered_value_ex_tax_uninvoiced_orders\\\":12303.55,\\\"orders\\\":120,\\\"orders_with_invoice\\\":96,\\\"orders_without_invoice_in_snapshot\\\":24}\", \"truncated\": false}, \"type\": \"json\"}]"
+  },
+  {
+   "kind": "tool_use",
+   "name": "GetSourceDefinition",
+   "input": {
+    "DOC_ID_OR_PATH": "CONNECTED_d6d252dc2b0538ee"
+   }
+  },
+  {
+   "kind": "tool_use",
+   "name": "GetSourceDefinition",
+   "input": {
+    "DOC_ID_OR_PATH": "CONNECTED_c09c9d6a14cfbebb"
+   }
+  },
+  {
+   "kind": "tool_use",
+   "name": "GetSourceDefinition",
+   "input": {
+    "DOC_ID_OR_PATH": "CONNECTED_5a56548a8e0e4e42"
+   }
+  },
+  {
+   "kind": "tool_use",
+   "name": "GetSourceDefinition",
+   "input": {
+    "DOC_ID_OR_PATH": "CONNECTED_c1d6c7f4b37882cd"
+   }
+  },
+  {
+   "kind": "tool_result",
+   "name": "GetSourceDefinition",
+   "status": "success",
+   "query_ids": [
+    "01c7edda-010c-6e5d-0034-28cb001b598e"
+   ],
+   "excerpt": "[{\"json\": {\"execution_type\": \"procedure\", \"query_id\": \"01c7edda-010c-6e5d-0034-28cb001b598e\", \"result\": \"{\\\"documents\\\":[{\\\"artifact_type\\\":\\\"SYNTHETIC_CONNECTED_METADATA\\\",\\\"content\\\":\\\"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\\\n{\\\\n\\\\n  \\\\\\\"notice\\\\\\\": \\\\\\\"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\\\\\\",\\\\n\\\\n  \\\\\\\"format\\\\\\\": \\\\\\\"normalized-fixture-v1\\\\\\\",\\\\n\\\\n  \\\\\\\"platform\\\\\\\": \\\\\\\"Qlik\\\\\\\",\\\\n\\\\n  \\\\\\\"app_id\\\\\\\": \\\\\\\"SYN_QLIK_SALES\\\\\\\",\\\\n\\\\n  \\\\\\\"app_name\\\\\\\": \\\\\\\"Sales Performance\\\\\\\",\\\\n\\\\n  \\\\\\\"description\\\\\\\": \\\\\\\"Customer sales bookings and monthly ordered value, excluding tax.\\\\\\\",\\\\n\\\\n  \\\\\\\"load_script\\\\\\\": \\\\\\\"fixtures/qlik/sales_performance.qvs\\\\\\\",\\\\n\\\\n  \\\\\\\"sheets\\\\\\\": [\\\\n\\\\n    {\\\\n\\\\n      \\\\\\\"id\\\\\\\": \\\\\\\"SYN_SHEET_ORDERS\\\\\\\",\\\\n\\\\n      \\\\\\\"name\\\\\\\": \\\\\\\"Monthly Sales\\\\\\\",\\\\n\\\\n      \\\\\\\"charts\\\\\\\": [\\\\n\\\\n        {\\\\n\\\\n          \\\\\\\"id\\\\\\\": \\\\\\\"SYN_CHART_ORDERED\\\\\\\",\\\\n\\\\n          \\\\\\\"title\\\\\\\": \\\\\\\"Sales by month\\\\\\\",\\\\n\\\\n          \\\\\\\"dimension\\\\\\\": \\\\\\\"MonthStart(SalesDate)\\\\\\\",\\\\n\\\\n          \\\\\\\"measure\\\\\\\": \\\\\\\"Sum(SalesAmount)\\\\\\\",\\\\n\\\\n          \\\\\\\"measure_label\\\\\\\": \\\\\\\"Sales (ordered, excluding tax)\\\\\\\"\\\\n\\\\n        },\\\\n\\\\n        {\\\\n\\\\n          \\\\\\\"id\\\\\\\": \\\\\\\"SYN_CHART_"
+  },
+  {
+   "kind": "tool_result",
+   "name": "GetSourceDefinition",
+   "status": "success",
+   "query_ids": [
+    "01c7edda-010c-6e5d-0034-28cb001b5992"
+   ],
+   "excerpt": "[{\"json\": {\"execution_type\": \"procedure\", \"query_id\": \"01c7edda-010c-6e5d-0034-28cb001b5992\", \"result\": \"{\\\"documents\\\":[{\\\"artifact_type\\\":\\\"SYNTHETIC_CONNECTED_METADATA\\\",\\\"content\\\":\\\"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\\\n// SYNTHETIC fixture; not executed in Qlik. Connection is a placeholder.\\\\n\\\\nLIB CONNECT TO 'SYNTHETIC_HANA_CONNECTION';\\\\n\\\\nSalesOrders:\\\\n\\\\nLOAD ORDERID, ORDERLINEID, ORDERDATE AS SalesDate,\\\\n\\\\n CUSTOMERID, CUSTOMERNAME, STOCKITEMID, STOCKITEMNAME,\\\\n\\\\n QUANTITY, ORDERED_VALUE_EX_TAX AS SalesAmount;\\\\n\\\\nSQL SELECT ORDERID, ORDERLINEID, ORDERDATE, CUSTOMERID, CUSTOMERNAME,\\\\n\\\\n STOCKITEMID, STOCKITEMNAME, QUANTITY, ORDERED_VALUE_EX_TAX\\\\n\\\\nFROM \\\\\\\"SYNTHETIC_SALES\\\\\\\".\\\\\\\"CV_ORDER_SALES\\\\\\\";\\\\n\\\\n\\\",\\\"content_sha256\\\":\\\"747a43ce08421f4735bcee182bb17c0deb251c8868aa5c3c60b55d9d3629aa19\\\",\\\"doc_id\\\":\\\"CONNECTED_5a56548a8e0e4e42\\\",\\\"source_path\\\":\\\"fixtures/qlik/sales_performance.qvs\\\",\\\"source_version\\\":\\\"6101a40d6c86b0be37d91febd8599c70e083f7fb7c2b364b3d5eeed3f432983e\\\",\\\"title\\\":\\\"Synthetic qlik: sales_performance.qvs\\\"}],\\\"ok\\\":true}\", \"truncated\": false}, \"type\": \"json\"}]"
+  },
+  {
+   "kind": "tool_result",
+   "name": "GetSourceDefinition",
+   "status": "success",
+   "query_ids": [
+    "01c7edda-010c-6e5d-0034-28cb001b5996"
+   ],
+   "excerpt": "[{\"json\": {\"execution_type\": \"procedure\", \"query_id\": \"01c7edda-010c-6e5d-0034-28cb001b5996\", \"result\": \"{\\\"documents\\\":[{\\\"artifact_type\\\":\\\"SYNTHETIC_CONNECTED_METADATA\\\",\\\"content\\\":\\\"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\\\n<SyntheticHanaModel name=\\\\\\\"CV_ORDER_SALES\\\\\\\" schema=\\\\\\\"SYNTHETIC_SALES\\\\\\\" sourceSystem=\\\\\\\"SYNTHETIC_HANA\\\\\\\" format=\\\\\\\"normalized-fixture-v1\\\\\\\" nativeDeploymentValidated=\\\\\\\"false\\\\\\\" grain=\\\\\\\"ORDERLINEID\\\\\\\" description=\\\\\\\"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\\\\\\">\\\\n\\\\n  <DataSources>\\\\n\\\\n    <Table name=\\\\\\\"ORDERLINES\\\\\\\" alias=\\\\\\\"l\\\\\\\" />\\\\n\\\\n    <Table name=\\\\\\\"ORDERS\\\\\\\" alias=\\\\\\\"o\\\\\\\" />\\\\n\\\\n    <Table name=\\\\\\\"CUSTOMERS\\\\\\\" alias=\\\\\\\"c\\\\\\\" />\\\\n\\\\n    <Table name=\\\\\\\"STOCKITEMS\\\\\\\" alias=\\\\\\\"p\\\\\\\" />\\\\n\\\\n  </DataSources>\\\\n\\\\n  <Joins>\\\\n\\\\n    <Join left=\\\\\\\"l.ORDERID\\\\\\\" right=\\\\\\\"o.ORDERID\\\\\\\" type=\\\\\\\"inner\\\\\\\" cardinality=\\\\\\\"many-to-one\\\\\\\" />\\\\n\\\\n    <Join left=\\\\\\\"o.CUSTOMERID\\\\\\\" right=\\\\\\\"c.CUSTOMERID\\\\\\\" type=\\\\\\\"inner\\\\\\\" cardinality=\\\\\\\"many-to-one\\\\\\\" />\\\\n\\\\n    <Join left=\\\\\\\"l.STOCKITEMID\\\\\\\" right=\\\\\\\"p.STOCKITEMID\\\\\\\" type=\\\\\\\"inner\\\\\\\" cardinality=\\\\\\\"many-to-one\\\\\\\" />\\\\n\\\\n  </Joins>\\\\n\\\\n  <RelationalDefinition dialect=\\\\\\\"portable SQL"
+  },
+  {
+   "kind": "tool_result",
+   "name": "GetSourceDefinition",
+   "status": "success",
+   "query_ids": [
+    "01c7edda-010c-6e5d-0034-28cb001b59a6"
+   ],
+   "excerpt": "[{\"json\": {\"execution_type\": \"procedure\", \"query_id\": \"01c7edda-010c-6e5d-0034-28cb001b59a6\", \"result\": \"{\\\"documents\\\":[{\\\"artifact_type\\\":\\\"SYNTHETIC_CONNECTED_METADATA\\\",\\\"content\\\":\\\"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\\\n# Northstar Supply: synthetic sales definitions\\\\n\\\\n\\\\n\\\\nAll data and report metadata are fictional. No real customer data is included.\\\\n\\\\nThe platform metadata is normalized fixture content, not native validated app exports.\\\\n\\\\n\\\\n\\\\n- Ordered value: order-line quantity multiplied by unit price; order-date basis.\\\\n\\\\n  Includes orders without invoices. This is a bookings measure, not recognized revenue.\\\\n\\\\n- Invoiced sales: invoice-line ExtendedPrice minus TaxAmount; invoice-date basis.\\\\n\\\\n  This simplified demo calls that revenue, without claiming accounting revenue recognition.\\\\n\\\\n- ExtendedPrice includes tax in the synthetic invoice dataset.\\\\n\\\\n- No currencies, discounts, returns or cancellations are modeled.\\\\n\\\\n- Customers and products are shared between the two reporting paths.\\\\n\\\\n- A product may belong to multiple stock groups. There is no designated primary group\\\\n\\\\n  or approved allocation weighting. Group totals are therefore not necessarily additive.\\\\n\\\\n- A proposed daily customer/product product must specify its date basis, tax treatment\\\\n\\\\n  and grain. Do not silently substitute o"
+  }
+ ],
+ "final_text": "## Lineage of the 'Sales by month' measure (all SOURCE_BACKED)\n\nAll of these files are synthetic, normalized fixtures. None of them is a native export from Qlik or HANA.\n\n| Step | Evidence | doc_id / source_path / source_version |\n|---|---|---|\n| 1. Qlik chart | The chart `SYN_CHART_ORDERED` \"Sales by month\" has dimension `MonthStart(SalesDate)` and measure `Sum(SalesAmount)`, labelled \"Sales (ordered, excluding tax)\". It uses all loaded dates and has no filters. | CONNECTED_c09c9d6a14cfbebb / fixtures/qlik/sales_performance.metadata.json / 8d8c9c69824dad7d75135ca808e54a3f46a269d870eb3b385d0777ffc1bd55ad |\n| 2. Load script | `ORDERDATE AS SalesDate` and `ORDERED_VALUE_EX_TAX AS SalesAmount`. The data comes from `\"SYNTHETIC_SALES\".\"CV_ORDER_SALES\"`. | CONNECTED_5a56548a8e0e4e42 / fixtures/qlik/sales_performance.qvs / 6101a40d6c86b0be37d91febd8599c70e083f7fb7c2b364b3d5eeed3f432983e |\n| 3. HANA-style model | `CV_ORDER_SALES` has one row per `ORDERLINEID`. It computes `ORDERED_VALUE_EX_TAX = ROUND(l.QUANTITY * l.UNITPRICE, 2)`. `ORDERDATE` comes from `ORDERS`. Order lines are inner-joined to orders, orders to customers, and order lines to stock items, all many-to-one. | CONNECTED_c1d6c7f4b37882cd / fixtures/hana/CV_ORDER_SALES.model.xml / b2d9a0cf0e09571bbb90293129dd0804a1ccd80ea168378ab3f7d52e78e8684a |\n| 4. Source columns | ORDERLINES.QUANTITY, ORDERLINES.UNITPRICE, ORDERS.ORDERDATE, plus CUSTOMERS and STOCKITEMS for the dimensions | Same model file as step 3 |\n\nThe chart therefore shows the sum of ROUND(ORDERLINES.QUANTITY \u00d7 UNITPRICE, 2) for each month of ORDERS.ORDERDATE.\n\n**Gaps in the evidence:** the model was never deployed or validated in a real HANA system (`nativeDeploymentValidated=\"false\"`). The Qlik connection is a placeholder and the script was never run in Qlik.\n\n## Ordered vs invoiced sales\nSource: CONNECTED_d6d252dc2b0538ee / fixtures/business/definitions.md / 250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93\n\n- **Ordered value** is quantity \u00d7 unit price, dated by order date. It includes orders that have not been invoiced, so it measures bookings, not revenue. The Qlik Sales Performance app uses this measure.\n- **Invoiced sales** is ExtendedPrice minus TaxAmount on invoice lines, dated by invoice date. The Spotfire Customer Sales report uses this measure.\n- Both measures exclude tax, so tax does not explain the difference between them.\n\n## Numeric reconciliation\nFrom ReconcileOrderedVsInvoiced, query ID 01c7edda-010c-6e5d-0034-28cb001b5986:\n\n| Item | Value |\n|---|---|\n| Ordered value excluding tax, all 120 orders (order dates 2026-01-03 to 2026-03-01) | 65,893.02 |\n| Less: 24 orders with no invoice in the current data | \u221212,303.55 |\n| Ordered value of the 96 invoiced orders | 53,589.47 |\n| Invoiced sales excluding tax, 96 invoices (invoice dates 2026-01-05 to 2026-03-03) | 53,589.47 |\n| Remaining difference | 0.00 |\n\nThe whole gap of 12,303.55 comes from the 24 orders that have not been invoiced. For orders that have been invoiced, the two totals match exactly.\n\nMonthly figures can still differ even though the totals agree. Invoices are dated about two days after their orders, so an order placed near the end of one month can be invoiced in the next.\n\nNo candidate data product was proposed or released; none was requested.",
+ "manual_interventions": "none"
+}

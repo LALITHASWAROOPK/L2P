@@ -1,0 +1,103 @@
+{
+ "prompt_id": "B-N1_r2",
+ "agent": "HACKATHON_D2K_PREWORK.L2P.L2P_BUILDER",
+ "prompt": "Trace the Spotfire 'Customer invoiced sales' visual measure all the way to source table columns. Cite each document's id, path and version, and say which mappings are source-backed versus missing.",
+ "elapsed_s": 29.7,
+ "data_agent_run_query_id": "01c7edd9-010c-6e5a-0034-28cb001b2782",
+ "error": null,
+ "tool_trace": [
+  {
+   "kind": "tool_use",
+   "name": "ReportCodeSearch",
+   "input": {
+    "analytical_search": false,
+    "columns": [
+     "DOC_ID",
+     "TITLE"
+    ],
+    "limit": 5,
+    "num_chunks_per_doc": 0,
+    "query": "Spotfire Customer invoiced sales visual measure"
+   }
+  },
+  {
+   "kind": "tool_result",
+   "name": "ReportCodeSearch",
+   "status": "success",
+   "query_ids": [
+    "345755ca-4e2c-4e8c-8ae8-fda524a3399c",
+    "41cae0d9-2839-4298-95bb-486f5a690cd9",
+    "971f8a83-b56b-4d36-985e-a4e0f094bfd7",
+    "bd9f1611-3c7a-4f9e-bdb9-fd20de5ead9a",
+    "e84cdb1d-6686-40e9-a1bd-7637accbb55b"
+   ],
+   "excerpt": "[{\"json\": {\"search_results\": [{\"doc_id\": \"CONNECTED_a5086dc0ef985e23\", \"doc_title\": \"Synthetic spotfire: customer_sales.metadata.json\", \"id\": \"cs_971f8a83-b56b-4d36-985e-a4e0f094bfd7\", \"search_service_name\": \"ReportCodeSearch\", \"source_id\": 0, \"text\": \"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\n{\\n\\n  \\\"notice\\\": \\\"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\\",\\n\\n  \\\"format\\\": \\\"normalized-fixture-v1\\\",\\n\\n  \\\"platform\\\": \\\"Spotfire\\\",\\n\\n  \\\"analysis_id\\\": \\\"SYN_SPOTFIRE_CUSTOMER\\\",\\n\\n  \\\"name\\\": \\\"Customer Sales\\\",\\n\\n  \\\"description\\\": \\\"Invoiced sales by customer and invoice month, excluding tax.\\\",\\n\\n  \\\"library_path\\\": \\\"/Synthetic/Finance/Customer Sales\\\",\\n\\n  \\\"data_tables\\\": [\\n\\n    {\\n\\n      \\\"name\\\": \\\"InvoiceSales\\\",\\n\\n      \\\"source_sql\\\": \\\"fixtures/spotfire/customer_sales.source.sql\\\",\\n\\n      \\\"calculated_columns\\\": [\\n\\n        {\\n\\n          \\\"name\\\": \\\"SalesAmount\\\",\\n\\n          \\\"expression\\\": \\\"[INVOICED_SALES_EX_TAX]\\\"\\n\\n        }\\n\\n      ]\\n\\n    }\\n\\n  ],\\n\\n  \\\"pages\\\": [\\n\\n    {\\n\\n      \\\"name\\\": \\\"Invoice Sales\\\",\\n\\n      \\\"visuals\\\": [\\n\\n        {\\n\\n          \\\"id\\\": \\\"SYN_VIZ_CUSTOMER\\\",\\n\\n          \\\"title\\\": \\\"Customer invoiced sales\\\",\\n\\n          \\\"data_table\\\": \\\""
+  },
+  {
+   "kind": "tool_use",
+   "name": "GetSourceDefinition",
+   "input": {
+    "DOC_ID_OR_PATH": "fixtures/hana/CV_INVOICE_SALES.sql"
+   }
+  },
+  {
+   "kind": "tool_use",
+   "name": "GetSourceDefinition",
+   "input": {
+    "DOC_ID_OR_PATH": "CONNECTED_a5086dc0ef985e23"
+   }
+  },
+  {
+   "kind": "tool_use",
+   "name": "GetSourceDefinition",
+   "input": {
+    "DOC_ID_OR_PATH": "CONNECTED_1055b17d75582621"
+   }
+  },
+  {
+   "kind": "tool_use",
+   "name": "GetSourceDefinition",
+   "input": {
+    "DOC_ID_OR_PATH": "CONNECTED_c321fb5572f5ed86"
+   }
+  },
+  {
+   "kind": "tool_result",
+   "name": "GetSourceDefinition",
+   "status": "success",
+   "query_ids": [
+    "01c7edd9-010c-6e5a-0034-28cb001b2786"
+   ],
+   "excerpt": "[{\"json\": {\"execution_type\": \"procedure\", \"query_id\": \"01c7edd9-010c-6e5a-0034-28cb001b2786\", \"result\": \"{\\\"documents\\\":[{\\\"artifact_type\\\":\\\"SYNTHETIC_CONNECTED_METADATA\\\",\\\"content\\\":\\\"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\\\n{\\\\n\\\\n  \\\\\\\"notice\\\\\\\": \\\\\\\"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\\\\\\",\\\\n\\\\n  \\\\\\\"format\\\\\\\": \\\\\\\"normalized-fixture-v1\\\\\\\",\\\\n\\\\n  \\\\\\\"platform\\\\\\\": \\\\\\\"Spotfire\\\\\\\",\\\\n\\\\n  \\\\\\\"analysis_id\\\\\\\": \\\\\\\"SYN_SPOTFIRE_CUSTOMER\\\\\\\",\\\\n\\\\n  \\\\\\\"name\\\\\\\": \\\\\\\"Customer Sales\\\\\\\",\\\\n\\\\n  \\\\\\\"description\\\\\\\": \\\\\\\"Invoiced sales by customer and invoice month, excluding tax.\\\\\\\",\\\\n\\\\n  \\\\\\\"library_path\\\\\\\": \\\\\\\"/Synthetic/Finance/Customer Sales\\\\\\\",\\\\n\\\\n  \\\\\\\"data_tables\\\\\\\": [\\\\n\\\\n    {\\\\n\\\\n      \\\\\\\"name\\\\\\\": \\\\\\\"InvoiceSales\\\\\\\",\\\\n\\\\n      \\\\\\\"source_sql\\\\\\\": \\\\\\\"fixtures/spotfire/customer_sales.source.sql\\\\\\\",\\\\n\\\\n      \\\\\\\"calculated_columns\\\\\\\": [\\\\n\\\\n        {\\\\n\\\\n          \\\\\\\"name\\\\\\\": \\\\\\\"SalesAmount\\\\\\\",\\\\n\\\\n          \\\\\\\"expression\\\\\\\": \\\\\\\"[INVOICED_SALES_EX_TAX]\\\\\\\"\\\\n\\\\n        }\\\\n\\\\n      ]\\\\n\\\\n    }\\\\n\\\\n  ],\\\\n\\\\n  \\\\\\\"pages\\\\\\\": [\\\\n\\\\n    {\\\\n\\\\n      \\\\\\\"name\\\\\\\": \\\\\\\"Invoice Sales\\\\\\\",\\\\n\\\\n      \\\\\\\"visuals\\\\\\\": [\\\\n\\\\n        {\\\\n\\\\n          \\\\\\\"id\\\\\\\": \\\\\\\"S"
+  },
+  {
+   "kind": "tool_result",
+   "name": "GetSourceDefinition",
+   "status": "success",
+   "query_ids": [
+    "01c7edd9-010c-6e5a-0034-28cb001b278e"
+   ],
+   "excerpt": "[{\"json\": {\"execution_type\": \"procedure\", \"query_id\": \"01c7edd9-010c-6e5a-0034-28cb001b278e\", \"result\": \"{\\\"documents\\\":[{\\\"artifact_type\\\":\\\"SYNTHETIC_CONNECTED_METADATA\\\",\\\"content\\\":\\\"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\\\n-- Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\\\n\\\\nSELECT INVOICEID, INVOICELINEID, ORDERID, INVOICEDATE,\\\\n\\\\n CUSTOMERID, CUSTOMERNAME, STOCKITEMID, STOCKITEMNAME, QUANTITY,\\\\n\\\\n INVOICED_SALES_EX_TAX, INVOICE_TAX, INVOICE_TOTAL_INCL_TAX\\\\n\\\\nFROM \\\\\\\"SYNTHETIC_SALES\\\\\\\".\\\\\\\"CV_INVOICE_SALES\\\\\\\";\\\\n\\\\n\\\",\\\"content_sha256\\\":\\\"5801e9134a786cfd9a054fcbd94b99a90cf95322be0809155adacbc99a989d8b\\\",\\\"doc_id\\\":\\\"CONNECTED_1055b17d75582621\\\",\\\"source_path\\\":\\\"fixtures/spotfire/customer_sales.source.sql\\\",\\\"source_version\\\":\\\"f67352b5a51bba4566da228ea9c31326007138b0e8e05aabca4de2686370f561\\\",\\\"title\\\":\\\"Synthetic spotfire: customer_sales.source.sql\\\"}],\\\"ok\\\":true}\", \"truncated\": false}, \"type\": \"json\"}]"
+  },
+  {
+   "kind": "tool_result",
+   "name": "GetSourceDefinition",
+   "status": "success",
+   "query_ids": [
+    "01c7edd9-010c-6e5a-0034-28cb001b278a"
+   ],
+   "excerpt": "[{\"json\": {\"execution_type\": \"procedure\", \"query_id\": \"01c7edd9-010c-6e5a-0034-28cb001b278a\", \"result\": \"{\\\"documents\\\":[{\\\"artifact_type\\\":\\\"SYNTHETIC_CONNECTED_METADATA\\\",\\\"content\\\":\\\"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\\\n-- Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\\\n\\\\n-- SQL equivalent of the normalized model, not an SAP deployment artifact.\\\\n\\\\nSELECT i.INVOICEID, l.INVOICELINEID, i.ORDERID, i.INVOICEDATE,\\\\n\\\\n c.CUSTOMERID, c.CUSTOMERNAME, p.STOCKITEMID, p.STOCKITEMNAME,\\\\n\\\\n l.QUANTITY, l.EXTENDEDPRICE - l.TAXAMOUNT AS INVOICED_SALES_EX_TAX,\\\\n\\\\n l.TAXAMOUNT AS INVOICE_TAX, l.EXTENDEDPRICE AS INVOICE_TOTAL_INCL_TAX\\\\n\\\\nFROM INVOICELINES l\\\\n\\\\nJOIN INVOICES i ON l.INVOICEID = i.INVOICEID\\\\n\\\\nJOIN CUSTOMERS c ON i.CUSTOMERID = c.CUSTOMERID\\\\n\\\\nJOIN STOCKITEMS p ON l.STOCKITEMID = p.STOCKITEMID;\\\\n\\\\n\\\",\\\"content_sha256\\\":\\\"efddbcb47e3ff00c0be7131f901d7337a717d689c8a0df817a0afbd9dc596160\\\",\\\"doc_id\\\":\\\"CONNECTED_6f53633c096a6b56\\\",\\\"source_path\\\":\\\"fixtures/hana/CV_INVOICE_SALES.sql\\\",\\\"source_version\\\":\\\"a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d\\\",\\\"title\\\":\\\"Synthetic hana: CV_INVOICE_SALES.sql\\\"}],\\\"ok\\\":true}\", \"truncated\": false}, \"type\": \"json\"}]"
+  },
+  {
+   "kind": "tool_result",
+   "name": "GetSourceDefinition",
+   "status": "success",
+   "query_ids": [
+    "01c7edd9-010c-6e5a-0034-28cb001b2792"
+   ],
+   "excerpt": "[{\"json\": {\"execution_type\": \"procedure\", \"query_id\": \"01c7edd9-010c-6e5a-0034-28cb001b2792\", \"result\": \"{\\\"documents\\\":[{\\\"artifact_type\\\":\\\"SYNTHETIC_CONNECTED_METADATA\\\",\\\"content\\\":\\\"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\\\n<SyntheticHanaModel name=\\\\\\\"CV_INVOICE_SALES\\\\\\\" schema=\\\\\\\"SYNTHETIC_SALES\\\\\\\" sourceSystem=\\\\\\\"SYNTHETIC_HANA\\\\\\\" format=\\\\\\\"normalized-fixture-v1\\\\\\\" nativeDeploymentValidated=\\\\\\\"false\\\\\\\" grain=\\\\\\\"INVOICELINEID\\\\\\\" description=\\\\\\\"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\\\\\\\">\\\\n\\\\n  <DataSources>\\\\n\\\\n    <Table name=\\\\\\\"INVOICELINES\\\\\\\" alias=\\\\\\\"l\\\\\\\" />\\\\n\\\\n    <Table name=\\\\\\\"INVOICES\\\\\\\" alias=\\\\\\\"i\\\\\\\" />\\\\n\\\\n    <Table name=\\\\\\\"CUSTOMERS\\\\\\\" alias=\\\\\\\"c\\\\\\\" />\\\\n\\\\n    <Table name=\\\\\\\"STOCKITEMS\\\\\\\" alias=\\\\\\\"p\\\\\\\" />\\\\n\\\\n  </DataSources>\\\\n\\\\n  <Joins>\\\\n\\\\n    <Join left=\\\\\\\"l.INVOICEID\\\\\\\" right=\\\\\\\"i.INVOICEID\\\\\\\" type=\\\\\\\"inner\\\\\\\" cardinality=\\\\\\\"many-to-one\\\\\\\" />\\\\n\\\\n    <Join left=\\\\\\\"i.CUSTOMERID\\\\\\\" right=\\\\\\\"c.CUSTOMERID\\\\\\\" type=\\\\\\\"inner\\\\\\\" cardinality=\\\\\\\"many-to-one\\\\\\\" />\\\\n\\\\n    <Join left=\\\\\\\"l.STOCKITEMID\\\\\\\" right=\\\\\\\"p.STOCKITEMID\\\\\\\" type=\\\\\\\"inner\\\\\\\" cardinality=\\\\\\\"many-to-one\\\\\\\" />\\\\n\\\\n  </Joins>\\\\n\\\\n  <RelationalDefinition dialect=\\\\\\\""
+  }
+ ],
+ "final_text": "Need versions; fetch full definitions.\nThe visual's measure traces to **INVOICELINES.EXTENDEDPRICE \u2212 INVOICELINES.TAXAMOUNT**, summed by **CUSTOMERS.CUSTOMERNAME**. It's on an invoice-date basis, tax is excluded and there are no filters. Every step below is backed by a source file. The gaps are listed at the end.\n\n**Lineage**\n\n| Step | Document (doc_id \u00b7 path \u00b7 version) | What it says |\n|---|---|---|\n| 1. Visual | CONNECTED_a5086dc0ef985e23 \u00b7 fixtures/spotfire/customer_sales.metadata.json \u00b7 46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357 | Visual SYN_VIZ_CUSTOMER \"Customer invoiced sales\" uses data table InvoiceSales. Its category is `[CUSTOMERNAME]` and its value is `Sum([SalesAmount])`. The calculated column `SalesAmount = [INVOICED_SALES_EX_TAX]`. There are no filters, it uses all loaded dates and currency is null. |\n| 2. Data table source | CONNECTED_1055b17d75582621 \u00b7 fixtures/spotfire/customer_sales.source.sql \u00b7 f67352b5a51bba4566da228ea9c31326007138b0e8e05aabca4de2686370f561 | Reads INVOICED_SALES_EX_TAX, CUSTOMERNAME, CUSTOMERID, INVOICEDATE and other columns directly from `\"SYNTHETIC_SALES\".\"CV_INVOICE_SALES\"`. |\n| 3. HANA-style model | CONNECTED_c321fb5572f5ed86 \u00b7 fixtures/hana/CV_INVOICE_SALES.model.xml \u00b7 d33d0ec9211725e359b399623b46396df45aca42fac9800473bebb08cc061ce3 | One row per INVOICELINEID. `INVOICED_SALES_EX_TAX = l.EXTENDEDPRICE - l.TAXAMOUNT`, and `CUSTOMERNAME = c.CUSTOMERNAME`. Joins are inner and many-to-one: INVOICELINES.INVOICEID \u2192 INVOICES.INVOICEID, INVOICES.CUSTOMERID \u2192 CUSTOMERS.CUSTOMERID, INVOICELINES.STOCKITEMID \u2192 STOCKITEMS.STOCKITEMID. The model is marked `nativeDeploymentValidated=\"false\"`. |\n| 3b. SQL equivalent | CONNECTED_6f53633c096a6b56 \u00b7 fixtures/hana/CV_INVOICE_SALES.sql \u00b7 a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d | Same columns and joins as the XML model. It says it is not an SAP deployment artifact. |\n| Business rule | CONNECTED_d6d252dc2b0538ee \u00b7 Synthetic business: definitions.md | Invoiced sales = invoice-line ExtendedPrice minus TaxAmount, on invoice date. ExtendedPrice includes tax. (I took this from the search result only and didn't open the full file, so I don't have its path or version.) |\n\n**Source-backed mappings**\n- SalesAmount \u2192 CV_INVOICE_SALES.INVOICED_SALES_EX_TAX \u2192 INVOICELINES.EXTENDEDPRICE \u2212 INVOICELINES.TAXAMOUNT\n- Category CUSTOMERNAME \u2192 CUSTOMERS.CUSTOMERNAME, reached through INVOICES.CUSTOMERID\n- Date basis (used by the monthly visual and the definitions) \u2192 INVOICES.INVOICEDATE\n\n**Missing or unsupported**\n- **Physical location of the tables:** the model names INVOICELINES, INVOICES, CUSTOMERS and STOCKITEMS without a database or schema. A different report, \"Customer invoiced sales\" (CUSTOMER_INVOICE_SALES), reads from `HACKATHON_D2K_PREWORK.RAW.*`. That doesn't show that CV_INVOICE_SALES points at the same tables.\n- **Customer grouping:** the visual groups by customer name only, not by CUSTOMERID. Two customers with the same name would be combined into one bar.\n- **Deployment:** all of these files are normalized synthetic fixtures, not real Spotfire or HANA exports, and none has been checked against a running system.\n- **Extra inner join:** the STOCKITEMS join isn't needed for this measure. Any invoice line whose product has no STOCKITEMS match would drop out of the total, and the documents don't say whether that ever happens.",
+ "manual_interventions": "none"
+}

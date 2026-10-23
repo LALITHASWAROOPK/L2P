@@ -1,0 +1,45 @@
+{
+ "prompt_id": "C-N2_r1",
+ "agent": "HACKATHON_D2K_PREWORK.L2P_CONSUMER.L2P_CONSUMER",
+ "prompt": "Using the released product, rank the top 3 customers by sales between 2026-02-01 and 2026-02-28 inclusive.",
+ "elapsed_s": 17.4,
+ "data_agent_run_query_id": "01c7edd7-010c-6d8c-0034-28cb001b66a2",
+ "error": null,
+ "tool_trace": [
+  {
+   "kind": "tool_use",
+   "name": "DiscoverReleasedProduct",
+   "input": {}
+  },
+  {
+   "kind": "tool_result",
+   "name": "DiscoverReleasedProduct",
+   "status": "success",
+   "query_ids": [
+    "01c7edd7-010c-6d8c-0034-28cb001b66a6"
+   ],
+   "excerpt": "[{\"json\": {\"execution_type\": \"procedure\", \"query_id\": \"01c7edd7-010c-6d8c-0034-28cb001b66a6\", \"result\": \"{\\\"available\\\":true,\\\"content_hash\\\":\\\"118407673939843085\\\",\\\"date_range\\\":\\\"2026-01-05..2026-03-03\\\",\\\"fields\\\":[{\\\"definition\\\":\\\"INVOICES.INVOICEDATE\\\",\\\"name\\\":\\\"INVOICE_DATE\\\",\\\"type\\\":\\\"DATE\\\"},{\\\"definition\\\":\\\"INVOICES.CUSTOMERID\\\",\\\"name\\\":\\\"CUSTOMER_ID\\\",\\\"type\\\":\\\"NUMBER\\\"},{\\\"definition\\\":\\\"INVOICELINES.STOCKITEMID\\\",\\\"name\\\":\\\"STOCK_ITEM_ID\\\",\\\"type\\\":\\\"NUMBER\\\"},{\\\"definition\\\":\\\"CUSTOMERS.CUSTOMERNAME via INVOICES.CUSTOMERID\\\",\\\"name\\\":\\\"CUSTOMER_NAME\\\",\\\"type\\\":\\\"TEXT\\\"},{\\\"definition\\\":\\\"STOCKITEMS.STOCKITEMNAME via INVOICELINES.STOCKITEMID\\\",\\\"name\\\":\\\"STOCK_ITEM_NAME\\\",\\\"type\\\":\\\"TEXT\\\"},{\\\"definition\\\":\\\"COUNT(INVOICELINES)\\\",\\\"name\\\":\\\"INVOICE_LINE_COUNT\\\",\\\"type\\\":\\\"NUMBER\\\"},{\\\"definition\\\":\\\"SUM(INVOICELINES.QUANTITY)\\\",\\\"name\\\":\\\"QUANTITY\\\",\\\"type\\\":\\\"NUMBER\\\"},{\\\"definition\\\":\\\"SUM(INVOICELINES.EXTENDEDPRICE - INVOICELINES.TAXAMOUNT)\\\",\\\"name\\\":\\\"SALES_EXCLUDING_TAX\\\",\\\"type\\\":\\\"NUMBER\\\"},{\\\"definition\\\":\\\"SUM(INVOICELINES.TAXAMOUNT)\\\",\\\"name\\\":\\\"TAX_AMOUNT\\\",\\\"type\\\":\\\"NUMBER\\\"},{\\\"definition\\\":\\\"SUM(INVOICELINES.EXTENDEDPRICE)\\\",\\\"name\\\":\\\"TOTAL_INCLUDING_TAX\\\",\\\"type\\\":\\\"NUMBER\\\"}],\\\"grain\\\":[\\\"INVOICE_DATE\\\",\\\"CUSTOMER_ID\\\",\\\"STOCK_ITEM_ID\\\"],\\\"not_available\\\":[\\\"currency\\\",\\\"margin\\\",\\\"marketing consent\\\",\\\"campaign response\\\",\\\"causal uplift\\\",\\\"returns\\\",\\\"discounts\\\",\\\"calendar zero-fill\\\"],\\\"product\\\":\\\"DAILY_INVOICED_SALES\\\",\\\"release_ob"
+  },
+  {
+   "kind": "tool_use",
+   "name": "RankCustomersBySales",
+   "input": {
+    "END_DATE": "2026-02-28",
+    "START_DATE": "2026-02-01",
+    "TOP_N": 3
+   }
+  },
+  {
+   "kind": "tool_result",
+   "name": "RankCustomersBySales",
+   "status": "success",
+   "query_ids": [
+    "01c7edd7-010c-6d8c-0034-28cb001b66be",
+    "01c7edd7-010c-6d8c-0034-28cb001b66ce"
+   ],
+   "excerpt": "[{\"json\": {\"execution_type\": \"procedure\", \"query_id\": \"01c7edd7-010c-6d8c-0034-28cb001b66be\", \"result\": \"{\\\"content_hash_verified\\\":\\\"118407673939843085\\\",\\\"end_date\\\":\\\"2026-02-28\\\",\\\"evidence_boundary\\\":\\\"Ranking is by computed invoiced sales only. No consent, campaign response, margin or uplift data exists in this product.\\\",\\\"measure\\\":\\\"SUM(SALES_EXCLUDING_TAX) = invoice ExtendedPrice minus TaxAmount; no currency modeled\\\",\\\"ok\\\":true,\\\"product\\\":\\\"DAILY_INVOICED_SALES\\\",\\\"queried_object\\\":\\\"HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101\\\",\\\"query_id\\\":\\\"01c7edd7-010c-6d8c-0034-28cb001b66ce\\\",\\\"ranking\\\":[{\\\"active_days\\\":4,\\\"customer_id\\\":10,\\\"customer_name\\\":\\\"Fictional Customer 010\\\",\\\"distinct_items\\\":9,\\\"first_invoice_date\\\":\\\"2026-02-03\\\",\\\"invoice_lines\\\":10,\\\"last_invoice_date\\\":\\\"2026-02-22\\\",\\\"rank\\\":1,\\\"sales_excluding_tax\\\":3275.27},{\\\"active_days\\\":5,\\\"customer_id\\\":18,\\\"customer_name\\\":\\\"Fictional Customer 018\\\",\\\"distinct_items\\\":10,\\\"first_invoice_date\\\":\\\"2026-02-04\\\",\\\"invoice_lines\\\":14,\\\"last_invoice_date\\\":\\\"2026-02-26\\\",\\\"rank\\\":2,\\\"sales_excluding_tax\\\":2787.78},{\\\"active_days\\\":4,\\\"customer_id\\\":8,\\\"customer_name\\\":\\\"Fictional Customer 008\\\",\\\"distinct_items\\\":8,\\\"first_invoice_date\\\":\\\"2026-02-07\\\",\\\"invoice_lines\\\":10,\\\"last_invoice_date\\\":\\\"2026-02-20\\\",\\\"rank\\\":3,\\\"sales_excluding_tax\\\":2600.14}],\\\"start_date\\\":\\\"2026-02-01\\\",\\\"top_n\\\":3,\\\"version\\\":101}\", \"truncated\": false}, \"type\": \"json\"}]"
+  }
+ ],
+ "final_text": "Here are the top 3 customers by invoiced sales excluding tax from 2026-02-01 to 2026-02-28.\n\n**Source:** the released product DAILY_INVOICED_SALES, version 101, using the object `HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101`. The data is synthetic Northstar Supply data covering 2026-01-05 to 2026-03-03. Each row is one invoice date, customer and stock item, and the product's content hash matched when the ranking ran.\n\n**Account-review shortlist, February 2026**\n\n| Rank | Customer (ID) | Sales excluding tax | Invoice lines | Days with invoices | Different items | First / last invoice |\n|---|---|---|---|---|---|---|\n| 1 | Fictional Customer 010 (10) | 3,275.27 | 10 | 4 | 9 | 2026-02-03 / 2026-02-22 |\n| 2 | Fictional Customer 018 (18) | 2,787.78 | 14 | 5 | 10 | 2026-02-04 / 2026-02-26 |\n| 3 | Fictional Customer 008 (8) | 2,600.14 | 10 | 4 | 8 | 2026-02-07 / 2026-02-20 |\n\n\"Sales excluding tax\" is the invoice line price minus its tax amount, added up for the month. The product doesn't record a currency, so the amounts have none.\n\n**What this data can't show:** the ranking is based only on invoiced sales. The product has no data on marketing consent, campaign response, margin or causal uplift. That means it can't tell you whether a campaign had any effect, whether these customers may be contacted, or whether they're profitable. Returns and discounts aren't included either, and days with no invoices aren't filled in as zero.",
+ "manual_interventions": "none"
+}

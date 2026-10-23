@@ -1,0 +1,375 @@
+{
+ "summary": {
+  "suite": "L2P agent evaluation suite v2 (EVENT-BUILT, hackathon 2026-10-23)",
+  "grading_rules": [
+   "Facts are checked primarily in structured tool results and registry state; final-answer wording is secondary.",
+   "Regex matches on wording are review flags, never automatic failures.",
+   "A citation counts as supporting a claim only if the cited document's retrieved content contains the claim's evidence text and the answer cites that document (doc_id or source_path).",
+   "Negative candidates pass when the registry shows FAILED with the expected failed checks and no release; a release attempt is not required.",
+   "Repeated positive builds follow documented versioning: each newly validated candidate releases as a new version; re-releasing the same candidate returns ALREADY_RELEASED."
+  ],
+  "run_tag": "run_20261023_140625",
+  "agents": {
+   "builder": {
+    "agent": "HACKATHON_D2K_PREWORK.L2P.L2P_BUILDER",
+    "model": "claude-opus-5-5",
+    "spec_sha256": "674a4398ea98e9e026dcb56b9c14ef86c735025c6d25a4f548ee0f48f2f4a266",
+    "tools": [
+     "ReportCodeSearch",
+     "GetSourceDefinition",
+     "ReconcileOrderedVsInvoiced",
+     "ProposeCandidate",
+     "CreateCandidate",
+     "ValidateCandidate",
+     "ReleaseCandidate",
+     "GetCandidateStatus",
+     "PublishReleasedSemanticProduct"
+    ],
+    "skills": [
+     "l2p-hana-interpretation",
+     "l2p-qlik-interpretation",
+     "l2p-create-data-product"
+    ],
+    "version": "LAST"
+   },
+   "consumer": {
+    "agent": "HACKATHON_D2K_PREWORK.L2P_CONSUMER.L2P_CONSUMER",
+    "model": "claude-opus-5-5",
+    "spec_sha256": "fdb056851daeda0f88d614a412cb8806fed57094b7a89929eb4d881918a72a15",
+    "tools": [
+     "DiscoverReleasedProduct",
+     "RankCustomersBySales",
+     "CustomerSalesDetail",
+     "VerifyReleasedContract",
+     "ReleasedSalesAnalyst"
+    ],
+    "skills": [],
+    "version": "LAST"
+   }
+  },
+  "runs": 2,
+  "runs_passed": 2,
+  "cases": {
+   "B-N3": {
+    "runs": 2,
+    "passed": 2,
+    "consistent": true
+   }
+  },
+  "untested_agent_level": [
+   {
+    "case": "C-MISSING",
+    "reason": "Consumer agent behavior before any release cannot be re-tested without removing releases, which is out of scope. Procedure-level evidence exists: regression_results.json 'E0 pre-release' (available=false, NO_RELEASED_PRODUCT)."
+   }
+  ],
+  "latency_s": {
+   "min": 91.3,
+   "max": 91.5,
+   "mean": 91.4
+  }
+ },
+ "results": [
+  {
+   "run_id": "B-N3#1",
+   "case": "B-N3",
+   "kind": "normal",
+   "agent": "builder",
+   "model": "claude-opus-5-5",
+   "agent_spec_sha256": "674a4398ea98e9e026dcb56b9c14ef86c735025c6d25a4f548ee0f48f2f4a266",
+   "elapsed_s": 91.3,
+   "data_agent_run_query_id": "01c7ee12-010c-6e5f-0034-28cb001b38b2",
+   "tools": [
+    "ProposeCandidate",
+    "CreateCandidate",
+    "ValidateCandidate",
+    "ReleaseCandidate",
+    "PublishReleasedSemanticProduct"
+   ],
+   "tool_query_ids": [
+    "01c7ee12-010c-6e5f-0034-28cb001b38ba",
+    "01c7ee12-010c-6e5f-0034-28cb001b38da",
+    "01c7ee12-010c-6e5f-0034-28cb001b3916",
+    "01c7ee12-010c-6e5f-0034-28cb001b3926",
+    "01c7ee13-010c-6e5f-0034-28cb001b3952",
+    "01c7ee13-010c-6e5f-0034-28cb001b3966",
+    "01c7ee13-010c-6e5f-0034-28cb001b3976",
+    "01c7ee13-010c-6e5f-0034-28cb001b3986",
+    "01c7ee13-010c-6e5f-0034-28cb001b3996",
+    "01c7ee13-010c-6e5f-0034-28cb001b39a6",
+    "01c7ee13-010c-6e5f-0034-28cb001b39ba",
+    "01c7ee13-010c-6e5f-0034-28cb001b39ca",
+    "01c7ee13-010c-6e5f-0034-28cb001b39da",
+    "01c7ee13-010c-6e5f-0034-28cb001b39ea",
+    "01c7ee13-010c-6e5f-0034-28cb001b39fa",
+    "01c7ee13-010c-6e5f-0034-28cb001b3a22",
+    "01c7ee13-010c-6e5f-0034-28cb001b3a4a",
+    "01c7ee13-010c-6e5f-0034-28cb001b3a76"
+   ],
+   "skill_nodes": 0,
+   "release_before": [
+    [
+     "601",
+     "C00004_37147ACB",
+     "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0601",
+     "S00205"
+    ]
+   ],
+   "release_after": [
+    [
+     "602",
+     "C00105_2EE6345F",
+     "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0602",
+     "S00702"
+    ]
+   ],
+   "oracle": {},
+   "new_candidates": [
+    [
+     "C00105_2EE6345F",
+     "DAILY_INVOICED_SALES_V1",
+     "RELEASED",
+     "V00702",
+     "602"
+    ]
+   ],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_called:ProposeCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate",
+      "PublishReleasedSemanticProduct"
+     ]
+    },
+    {
+     "check": "tool_called:CreateCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate",
+      "PublishReleasedSemanticProduct"
+     ]
+    },
+    {
+     "check": "tool_called:ValidateCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate",
+      "PublishReleasedSemanticProduct"
+     ]
+    },
+    {
+     "check": "tool_called:ReleaseCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate",
+      "PublishReleasedSemanticProduct"
+     ]
+    },
+    {
+     "check": "versioning:each_new_release_is_a_newly_validated_candidate",
+     "pass": true,
+     "detail": {
+      "delta_releases": 1,
+      "released_now": [
+       [
+        "C00105_2EE6345F",
+        "DAILY_INVOICED_SALES_V1",
+        "RELEASED",
+        "V00702",
+        "602"
+       ]
+      ]
+     }
+    },
+    {
+     "check": "versioning:current_points_to_latest_new_release",
+     "pass": true,
+     "detail": [
+      [
+       "602",
+       "C00105_2EE6345F",
+       "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0602",
+       "S00702"
+      ]
+     ]
+    },
+    {
+     "check": "answer_reports_released_version",
+     "pass": true,
+     "detail": null
+    }
+   ],
+   "review_flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "B-N3#2",
+   "case": "B-N3",
+   "kind": "normal",
+   "agent": "builder",
+   "model": "claude-opus-5-5",
+   "agent_spec_sha256": "674a4398ea98e9e026dcb56b9c14ef86c735025c6d25a4f548ee0f48f2f4a266",
+   "elapsed_s": 91.5,
+   "data_agent_run_query_id": "01c7ee14-010c-6e5a-0034-28cb001b2db6",
+   "tools": [
+    "ProposeCandidate",
+    "CreateCandidate",
+    "ValidateCandidate",
+    "ReleaseCandidate",
+    "PublishReleasedSemanticProduct"
+   ],
+   "tool_query_ids": [
+    "01c7ee14-010c-6e5a-0034-28cb001b2dba",
+    "01c7ee14-010c-6e5a-0034-28cb001b2dda",
+    "01c7ee14-010c-6e5a-0034-28cb001b2e16",
+    "01c7ee14-010c-6e5a-0034-28cb001b2e26",
+    "01c7ee14-010c-6e5a-0034-28cb001b2e52",
+    "01c7ee14-010c-6e5a-0034-28cb001b2e62",
+    "01c7ee14-010c-6e5a-0034-28cb001b2e72",
+    "01c7ee14-010c-6e5a-0034-28cb001b2e82",
+    "01c7ee14-010c-6e5a-0034-28cb001b2e92",
+    "01c7ee14-010c-6e5a-0034-28cb001b2ea2",
+    "01c7ee14-010c-6e5a-0034-28cb001b2eb2",
+    "01c7ee14-010c-6e5a-0034-28cb001b2ec2",
+    "01c7ee14-010c-6e5a-0034-28cb001b2ed2",
+    "01c7ee14-010c-6e5a-0034-28cb001b2ee2",
+    "01c7ee14-010c-6e5a-0034-28cb001b2ef2",
+    "01c7ee15-010c-6e5a-0034-28cb001b2f16",
+    "01c7ee15-010c-6e5a-0034-28cb001b2f3e",
+    "01c7ee15-010c-6e5a-0034-28cb001b2f5e"
+   ],
+   "skill_nodes": 0,
+   "release_before": [
+    [
+     "602",
+     "C00105_2EE6345F",
+     "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0602",
+     "S00702"
+    ]
+   ],
+   "release_after": [
+    [
+     "603",
+     "C00303_2BEFADF9",
+     "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0603",
+     "S00502"
+    ]
+   ],
+   "oracle": {},
+   "new_candidates": [
+    [
+     "C00303_2BEFADF9",
+     "DAILY_INVOICED_SALES_V1",
+     "RELEASED",
+     "V00104",
+     "603"
+    ]
+   ],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_called:ProposeCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate",
+      "PublishReleasedSemanticProduct"
+     ]
+    },
+    {
+     "check": "tool_called:CreateCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate",
+      "PublishReleasedSemanticProduct"
+     ]
+    },
+    {
+     "check": "tool_called:ValidateCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate",
+      "PublishReleasedSemanticProduct"
+     ]
+    },
+    {
+     "check": "tool_called:ReleaseCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate",
+      "PublishReleasedSemanticProduct"
+     ]
+    },
+    {
+     "check": "versioning:each_new_release_is_a_newly_validated_candidate",
+     "pass": true,
+     "detail": {
+      "delta_releases": 1,
+      "released_now": [
+       [
+        "C00303_2BEFADF9",
+        "DAILY_INVOICED_SALES_V1",
+        "RELEASED",
+        "V00104",
+        "603"
+       ]
+      ]
+     }
+    },
+    {
+     "check": "versioning:current_points_to_latest_new_release",
+     "pass": true,
+     "detail": [
+      [
+       "603",
+       "C00303_2BEFADF9",
+       "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0603",
+       "S00502"
+      ]
+     ]
+    },
+    {
+     "check": "answer_reports_released_version",
+     "pass": true,
+     "detail": null
+    }
+   ],
+   "review_flags": [],
+   "manual_interventions": "none"
+  }
+ ]
+}

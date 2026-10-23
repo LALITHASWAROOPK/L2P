@@ -1,0 +1,69 @@
+{
+ "prompt_id": "S2_starter_build",
+ "agent": "HACKATHON_D2K_PREWORK.ANALYTICS.PREWORK_QUERY_AGENT",
+ "prompt": "Build, validate and release the daily invoiced sales product at invoice date / customer / stock item grain.",
+ "elapsed_s": 30.8,
+ "data_agent_run_query_id": "01c7edd3-010c-6e5a-0034-28cb001b26f6",
+ "error": null,
+ "tool_trace": [
+  {
+   "kind": "tool_use",
+   "name": "ReportCodeSearch",
+   "input": {
+    "analytical_search": false,
+    "columns": [
+     "TITLE",
+     "ARTIFACT_TYPE",
+     "CONTENT",
+     "SOURCE_PATH"
+    ],
+    "limit": 3,
+    "query": "daily invoiced sales by customer and stock item"
+   }
+  },
+  {
+   "kind": "tool_use",
+   "name": "InvoiceData",
+   "input": {
+    "pruning_question": "Daily sales excluding tax by invoice date, customer, stock item"
+   }
+  },
+  {
+   "kind": "tool_result",
+   "name": "InvoiceData",
+   "status": "success",
+   "query_ids": [],
+   "excerpt": "[{\"json\": {\"pruned_note\": \"**Note**: This semantic model fits within the agent's token budget, so it is shown in full. You do not need to set pruning_question on future calls referencing this same semantic model.\", \"relationships\": [{\"join_type\": \"left_outer\", \"left_table\": \"invoices\", \"name\": \"INVOICE_CUSTOMER\", \"relationship_columns\": [{\"left_column\": \"customerid\", \"right_column\": \"customerid\"}], \"relationship_type\": \"many_to_one\", \"right_table\": \"customers\"}, {\"join_type\": \"left_outer\", \"left_table\": \"lines\", \"name\": \"LINE_INVOICE\", \"relationship_columns\": [{\"left_column\": \"invoiceid\", \"right_column\": \"invoiceid\"}], \"relationship_type\": \"many_to_one\", \"right_table\": \"invoices\"}, {\"join_type\": \"left_outer\", \"left_table\": \"lines\", \"name\": \"LINE_PRODUCT\", \"relationship_columns\": [{\"left_column\": \"stockitemid\", \"right_column\": \"stockitemid\"}], \"relationship_type\": \"many_to_one\", \"right_table\": \"products\"}], \"semantic_model_description\": \"Pre-event starter model over a simplified public WWI schema adaptation and synthetic rows; not a finished data product.\", \"semantic_model_key\": \"InvoiceData\", \"semantic_model_name\": \"sv_invoice_starter\", \"semantic_view_fqn\": \"HACKATHON_D2K_PREWORK.ANALYTICS.SV_INVOICE_STARTER\", \"sql_best_practices\": \"## SQL Generation Rules and Best Practices\\n\\n**CRITICAL \\u2014 Ambiguity Gate (check BEFORE writing SQL):**\\nIf the user's question contains a business term that could map to more than one metric or dimension in the semantic model, STOP and do th"
+  },
+  {
+   "kind": "tool_result",
+   "name": "ReportCodeSearch",
+   "status": "success",
+   "query_ids": [
+    "8dc806f8-d547-4f05-8fdd-f511ddc8851c",
+    "c5a14761-a7d6-43d5-8cfd-2e64a5b13adb",
+    "dcd5ec3a-e870-411c-8ca4-3b17519e59eb"
+   ],
+   "excerpt": "[{\"json\": {\"search_results\": [{\"columns\": {\"ARTIFACT_TYPE\": \"SYNTHETIC_REPORT\", \"SOURCE_PATH\": \"catalog/daily_invoice_sales.sql\"}, \"doc_id\": \"DAILY_INVOICE_SALES\", \"doc_title\": \"Daily invoiced sales\", \"id\": \"cs_c5a14761-a7d6-43d5-8cfd-2e64a5b13adb\", \"search_service_name\": \"ReportCodeSearch\", \"source_id\": 0, \"text\": \"Daily invoiced sales\\nSynthetic sales report by invoice date. Revenue means invoiced sales excluding tax; invoice total includes tax. No currency is modeled. Days without invoices are omitted.\\nArtifact: synthetic executable report fixture, not an actual BI dashboard.\\nCREATE OR REPLACE VIEW HACKATHON_D2K_PREWORK.ANALYTICS.RPT_DAILY_INVOICE_SALES\\nCOMMENT='Synthetic prework report fixture; not a published business dashboard.'\\nAS\\nSELECT i.INVOICEDATE AS SALES_DATE, COUNT(DISTINCT i.INVOICEID) AS INVOICE_COUNT,\\n SUM(l.EXTENDEDPRICE-l.TAXAMOUNT) AS SALES_EXCLUDING_TAX,\\n SUM(l.TAXAMOUNT) AS TAX, SUM(l.EXTENDEDPRICE) AS TOTAL_INCLUDING_TAX\\nFROM HACKATHON_D2K_PREWORK.RAW.INVOICES i\\nJOIN HACKATHON_D2K_PREWORK.RAW.INVOICELINES l ON l.INVOICEID=i.INVOICEID\\nGROUP BY i.INVOICEDATE;\\n\"}, {\"columns\": {\"ARTIFACT_TYPE\": \"SYNTHETIC_CONNECTED_METADATA\", \"SOURCE_PATH\": \"fixtures/business/definitions.md\"}, \"doc_id\": \"CONNECTED_d6d252dc2b0538ee\", \"doc_title\": \"Synthetic business: definitions.md\", \"id\": \"cs_8dc806f8-d547-4f05-8fdd-f511ddc8851c\", \"search_service_name\": \"ReportCodeSearch\", \"source_id\": 1, \"text\": \"Original synthetic fixture. Fictional company: Northstar Supply. N"
+  },
+  {
+   "kind": "tool_use",
+   "name": "system_execute_sql",
+   "input": {
+    "semantic_model": "InvoiceData",
+    "sql": "WITH g AS (\nSELECT i.invoice_date, i.customerid, l.stockitemid,\n SUM(l.extendedprice - l.taxamount) AS sales_ex_tax\nFROM __lines l LEFT JOIN __invoices i ON l.invoiceid = i.invoiceid\nGROUP BY 1,2,3)\nSELECT COUNT(*) AS grain_rows,\n COUNT(DISTINCT invoice_date||'|'||customerid||'|'||stockitemid) AS distinct_keys,\n SUM(CASE WHEN invoice_date IS NULL OR customerid IS NULL OR stockitemid IS NULL THEN 1 ELSE 0 END) AS rows_with_null_keys,\n MIN(invoice_date) AS start_date, MAX(invoice_date) AS end_date,\n SUM(sales_ex_tax) AS total_sales_ex_tax,\n (SELECT SUM(extendedprice - taxamount) FROM __lines) AS line_level_total\nFROM g"
+   }
+  },
+  {
+   "kind": "tool_result",
+   "name": "system_execute_sql",
+   "status": "success",
+   "query_ids": [
+    "01c7edd3-010c-6e5a-0034-28cb001b26fa"
+   ],
+   "excerpt": "[{\"json\": {\"query_id\": \"01c7edd3-010c-6e5a-0034-28cb001b26fa\", \"result_set\": {\"data\": [[\"241\", \"241\", \"0\", \"2026-01-05\", \"2026-03-03\", \"53589.47\", \"53589.47\"]], \"resultSetMetaData\": {\"format\": \"jsonv2\", \"numRows\": 1, \"partition\": 0, \"partitionInfo\": [{\"rowCount\": 1, \"uncompressedSize\": 76}], \"rowType\": [{\"length\": 0, \"name\": \"GRAIN_ROWS\", \"nullable\": false, \"precision\": 18, \"scale\": 0, \"type\": \"fixed\"}, {\"length\": 0, \"name\": \"DISTINCT_KEYS\", \"nullable\": false, \"precision\": 18, \"scale\": 0, \"type\": \"fixed\"}, {\"length\": 0, \"name\": \"ROWS_WITH_NULL_KEYS\", \"nullable\": true, \"precision\": 13, \"scale\": 0, \"type\": \"fixed\"}, {\"length\": 0, \"name\": \"START_DATE\", \"nullable\": true, \"precision\": 0, \"scale\": 0, \"type\": \"date\"}, {\"length\": 0, \"name\": \"END_DATE\", \"nullable\": true, \"precision\": 0, \"scale\": 0, \"type\": \"date\"}, {\"length\": 0, \"name\": \"TOTAL_SALES_EX_TAX\", \"nullable\": true, \"precision\": 38, \"scale\": 2, \"type\": \"fixed\"}, {\"length\": 0, \"name\": \"LINE_LEVEL_TOTAL\", \"nullable\": true, \"precision\": 31, \"scale\": 2, \"type\": \"fixed\"}]}, \"statementHandle\": \"01c7edd3-010c-6e5a-0034-28cb001b26fa\"}, \"semantic_model_path\": \"HACKATHON_D2K_PREWORK.ANALYTICS.SV_INVOICE_STARTER\", \"sql\": \"WITH __lines AS (\\n  SELECT\\n    invoiceid,\\n    stockitemid,\\n    taxamount,\\n    extendedprice\\n  FROM HACKATHON_D2K_PREWORK.RAW.INVOICELINES\\n), __invoices AS (\\n  SELECT\\n    invoicedate AS invoice_date,\\n    customerid,\\n    invoiceid\\n  FROM HACKATHON_D2K_PREWORK.RAW.INVOICES\\n), g AS (\\n  SELECT\\n    i.invoice_"
+  }
+ ],
+ "final_text": "I can't build, validate or release this data product. Creating objects, publishing and scheduling aren't set up here. What I can give you is the definition, proposed SQL and a preview check. All data here is synthetic (the fictional company Northstar Supply).\n\n**Definition (from the catalog)**\n- **Measure:** invoiced sales = ExtendedPrice minus TaxAmount, by invoice date. ExtendedPrice includes tax.\n- **Rules:** a daily customer/product product must state its date basis, tax treatment and grain. It must not swap in order data for invoices or make up missing dates.\n- **Not covered:** currencies, discounts, returns and cancellations aren't modeled.\n- **Existing report:** a \"Daily invoiced sales\" report fixture already exists, but only at date grain. It isn't a real dashboard, and days without invoices are left out.\n\n**Proposed SQL** (not created or deployed)\n```sql\nSELECT i.INVOICEDATE AS INVOICE_DATE, i.CUSTOMERID, l.STOCKITEMID,\n       COUNT(DISTINCT i.INVOICEID)          AS INVOICE_COUNT,\n       SUM(l.QUANTITY)                      AS INVOICED_QUANTITY,\n       SUM(l.EXTENDEDPRICE - l.TAXAMOUNT)   AS SALES_EXCLUDING_TAX,\n       SUM(l.TAXAMOUNT)                     AS TAX,\n       SUM(l.EXTENDEDPRICE)                 AS TOTAL_INCLUDING_TAX\nFROM HACKATHON_D2K_PREWORK.RAW.INVOICELINES l\nJOIN HACKATHON_D2K_PREWORK.RAW.INVOICES i ON i.INVOICEID = l.INVOICEID\nGROUP BY 1, 2, 3;\n```\n\n**Preview check** (a quick look, not a formal validation or reconciliation)\n\n| Check | Result |\n|---|---|\n| Rows at the proposed grain | 241 |\n| Distinct date/customer/stock item keys | 241 (each key appears once) |\n| Rows with a missing key | 0 |\n| Date range | 2026-01-05 to 2026-03-03 |\n| Sales excluding tax, grain total | 53,589.47 |\n| Sales excluding tax, invoice-line total | 53,589.47 (matches) |\n\nTo release it, someone with the right permissions would need to deploy the SQL as a view or table, add tests and set up scheduling on their own. I can also run more metric queries or pull other catalog definitions.",
+ "manual_interventions": "none"
+}

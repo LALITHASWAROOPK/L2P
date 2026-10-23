@@ -144,14 +144,51 @@ Agent orchestration (step F), via SNOWFLAKE.CORTEX.DATA_AGENT_RUN on saved agent
 - C1 consumer account review: PASS. Called DiscoverReleasedProduct + RankCustomersBySales,
   named version 1 and the queried object, top 5 = customers 10, 8, 19, 18, 4, which matches the
   independent snapshot ranking exactly. Stated consent/margin/response/uplift boundary. 24.7s.
-- Builder prompts, consumer uplift/consent/send prompt, consumer escape attempt, starter
-  comparison: PENDING.
+- Consumer uplift/consent/send and raw-SQL/release escape prompts: correct refusals; no send, no builder tools.
+- Builder Spotfire and Qlik traces: correct chains with version citations; ordered 65893.02 vs
+  invoiced 53589.47, gap 12303.55 = 24 uninvoiced orders (matches prework oracle).
+- Builder agent-driven build: fanout candidate FAILED and rejected; correct candidate released.
+- Starter comparison (same prompts): starter traced the Spotfire measure from search only (no exact
+  retrieval tool) and, asked to build, refused and offered proposed SQL plus a preview query via
+  system_execute_sql. It has no product, validation or release path. Observed outcomes only.
+
+Compact agent evaluation suite v2 (event/l2p/eval/agent_eval_cases.json; tests/eval_agents.py):
+- Grading: structured tool results + registry state + oracle from the released version's own
+  snapshot; claim-level citation support against retrieved content; wording regexes are review flags only.
+- Run run_20261023_133220: 19/19 runs PASS across 10 cases, all repeats consistent.
+  Cases: consumer normal x2 (top-5 x3, date-filtered top-3), boundary (consent/uplift/send x3),
+  failure (raw SQL + release), builder Spotfire trace x3, Qlik trace + reconciliation,
+  negative order-date candidate x3 (GROUPED_RECONCILIATION FAIL while TOTAL PASS, not released),
+  positive build x2 (documented versioning), boundary arbitrary-table release, stock-group additivity.
+  Latency 8.7s-84.3s. Manual interventions: none (PAT auth; one-time PAT setup by user).
+- Follow-up runs run_20261023_134813 (5/5) and run_20261023_140625 (2/2) after the fix below.
+- Open review flag (real unsupported claim): builder Qlik answer said invoices run "about 2 days"
+  after orders; no tool computed this. Not fixed.
+- Agent-level missing-product case: UNTESTED (would require deleting releases). Procedure-level
+  evidence retained (regression E0).
+- 19/19 is a small fixed suite on synthetic data, not a general reliability claim.
+
+Defects found by evaluation:
+- Release version numbers came from a NOORDER sequence and could be out of release order
+  (v401 released before v302). The current-release pointer was always correct. Fixed: version =
+  MAX(released)+1, with a concurrent duplicate failing on the clone name. Verified v601-v603 sequential.
+  Earlier versions 1, 101, 102, 201, 202, 301, 302, 401, 501 remain as evidence; all have identical
+  content hash 118407673939843085 (same data, 241 rows).
 
 Skills: authored (3 reviewed SKILL.md files, original) -> staged on @L2P.SKILL_STAGE (hashes in
 event/l2p/evidence/skills_stage.json) -> ATTACHED to L2P_BUILDER only (verified in DESCRIBE AGENT).
-Invocation-tested: PENDING (needs trace evidence of skill selection, not just a good answer).
+Invocation: NOT DEMONSTRATED. Across all DATA_AGENT_RUN responses (eval and ad hoc), zero
+skill-selection or skill-loading events appeared. Answers were correct, but that does not prove
+skill use. Next step: inspect a Snowsight thinking-step trace for one builder prompt; if skills
+still do not load, report it as a blocker. The instruction fallback is not enabled.
 
-Retrieval baseline/chunking/skills comparison and cross-layer Qlik filter scenario: PENDING.
+Remaining blockers / not done:
+- Native skill invocation evidence (above).
+- Retrieval baseline vs chunked vs skills comparison: NOT RUN. The current 24 short documents are
+  retrieved whole; no chunking implemented.
+- Cross-layer Qlik business-rule (report filter) scenario: NOT BUILT. Existing Qlik fixture only
+  renames and sums, so it does not demonstrate Qlik-side business logic.
+- Per-user RBAC separation between builder and consumer: not configured (single ATTENDEE_ROLE).
 
 Limitations: enforcement is procedure/tool-level under one role (ATTENDEE_ROLE); separate per-user
 RBAC for builder vs consumer is not configured or tested. The object owner can still alter

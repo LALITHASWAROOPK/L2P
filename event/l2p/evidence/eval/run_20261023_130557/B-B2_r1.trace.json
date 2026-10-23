@@ -1,0 +1,54 @@
+{
+ "prompt_id": "B-B2_r1",
+ "agent": "HACKATHON_D2K_PREWORK.L2P.L2P_BUILDER",
+ "prompt": "Build an additive sales-by-stock-group product so each group's total adds up to overall invoiced sales.",
+ "elapsed_s": 26.7,
+ "data_agent_run_query_id": "01c7ede0-010c-6e5b-0034-28cb001af5ae",
+ "error": null,
+ "tool_trace": [
+  {
+   "kind": "tool_use",
+   "name": "ProposeCandidate",
+   "input": {
+    "RECIPE_ID": "STOCKGROUP_FANOUT_DEMO"
+   }
+  },
+  {
+   "kind": "tool_use",
+   "name": "ReportCodeSearch",
+   "input": {
+    "analytical_search": false,
+    "columns": [
+     "DOC_ID",
+     "TITLE"
+    ],
+    "limit": 4,
+    "num_chunks_per_doc": 0,
+    "query": "stock item stock groups many-to-many sales by stock group"
+   }
+  },
+  {
+   "kind": "tool_result",
+   "name": "ReportCodeSearch",
+   "status": "success",
+   "query_ids": [
+    "79dd8874-c456-43cc-aef6-97753f8dfc0b",
+    "a32a8970-8231-447d-a407-d215c4c55a0a",
+    "fb140aef-47b7-4a8e-8412-96aaa04066cc",
+    "fc6ecaed-753a-43dd-a2fd-532794cc72ce"
+   ],
+   "excerpt": "[{\"json\": {\"search_results\": [{\"doc_id\": \"WWI_1efd4c195b0137bb\", \"doc_title\": \"Public WWI reference: Warehouse/Tables/StockItemStockGroups.sql\", \"id\": \"cs_fb140aef-47b7-4a8e-8412-96aaa04066cc\", \"search_service_name\": \"ReportCodeSearch\", \"source_id\": 0, \"text\": \"Original Microsoft WWI SQL Server reference; MIT licensed. Not the deployed Snowflake definition. Some dependencies are absent from the simplified synthetic adaptation.\\nCREATE TABLE [Warehouse].[StockItemStockGroups] (\\n    [StockItemStockGroupID] INT           CONSTRAINT [DF_Warehouse_StockItemStockGroups_StockItemStockGroupID] DEFAULT (NEXT VALUE FOR [Sequences].[StockItemStockGroupID]) NOT NULL,\\n    [StockItemID]           INT           NOT NULL,\\n    [StockGroupID]          INT           NOT NULL,\\n    [LastEditedBy]          INT           NOT NULL,\\n    [LastEditedWhen]        DATETIME2 (7) CONSTRAINT [DF_Warehouse_StockItemStockGroups_LastEditedWhen] DEFAULT (sysdatetime()) NOT NULL,\\n    CONSTRAINT [PK_Warehouse_StockItemStockGroups] PRIMARY KEY CLUSTERED ([StockItemStockGroupID] ASC),\\n    CONSTRAINT [FK_Warehouse_StockItemStockGroups_Application_People] FOREIGN KEY ([LastEditedBy]) REFERENCES [Application].[People] ([PersonID]),\\n    CONSTRAINT [FK_Warehouse_StockItemStockGroups_StockGroupID_Warehouse_StockGroups] FOREIGN KEY ([StockGroupID]) REFERENCES [Warehouse].[StockGroups] ([StockGroupID]),\\n    CONSTRAINT [FK_Warehouse_StockItemStockGroups_StockItemID_Warehouse_StockItems] FOREIGN KEY ([StockItemID]) "
+  },
+  {
+   "kind": "tool_result",
+   "name": "ProposeCandidate",
+   "status": "success",
+   "query_ids": [
+    "01c7ede0-010c-6e5b-0034-28cb001af5b2"
+   ],
+   "excerpt": "[{\"json\": {\"execution_type\": \"procedure\", \"query_id\": \"01c7ede0-010c-6e5b-0034-28cb001af5b2\", \"result\": \"{\\\"candidate_id\\\":\\\"C00202_FFC3D1F1\\\",\\\"contract_version\\\":1,\\\"mappings\\\":[{\\\"evidence_doc_id\\\":\\\"DAILY_INVOICE_SALES\\\",\\\"evidence_path\\\":\\\"catalog/daily_invoice_sales.sql\\\",\\\"evidence_text\\\":\\\"GROUP BY i.INVOICEDATE\\\",\\\"evidence_version\\\":\\\"c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb\\\",\\\"note\\\":\\\"Existing daily report groups by invoice date only; customer/item grain is new.\\\",\\\"source_expression\\\":\\\"GROUP BY invoice date\\\",\\\"status\\\":\\\"SOURCE_BACKED\\\",\\\"target_field\\\":\\\"(daily grain)\\\"},{\\\"evidence_doc_id\\\":\\\"DAILY_INVOICE_SALES\\\",\\\"evidence_path\\\":\\\"catalog/daily_invoice_sales.sql\\\",\\\"evidence_text\\\":\\\"Days without invoices are omitted\\\",\\\"evidence_version\\\":\\\"c6540c7d67643c63435984c69f603d8d01682d2a414b57f6f4862cf8022432eb\\\",\\\"note\\\":\\\"No zero-fill.\\\",\\\"status\\\":\\\"SOURCE_BACKED_NOT_MODELED\\\",\\\"target_field\\\":\\\"(calendar zero-fill)\\\"},{\\\"evidence_doc_id\\\":\\\"CONNECTED_a5086dc0ef985e23\\\",\\\"evidence_path\\\":\\\"fixtures/spotfire/customer_sales.metadata.json\\\",\\\"evidence_text\\\":\\\"Month([INVOICEDATE])\\\",\\\"evidence_version\\\":\\\"46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357\\\",\\\"note\\\":\\\"Spotfire monthly visual uses invoice date.\\\",\\\"source_expression\\\":\\\"INVOICES.INVOICEDATE\\\",\\\"status\\\":\\\"SOURCE_BACKED\\\",\\\"target_field\\\":\\\"INVOICE_DATE\\\"},{\\\"evidence_doc_id\\\":\\\"CONNECTED_a5086dc0ef985e23\\\",\\\"evidence_path\\\":\\\"fixtures/spotfire/customer_sales"
+  }
+ ],
+ "final_text": "I didn't build this product. The source evidence shows that stock-group totals can't be made to add up to overall invoiced sales, so there's nothing valid to create, validate or release.\n\n**Why it can't add up**\n- **Items can be in more than one group.** The stock-item-to-group link table is a many-to-many relationship: one item can belong to several groups. (doc_id WWI_1efd4c195b0137bb, Warehouse/Tables/StockItemStockGroups.sql; this is the public Microsoft reference, not the deployed definition.) If a sale is counted in every group its item belongs to, the group totals come to more than overall sales.\n- **No rule for picking one group.** The business definitions state there is \"no designated primary group\", and the proposal marks group allocation as not supported (CONNECTED_d6d252dc2b0538ee, fixtures/business/definitions.md, version 250c6d6c\u2026a93). Splitting a sale across groups would mean inventing a rule that no source supports.\n- **The only stock-group recipe is a known-bad test case.** I proposed it to check the evidence: candidate **C00202_FFC3D1F1**, state **PROPOSED** (query 01c7ede0-010c-6e5b-0034-28cb001af5b2). Its build query joins every item to all of its groups, which counts the same sale more than once. I did not run Create, Validate or Release on it, so there is no validation run ID and no released version. The current release is unchanged.\n\n**Evidence-backed mappings that do work** (none of them is by stock group)\n| Field | Source | doc_id / path / version |\n|---|---|---|\n| INVOICE_DATE | INVOICES.INVOICEDATE | CONNECTED_6f53633c096a6b56 / fixtures/hana/CV_INVOICE_SALES.sql / a6c9df76\u2026fd3d |\n| SALES_EXCLUDING_TAX | EXTENDEDPRICE \u2212 TAXAMOUNT | same file; also CONNECTED_d6d252dc2b0538ee definitions.md |\n| CUSTOMER_ID, STOCK_ITEM_ID, TAX_AMOUNT, TOTAL_INCLUDING_TAX, names | invoice header and lines | CONNECTED_6f53633c096a6b56 |\n\n**Not supported or missing evidence:** stock-group allocation, currency, discounts and returns, filling in days with no invoices, and margin, consent and campaign data.\n\n**Options:**\n1. I can build and release the valid product (DAILY_INVOICED_SALES_V1), which reports by item and adds up correctly.\n2. If the business picks a primary-group rule (one group per item) and records it in the definitions, a group-level product becomes possible. That needs a new recipe; I can't write one myself.\n3. A view where each sale appears under every group it belongs to is possible, but its totals won't add up to overall sales and it must be labelled that way.",
+ "manual_interventions": "none"
+}

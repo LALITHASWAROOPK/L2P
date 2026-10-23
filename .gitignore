@@ -7,3 +7,4 @@ __pycache__/
 __pycache__/
 *.pyc
 event/l2p/evidence/agent_runs/*.raw.json
+event/l2p/evidence/eval/*/*.raw.json

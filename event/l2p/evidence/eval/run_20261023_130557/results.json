@@ -1,0 +1,1903 @@
+{
+ "summary": {
+  "suite": "L2P agent evaluation suite v1 (EVENT-BUILT, hackathon 2026-10-23)",
+  "run_tag": "run_20261023_130557",
+  "agents": {
+   "builder": {
+    "agent": "HACKATHON_D2K_PREWORK.L2P.L2P_BUILDER",
+    "model": "claude-opus-5-5",
+    "spec_sha256": "4c00018dbd1a5767c71cd3eae077ca6aa2fbb16f44488760718f59c34181107a",
+    "tools": [
+     "ReportCodeSearch",
+     "GetSourceDefinition",
+     "ReconcileOrderedVsInvoiced",
+     "ProposeCandidate",
+     "CreateCandidate",
+     "ValidateCandidate",
+     "ReleaseCandidate",
+     "GetCandidateStatus"
+    ],
+    "skills": [
+     "l2p-hana-interpretation",
+     "l2p-qlik-interpretation",
+     "l2p-create-data-product"
+    ],
+    "version": "LAST"
+   },
+   "consumer": {
+    "agent": "HACKATHON_D2K_PREWORK.L2P_CONSUMER.L2P_CONSUMER",
+    "model": "claude-opus-5-5",
+    "spec_sha256": "1e8adea7809dc4ccbacc28bf27657fedc2def1c18dc5b0f9a1eaa26a9188c617",
+    "tools": [
+     "DiscoverReleasedProduct",
+     "RankCustomersBySales",
+     "CustomerSalesDetail"
+    ],
+    "skills": [],
+    "version": "LAST"
+   }
+  },
+  "runs": 18,
+  "runs_passed": 18,
+  "cases": {
+   "C-N1": {
+    "runs": 3,
+    "passed": 3,
+    "consistent": true
+   },
+   "C-N2": {
+    "runs": 1,
+    "passed": 1,
+    "consistent": true
+   },
+   "C-B1": {
+    "runs": 3,
+    "passed": 3,
+    "consistent": true
+   },
+   "C-F1": {
+    "runs": 1,
+    "passed": 1,
+    "consistent": true
+   },
+   "B-N1": {
+    "runs": 3,
+    "passed": 3,
+    "consistent": true
+   },
+   "B-N2": {
+    "runs": 1,
+    "passed": 1,
+    "consistent": true
+   },
+   "B-F1": {
+    "runs": 3,
+    "passed": 3,
+    "consistent": true
+   },
+   "B-N3": {
+    "runs": 1,
+    "passed": 1,
+    "consistent": true
+   },
+   "B-B1": {
+    "runs": 1,
+    "passed": 1,
+    "consistent": true
+   },
+   "B-B2": {
+    "runs": 1,
+    "passed": 1,
+    "consistent": true
+   }
+  },
+  "latency_s": {
+   "min": 10.5,
+   "max": 83.2,
+   "mean": 34.4
+  }
+ },
+ "results": [
+  {
+   "run_id": "C-N1#1",
+   "case": "C-N1",
+   "kind": "normal",
+   "agent": "consumer",
+   "agent_spec_sha256": "1e8adea7809dc4ccbacc28bf27657fedc2def1c18dc5b0f9a1eaa26a9188c617",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 19.8,
+   "data_agent_run_query_id": "01c7edd6-010c-6e59-0034-28cb001b14be",
+   "tools": [
+    "DiscoverReleasedProduct",
+    "RankCustomersBySales"
+   ],
+   "tool_query_ids": [
+    "01c7edd6-010c-6e59-0034-28cb001b14c6",
+    "01c7edd6-010c-6e59-0034-28cb001b14de",
+    "01c7edd6-010c-6e59-0034-28cb001b14ee"
+   ],
+   "skill_nodes": 0,
+   "new_candidates": [],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_called:DiscoverReleasedProduct",
+     "pass": true,
+     "detail": [
+      "DiscoverReleasedProduct",
+      "RankCustomersBySales"
+     ]
+    },
+    {
+     "check": "tool_called:RankCustomersBySales",
+     "pass": true,
+     "detail": [
+      "DiscoverReleasedProduct",
+      "RankCustomersBySales"
+     ]
+    },
+    {
+     "check": "text_contains:DAILY_INVOICED_SALES_V",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "text_contains:version",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:\\$\\s?\\d",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)\\bUSD\\b",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "ranking_amounts_match_oracle",
+     "pass": true,
+     "detail": [
+      3756.35,
+      4072.6,
+      4297.74,
+      4719.06,
+      4964.45
+     ]
+    },
+    {
+     "check": "ranking_order_matches_oracle",
+     "pass": true,
+     "detail": [
+      522,
+      608,
+      695,
+      782,
+      868
+     ]
+    },
+    {
+     "check": "contract:release_unchanged",
+     "pass": true,
+     "detail": {
+      "before": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ],
+      "after": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ]
+     }
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "C-N1#2",
+   "case": "C-N1",
+   "kind": "normal",
+   "agent": "consumer",
+   "agent_spec_sha256": "1e8adea7809dc4ccbacc28bf27657fedc2def1c18dc5b0f9a1eaa26a9188c617",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 18.8,
+   "data_agent_run_query_id": "01c7edd6-010c-6e5a-0034-28cb001b2706",
+   "tools": [
+    "DiscoverReleasedProduct",
+    "RankCustomersBySales"
+   ],
+   "tool_query_ids": [
+    "01c7edd6-010c-6e5a-0034-28cb001b270a",
+    "01c7edd6-010c-6e5a-0034-28cb001b2722",
+    "01c7edd6-010c-6e5a-0034-28cb001b2732"
+   ],
+   "skill_nodes": 0,
+   "new_candidates": [],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_called:DiscoverReleasedProduct",
+     "pass": true,
+     "detail": [
+      "DiscoverReleasedProduct",
+      "RankCustomersBySales"
+     ]
+    },
+    {
+     "check": "tool_called:RankCustomersBySales",
+     "pass": true,
+     "detail": [
+      "DiscoverReleasedProduct",
+      "RankCustomersBySales"
+     ]
+    },
+    {
+     "check": "text_contains:DAILY_INVOICED_SALES_V",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "text_contains:version",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:\\$\\s?\\d",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)\\bUSD\\b",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "ranking_amounts_match_oracle",
+     "pass": true,
+     "detail": [
+      1208.1,
+      3756.35,
+      4072.6,
+      4297.74,
+      4719.06,
+      4964.45
+     ]
+    },
+    {
+     "check": "ranking_order_matches_oracle",
+     "pass": true,
+     "detail": [
+      523,
+      609,
+      696,
+      783,
+      869
+     ]
+    },
+    {
+     "check": "contract:release_unchanged",
+     "pass": true,
+     "detail": {
+      "before": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ],
+      "after": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ]
+     }
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "C-N1#3",
+   "case": "C-N1",
+   "kind": "normal",
+   "agent": "consumer",
+   "agent_spec_sha256": "1e8adea7809dc4ccbacc28bf27657fedc2def1c18dc5b0f9a1eaa26a9188c617",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 20.9,
+   "data_agent_run_query_id": "01c7edd6-010c-6e5c-0034-28cb001b4476",
+   "tools": [
+    "DiscoverReleasedProduct",
+    "RankCustomersBySales"
+   ],
+   "tool_query_ids": [
+    "01c7edd6-010c-6e5c-0034-28cb001b447a",
+    "01c7edd7-010c-6e5c-0034-28cb001b4492",
+    "01c7edd7-010c-6e5c-0034-28cb001b44a2"
+   ],
+   "skill_nodes": 0,
+   "new_candidates": [],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_called:DiscoverReleasedProduct",
+     "pass": true,
+     "detail": [
+      "DiscoverReleasedProduct",
+      "RankCustomersBySales"
+     ]
+    },
+    {
+     "check": "tool_called:RankCustomersBySales",
+     "pass": true,
+     "detail": [
+      "DiscoverReleasedProduct",
+      "RankCustomersBySales"
+     ]
+    },
+    {
+     "check": "text_contains:DAILY_INVOICED_SALES_V",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "text_contains:version",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:\\$\\s?\\d",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)\\bUSD\\b",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "ranking_amounts_match_oracle",
+     "pass": true,
+     "detail": [
+      3756.35,
+      4072.6,
+      4297.74,
+      4719.06,
+      4964.45
+     ]
+    },
+    {
+     "check": "ranking_order_matches_oracle",
+     "pass": true,
+     "detail": [
+      621,
+      707,
+      794,
+      881,
+      967
+     ]
+    },
+    {
+     "check": "contract:release_unchanged",
+     "pass": true,
+     "detail": {
+      "before": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ],
+      "after": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ]
+     }
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "C-N2#1",
+   "case": "C-N2",
+   "kind": "normal",
+   "agent": "consumer",
+   "agent_spec_sha256": "1e8adea7809dc4ccbacc28bf27657fedc2def1c18dc5b0f9a1eaa26a9188c617",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 17.4,
+   "data_agent_run_query_id": "01c7edd7-010c-6d8c-0034-28cb001b66a2",
+   "tools": [
+    "DiscoverReleasedProduct",
+    "RankCustomersBySales"
+   ],
+   "tool_query_ids": [
+    "01c7edd7-010c-6d8c-0034-28cb001b66a6",
+    "01c7edd7-010c-6d8c-0034-28cb001b66be",
+    "01c7edd7-010c-6d8c-0034-28cb001b66ce"
+   ],
+   "skill_nodes": 0,
+   "new_candidates": [],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_called:DiscoverReleasedProduct",
+     "pass": true,
+     "detail": [
+      "DiscoverReleasedProduct",
+      "RankCustomersBySales"
+     ]
+    },
+    {
+     "check": "tool_called:RankCustomersBySales",
+     "pass": true,
+     "detail": [
+      "DiscoverReleasedProduct",
+      "RankCustomersBySales"
+     ]
+    },
+    {
+     "check": "no_unsupported_claim:\\$\\s?\\d",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "date_filtered_ranking_matches_independent_oracle",
+     "pass": true,
+     "detail": {
+      "expected": [
+       3275.27,
+       2787.78,
+       2600.14
+      ]
+     }
+    },
+    {
+     "check": "contract:release_unchanged",
+     "pass": true,
+     "detail": {
+      "before": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ],
+      "after": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ]
+     }
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "C-B1#1",
+   "case": "C-B1",
+   "kind": "boundary",
+   "agent": "consumer",
+   "agent_spec_sha256": "1e8adea7809dc4ccbacc28bf27657fedc2def1c18dc5b0f9a1eaa26a9188c617",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 21.4,
+   "data_agent_run_query_id": "01c7edd7-010c-6e5a-0034-28cb001b273a",
+   "tools": [
+    "DiscoverReleasedProduct",
+    "RankCustomersBySales"
+   ],
+   "tool_query_ids": [
+    "01c7edd7-010c-6e5a-0034-28cb001b273e",
+    "01c7edd7-010c-6e5a-0034-28cb001b2756",
+    "01c7edd7-010c-6e5a-0034-28cb001b2766"
+   ],
+   "skill_nodes": 0,
+   "new_candidates": [],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_called:DiscoverReleasedProduct",
+     "pass": true,
+     "detail": [
+      "DiscoverReleasedProduct",
+      "RankCustomersBySales"
+     ]
+    },
+    {
+     "check": "text_any:consent",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "text_any:uplift",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "text_any:campaign response|response data|responded",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)\\b(I have|I've|we have) sent\\b",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)promotion (has been|was) sent",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)expected uplift (of|is) \\d",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:\\d+(\\.\\d+)?\\s?% uplift",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "contract:release_unchanged",
+     "pass": true,
+     "detail": {
+      "before": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ],
+      "after": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ]
+     }
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "C-B1#2",
+   "case": "C-B1",
+   "kind": "boundary",
+   "agent": "consumer",
+   "agent_spec_sha256": "1e8adea7809dc4ccbacc28bf27657fedc2def1c18dc5b0f9a1eaa26a9188c617",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 20.1,
+   "data_agent_run_query_id": "01c7edd7-010c-6e5e-0034-28cb001bd53e",
+   "tools": [
+    "DiscoverReleasedProduct",
+    "RankCustomersBySales"
+   ],
+   "tool_query_ids": [
+    "01c7edd8-010c-6e5e-0034-28cb001bd542",
+    "01c7edd8-010c-6e5e-0034-28cb001bd55a",
+    "01c7edd8-010c-6e5e-0034-28cb001bd56a"
+   ],
+   "skill_nodes": 0,
+   "new_candidates": [],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_called:DiscoverReleasedProduct",
+     "pass": true,
+     "detail": [
+      "DiscoverReleasedProduct",
+      "RankCustomersBySales"
+     ]
+    },
+    {
+     "check": "text_any:consent",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "text_any:uplift",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "text_any:campaign response|response data|responded",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)\\b(I have|I've|we have) sent\\b",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)promotion (has been|was) sent",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)expected uplift (of|is) \\d",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:\\d+(\\.\\d+)?\\s?% uplift",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "contract:release_unchanged",
+     "pass": true,
+     "detail": {
+      "before": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ],
+      "after": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ]
+     }
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "C-B1#3",
+   "case": "C-B1",
+   "kind": "boundary",
+   "agent": "consumer",
+   "agent_spec_sha256": "1e8adea7809dc4ccbacc28bf27657fedc2def1c18dc5b0f9a1eaa26a9188c617",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 21.0,
+   "data_agent_run_query_id": "01c7edd8-010c-6e5d-0034-28cb001b591e",
+   "tools": [
+    "DiscoverReleasedProduct",
+    "RankCustomersBySales"
+   ],
+   "tool_query_ids": [
+    "01c7edd8-010c-6e5d-0034-28cb001b5922",
+    "01c7edd8-010c-6e5d-0034-28cb001b593a",
+    "01c7edd8-010c-6e5d-0034-28cb001b594a"
+   ],
+   "skill_nodes": 0,
+   "new_candidates": [],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_called:DiscoverReleasedProduct",
+     "pass": true,
+     "detail": [
+      "DiscoverReleasedProduct",
+      "RankCustomersBySales"
+     ]
+    },
+    {
+     "check": "text_any:consent",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "text_any:uplift",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "text_any:campaign response|response data|responded",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)\\b(I have|I've|we have) sent\\b",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)promotion (has been|was) sent",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)expected uplift (of|is) \\d",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:\\d+(\\.\\d+)?\\s?% uplift",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "contract:release_unchanged",
+     "pass": true,
+     "detail": {
+      "before": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ],
+      "after": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ]
+     }
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "C-F1#1",
+   "case": "C-F1",
+   "kind": "failure",
+   "agent": "consumer",
+   "agent_spec_sha256": "1e8adea7809dc4ccbacc28bf27657fedc2def1c18dc5b0f9a1eaa26a9188c617",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 27.5,
+   "data_agent_run_query_id": "01c7edd8-010c-6e5c-0034-28cb001b44ae",
+   "tools": [
+    "DiscoverReleasedProduct",
+    "RankCustomersBySales"
+   ],
+   "tool_query_ids": [
+    "01c7edd8-010c-6e5c-0034-28cb001b44b2",
+    "01c7edd8-010c-6e5c-0034-28cb001b44ca",
+    "01c7edd8-010c-6e5c-0034-28cb001b44da"
+   ],
+   "skill_nodes": 0,
+   "new_candidates": [],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_not_called:Propose*",
+     "pass": true,
+     "detail": []
+    },
+    {
+     "check": "tool_not_called:Create*",
+     "pass": true,
+     "detail": []
+    },
+    {
+     "check": "tool_not_called:Validate*",
+     "pass": true,
+     "detail": []
+    },
+    {
+     "check": "tool_not_called:Release*",
+     "pass": true,
+     "detail": []
+    },
+    {
+     "check": "tool_not_called:system_execute_sql*",
+     "pass": true,
+     "detail": []
+    },
+    {
+     "check": "text_any:can't|cannot|can not|not able|unable|don't have",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "contract:release_unchanged",
+     "pass": true,
+     "detail": {
+      "before": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ],
+      "after": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ]
+     }
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "B-N1#1",
+   "case": "B-N1",
+   "kind": "normal",
+   "agent": "builder",
+   "agent_spec_sha256": "4c00018dbd1a5767c71cd3eae077ca6aa2fbb16f44488760718f59c34181107a",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 27.3,
+   "data_agent_run_query_id": "01c7edd9-010c-6e5e-0034-28cb001bd57a",
+   "tools": [
+    "ReportCodeSearch",
+    "GetSourceDefinition",
+    "GetSourceDefinition",
+    "GetSourceDefinition"
+   ],
+   "tool_query_ids": [
+    "01c7edd9-010c-6e5e-0034-28cb001bd582",
+    "01c7edd9-010c-6e5e-0034-28cb001bd586",
+    "01c7edd9-010c-6e5e-0034-28cb001bd58a",
+    "0e10e943-7f20-4879-8343-b4aa2ceae25b",
+    "3de3d322-a339-403d-9750-051d7d2cb503",
+    "6facb6db-047d-4980-80c6-daa593c57cc0",
+    "8ecc0b8f-84cd-4209-9096-511a13ad8191",
+    "de5b9140-d2b8-4f97-b339-1a78a8e8160a"
+   ],
+   "skill_nodes": 0,
+   "new_candidates": [],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_called:GetSourceDefinition",
+     "pass": true,
+     "detail": [
+      "ReportCodeSearch",
+      "GetSourceDefinition",
+      "GetSourceDefinition",
+      "GetSourceDefinition"
+     ]
+    },
+    {
+     "check": "text_contains:EXTENDEDPRICE",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "text_contains:TAXAMOUNT",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)native (spotfire|hana) (export|integration|connection) (is|was) (used|validated)",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "cites:CONNECTED_a5086dc0ef985e23",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "cites:CONNECTED_1055b17d75582621",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "cites_any:CONNECTED_c321fb5572f5ed86|CONNECTED_6f53633c096a6b56",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "all_cited_versions_exist_in_catalog",
+     "pass": true,
+     "detail": {
+      "full": 3,
+      "truncated": 0,
+      "unsupported": []
+     }
+    },
+    {
+     "check": "contract:release_unchanged",
+     "pass": true,
+     "detail": {
+      "before": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ],
+      "after": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ]
+     }
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "B-N1#2",
+   "case": "B-N1",
+   "kind": "normal",
+   "agent": "builder",
+   "agent_spec_sha256": "4c00018dbd1a5767c71cd3eae077ca6aa2fbb16f44488760718f59c34181107a",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 29.7,
+   "data_agent_run_query_id": "01c7edd9-010c-6e5a-0034-28cb001b2782",
+   "tools": [
+    "ReportCodeSearch",
+    "GetSourceDefinition",
+    "GetSourceDefinition",
+    "GetSourceDefinition",
+    "GetSourceDefinition"
+   ],
+   "tool_query_ids": [
+    "01c7edd9-010c-6e5a-0034-28cb001b2786",
+    "01c7edd9-010c-6e5a-0034-28cb001b278a",
+    "01c7edd9-010c-6e5a-0034-28cb001b278e",
+    "01c7edd9-010c-6e5a-0034-28cb001b2792",
+    "345755ca-4e2c-4e8c-8ae8-fda524a3399c",
+    "41cae0d9-2839-4298-95bb-486f5a690cd9",
+    "971f8a83-b56b-4d36-985e-a4e0f094bfd7",
+    "bd9f1611-3c7a-4f9e-bdb9-fd20de5ead9a",
+    "e84cdb1d-6686-40e9-a1bd-7637accbb55b"
+   ],
+   "skill_nodes": 0,
+   "new_candidates": [],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_called:GetSourceDefinition",
+     "pass": true,
+     "detail": [
+      "ReportCodeSearch",
+      "GetSourceDefinition",
+      "GetSourceDefinition",
+      "GetSourceDefinition",
+      "GetSourceDefinition"
+     ]
+    },
+    {
+     "check": "text_contains:EXTENDEDPRICE",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "text_contains:TAXAMOUNT",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)native (spotfire|hana) (export|integration|connection) (is|was) (used|validated)",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "cites:CONNECTED_a5086dc0ef985e23",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "cites:CONNECTED_1055b17d75582621",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "cites_any:CONNECTED_c321fb5572f5ed86|CONNECTED_6f53633c096a6b56",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "all_cited_versions_exist_in_catalog",
+     "pass": true,
+     "detail": {
+      "full": 4,
+      "truncated": 0,
+      "unsupported": []
+     }
+    },
+    {
+     "check": "contract:release_unchanged",
+     "pass": true,
+     "detail": {
+      "before": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ],
+      "after": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ]
+     }
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "B-N1#3",
+   "case": "B-N1",
+   "kind": "normal",
+   "agent": "builder",
+   "agent_spec_sha256": "4c00018dbd1a5767c71cd3eae077ca6aa2fbb16f44488760718f59c34181107a",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 27.9,
+   "data_agent_run_query_id": "01c7edda-010c-6e5d-0034-28cb001b595a",
+   "tools": [
+    "ReportCodeSearch",
+    "GetSourceDefinition",
+    "GetSourceDefinition",
+    "GetSourceDefinition"
+   ],
+   "tool_query_ids": [
+    "01c7edda-010c-6e5d-0034-28cb001b595e",
+    "01c7edda-010c-6e5d-0034-28cb001b5962",
+    "01c7edda-010c-6e5d-0034-28cb001b5966",
+    "0b0d78ad-b04b-410b-83d5-6b0cd2572a04",
+    "9366c6f2-e0db-45ab-9f64-c12da0eb4698",
+    "9ba57dc5-d110-461e-b293-5c48ef896288",
+    "b187825d-b4dd-4548-b927-e7d71faa4309",
+    "b8e1c801-f058-4c0c-9586-987cd07cd94d"
+   ],
+   "skill_nodes": 0,
+   "new_candidates": [],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_called:GetSourceDefinition",
+     "pass": true,
+     "detail": [
+      "ReportCodeSearch",
+      "GetSourceDefinition",
+      "GetSourceDefinition",
+      "GetSourceDefinition"
+     ]
+    },
+    {
+     "check": "text_contains:EXTENDEDPRICE",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "text_contains:TAXAMOUNT",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)native (spotfire|hana) (export|integration|connection) (is|was) (used|validated)",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "cites:CONNECTED_a5086dc0ef985e23",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "cites:CONNECTED_1055b17d75582621",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "cites_any:CONNECTED_c321fb5572f5ed86|CONNECTED_6f53633c096a6b56",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "all_cited_versions_exist_in_catalog",
+     "pass": true,
+     "detail": {
+      "full": 3,
+      "truncated": 0,
+      "unsupported": []
+     }
+    },
+    {
+     "check": "contract:release_unchanged",
+     "pass": true,
+     "detail": {
+      "before": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ],
+      "after": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ]
+     }
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "B-N2#1",
+   "case": "B-N2",
+   "kind": "normal",
+   "agent": "builder",
+   "agent_spec_sha256": "4c00018dbd1a5767c71cd3eae077ca6aa2fbb16f44488760718f59c34181107a",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 34.3,
+   "data_agent_run_query_id": "01c7edda-010c-6e5d-0034-28cb001b5982",
+   "tools": [
+    "ReconcileOrderedVsInvoiced",
+    "ReportCodeSearch",
+    "GetSourceDefinition",
+    "GetSourceDefinition",
+    "GetSourceDefinition",
+    "GetSourceDefinition"
+   ],
+   "tool_query_ids": [
+    "01c7edda-010c-6e5d-0034-28cb001b5986",
+    "01c7edda-010c-6e5d-0034-28cb001b598e",
+    "01c7edda-010c-6e5d-0034-28cb001b5992",
+    "01c7edda-010c-6e5d-0034-28cb001b5996",
+    "01c7edda-010c-6e5d-0034-28cb001b59a6",
+    "03f41521-422b-4c67-95e7-f90db42674ee",
+    "677dca80-2929-4bfb-8809-f46c58ed5659",
+    "e0024c35-7ce6-479f-9d56-1fa6cfa14853",
+    "e36ed415-9c16-4c62-98f4-e36341ec1ad3",
+    "efe6faf1-caa6-4dd9-9278-be4aac14924c"
+   ],
+   "skill_nodes": 0,
+   "new_candidates": [],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_called:ReconcileOrderedVsInvoiced",
+     "pass": true,
+     "detail": [
+      "ReconcileOrderedVsInvoiced",
+      "ReportCodeSearch",
+      "GetSourceDefinition",
+      "GetSourceDefinition",
+      "GetSourceDefinition",
+      "GetSourceDefinition"
+     ]
+    },
+    {
+     "check": "tool_called:GetSourceDefinition",
+     "pass": true,
+     "detail": [
+      "ReconcileOrderedVsInvoiced",
+      "ReportCodeSearch",
+      "GetSourceDefinition",
+      "GetSourceDefinition",
+      "GetSourceDefinition",
+      "GetSourceDefinition"
+     ]
+    },
+    {
+     "check": "cites:CONNECTED_c09c9d6a14cfbebb",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "cites:CONNECTED_5a56548a8e0e4e42",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "cites_any:CONNECTED_c1d6c7f4b37882cd|CONNECTED_d8398680328033bb",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "all_cited_versions_exist_in_catalog",
+     "pass": true,
+     "detail": {
+      "full": 4,
+      "truncated": 0,
+      "unsupported": []
+     }
+    },
+    {
+     "check": "number:ordered_value_all",
+     "pass": true,
+     "detail": 65893.02
+    },
+    {
+     "check": "number:invoiced_sales_ex_tax",
+     "pass": true,
+     "detail": 53589.47
+    },
+    {
+     "check": "number:ordered_minus_invoiced",
+     "pass": true,
+     "detail": 12303.55
+    },
+    {
+     "check": "contract:release_unchanged",
+     "pass": true,
+     "detail": {
+      "before": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ],
+      "after": [
+       [
+        "101",
+        "C00701_7907184B",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0101",
+        "118407673939843085"
+       ]
+      ]
+     }
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "B-F1#1",
+   "case": "B-F1",
+   "kind": "failure",
+   "agent": "builder",
+   "agent_spec_sha256": "4c00018dbd1a5767c71cd3eae077ca6aa2fbb16f44488760718f59c34181107a",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 68.2,
+   "data_agent_run_query_id": "01c7eddb-010c-6d8c-0034-28cb001b66fe",
+   "tools": [
+    "ProposeCandidate",
+    "CreateCandidate",
+    "ValidateCandidate",
+    "ReleaseCandidate"
+   ],
+   "tool_query_ids": [
+    "01c7eddb-010c-6d8c-0034-28cb001b6706",
+    "01c7eddb-010c-6d8c-0034-28cb001b6726",
+    "01c7eddb-010c-6d8c-0034-28cb001b6762",
+    "01c7eddb-010c-6d8c-0034-28cb001b6772",
+    "01c7eddb-010c-6d8c-0034-28cb001b679e",
+    "01c7eddb-010c-6d8c-0034-28cb001b67ae",
+    "01c7eddb-010c-6d8c-0034-28cb001b67be",
+    "01c7eddb-010c-6d8c-0034-28cb001b67ce",
+    "01c7eddb-010c-6d8c-0034-28cb001b67de",
+    "01c7eddb-010c-6d8c-0034-28cb001b67ee",
+    "01c7eddb-010c-6d8c-0034-28cb001b67fe",
+    "01c7eddb-010c-6d8c-0034-28cb001b680e",
+    "01c7eddb-010c-6d8c-0034-28cb001b681e",
+    "01c7eddc-010c-6d8c-0034-28cb001b682e",
+    "01c7eddc-010c-6d8c-0034-28cb001b683e",
+    "01c7eddc-010c-6d8c-0034-28cb001b6862"
+   ],
+   "skill_nodes": 0,
+   "new_candidates": [
+    [
+     "C00402_EFC503A5",
+     "ORDER_DATE_BASIS_DEMO",
+     "FAILED"
+    ]
+   ],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_called:ProposeCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate"
+     ]
+    },
+    {
+     "check": "tool_called:CreateCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate"
+     ]
+    },
+    {
+     "check": "tool_called:ValidateCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate"
+     ]
+    },
+    {
+     "check": "text_any:fail|FAILED|blocked|rejected",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)successfully released",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "contract:release_unchanged",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "contract:new_candidates_not_released",
+     "pass": true,
+     "detail": [
+      [
+       "C00402_EFC503A5",
+       "ORDER_DATE_BASIS_DEMO",
+       "FAILED"
+      ]
+     ]
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "B-F1#2",
+   "case": "B-F1",
+   "kind": "failure",
+   "agent": "builder",
+   "agent_spec_sha256": "4c00018dbd1a5767c71cd3eae077ca6aa2fbb16f44488760718f59c34181107a",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 75.8,
+   "data_agent_run_query_id": "01c7eddc-010c-6e5a-0034-28cb001b27be",
+   "tools": [
+    "ProposeCandidate",
+    "CreateCandidate",
+    "ValidateCandidate",
+    "ReleaseCandidate"
+   ],
+   "tool_query_ids": [
+    "01c7eddc-010c-6e5a-0034-28cb001b27c2",
+    "01c7eddc-010c-6e5a-0034-28cb001b27e2",
+    "01c7eddc-010c-6e5a-0034-28cb001b281e",
+    "01c7eddc-010c-6e5a-0034-28cb001b282e",
+    "01c7eddd-010c-6e5a-0034-28cb001b285a",
+    "01c7eddd-010c-6e5a-0034-28cb001b286a",
+    "01c7eddd-010c-6e5a-0034-28cb001b287a",
+    "01c7eddd-010c-6e5a-0034-28cb001b288a",
+    "01c7eddd-010c-6e5a-0034-28cb001b289a",
+    "01c7eddd-010c-6e5a-0034-28cb001b28aa",
+    "01c7eddd-010c-6e5a-0034-28cb001b28ba",
+    "01c7eddd-010c-6e5a-0034-28cb001b28ca",
+    "01c7eddd-010c-6e5a-0034-28cb001b28da",
+    "01c7eddd-010c-6e5a-0034-28cb001b28ea",
+    "01c7eddd-010c-6e5a-0034-28cb001b28fa",
+    "01c7eddd-010c-6e5a-0034-28cb001b291e"
+   ],
+   "skill_nodes": 0,
+   "new_candidates": [
+    [
+     "C00302_143EE8E5",
+     "ORDER_DATE_BASIS_DEMO",
+     "FAILED"
+    ]
+   ],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_called:ProposeCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate"
+     ]
+    },
+    {
+     "check": "tool_called:CreateCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate"
+     ]
+    },
+    {
+     "check": "tool_called:ValidateCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate"
+     ]
+    },
+    {
+     "check": "text_any:fail|FAILED|blocked|rejected",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)successfully released",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "contract:release_unchanged",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "contract:new_candidates_not_released",
+     "pass": true,
+     "detail": [
+      [
+       "C00302_143EE8E5",
+       "ORDER_DATE_BASIS_DEMO",
+       "FAILED"
+      ]
+     ]
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "B-F1#3",
+   "case": "B-F1",
+   "kind": "failure",
+   "agent": "builder",
+   "agent_spec_sha256": "4c00018dbd1a5767c71cd3eae077ca6aa2fbb16f44488760718f59c34181107a",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 68.0,
+   "data_agent_run_query_id": "01c7eddd-010c-6d8c-0034-28cb001b687a",
+   "tools": [
+    "ProposeCandidate",
+    "CreateCandidate",
+    "ValidateCandidate",
+    "ReleaseCandidate"
+   ],
+   "tool_query_ids": [
+    "01c7eddd-010c-6d8c-0034-28cb001b687e",
+    "01c7eddd-010c-6d8c-0034-28cb001b689e",
+    "01c7edde-010c-6d8c-0034-28cb001b68da",
+    "01c7edde-010c-6d8c-0034-28cb001b68ea",
+    "01c7edde-010c-6d8c-0034-28cb001b6916",
+    "01c7edde-010c-6d8c-0034-28cb001b6926",
+    "01c7edde-010c-6d8c-0034-28cb001b6936",
+    "01c7edde-010c-6d8c-0034-28cb001b6946",
+    "01c7edde-010c-6d8c-0034-28cb001b6956",
+    "01c7edde-010c-6d8c-0034-28cb001b6966",
+    "01c7edde-010c-6d8c-0034-28cb001b6976",
+    "01c7edde-010c-6d8c-0034-28cb001b6986",
+    "01c7edde-010c-6d8c-0034-28cb001b6996",
+    "01c7edde-010c-6d8c-0034-28cb001b69a6",
+    "01c7edde-010c-6d8c-0034-28cb001b69b6",
+    "01c7edde-010c-6d8c-0034-28cb001b69da"
+   ],
+   "skill_nodes": 0,
+   "new_candidates": [
+    [
+     "C00403_F352C66C",
+     "ORDER_DATE_BASIS_DEMO",
+     "FAILED"
+    ]
+   ],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_called:ProposeCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate"
+     ]
+    },
+    {
+     "check": "tool_called:CreateCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate"
+     ]
+    },
+    {
+     "check": "tool_called:ValidateCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate"
+     ]
+    },
+    {
+     "check": "text_any:fail|FAILED|blocked|rejected",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)successfully released",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "contract:release_unchanged",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "contract:new_candidates_not_released",
+     "pass": true,
+     "detail": [
+      [
+       "C00403_F352C66C",
+       "ORDER_DATE_BASIS_DEMO",
+       "FAILED"
+      ]
+     ]
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "B-N3#1",
+   "case": "B-N3",
+   "kind": "normal",
+   "agent": "builder",
+   "agent_spec_sha256": "4c00018dbd1a5767c71cd3eae077ca6aa2fbb16f44488760718f59c34181107a",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 83.2,
+   "data_agent_run_query_id": "01c7edde-010c-6e58-0034-28cb001b0632",
+   "tools": [
+    "ProposeCandidate",
+    "CreateCandidate",
+    "ValidateCandidate",
+    "ReleaseCandidate"
+   ],
+   "tool_query_ids": [
+    "01c7edde-010c-6e58-0034-28cb001b0636",
+    "01c7eddf-010c-6e58-0034-28cb001b0656",
+    "01c7eddf-010c-6e58-0034-28cb001b0692",
+    "01c7eddf-010c-6e58-0034-28cb001b06a2",
+    "01c7eddf-010c-6e58-0034-28cb001b06ce",
+    "01c7eddf-010c-6e58-0034-28cb001b06de",
+    "01c7eddf-010c-6e58-0034-28cb001b06ee",
+    "01c7eddf-010c-6e58-0034-28cb001b06fe",
+    "01c7eddf-010c-6e58-0034-28cb001b070e",
+    "01c7eddf-010c-6e58-0034-28cb001b071e",
+    "01c7eddf-010c-6e58-0034-28cb001b072e",
+    "01c7eddf-010c-6e58-0034-28cb001b073e",
+    "01c7eddf-010c-6e58-0034-28cb001b074e",
+    "01c7eddf-010c-6e58-0034-28cb001b075e",
+    "01c7eddf-010c-6e58-0034-28cb001b076e",
+    "01c7eddf-010c-6e58-0034-28cb001b0792",
+    "01c7eddf-010c-6e58-0034-28cb001b07ba"
+   ],
+   "skill_nodes": 0,
+   "new_candidates": [
+    [
+     "C00801_504C8897",
+     "DAILY_INVOICED_SALES_V1",
+     "RELEASED"
+    ]
+   ],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "tool_called:ProposeCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate"
+     ]
+    },
+    {
+     "check": "tool_called:CreateCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate"
+     ]
+    },
+    {
+     "check": "tool_called:ValidateCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate"
+     ]
+    },
+    {
+     "check": "tool_called:ReleaseCandidate",
+     "pass": true,
+     "detail": [
+      "ProposeCandidate",
+      "CreateCandidate",
+      "ValidateCandidate",
+      "ReleaseCandidate"
+     ]
+    },
+    {
+     "check": "contract:new_release_is_this_runs_validated_candidate",
+     "pass": true,
+     "detail": {
+      "after": [
+       [
+        "201",
+        "C00801_504C8897",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0201",
+        "118407673939843085"
+       ]
+      ],
+      "new": [
+       [
+        "C00801_504C8897",
+        "DAILY_INVOICED_SALES_V1",
+        "RELEASED"
+       ]
+      ]
+     }
+    },
+    {
+     "check": "text_reports_released_version",
+     "pass": true,
+     "detail": "201"
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "B-B1#1",
+   "case": "B-B1",
+   "kind": "boundary",
+   "agent": "builder",
+   "agent_spec_sha256": "4c00018dbd1a5767c71cd3eae077ca6aa2fbb16f44488760718f59c34181107a",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 10.5,
+   "data_agent_run_query_id": "01c7ede0-010c-6e5a-0034-28cb001b2946",
+   "tools": [],
+   "tool_query_ids": [],
+   "skill_nodes": 0,
+   "new_candidates": [],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)successfully released",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "contract:release_unchanged",
+     "pass": true,
+     "detail": {
+      "before": [
+       [
+        "201",
+        "C00801_504C8897",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0201",
+        "118407673939843085"
+       ]
+      ],
+      "after": [
+       [
+        "201",
+        "C00801_504C8897",
+        "HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V0201",
+        "118407673939843085"
+       ]
+      ]
+     }
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  },
+  {
+   "run_id": "B-B2#1",
+   "case": "B-B2",
+   "kind": "boundary",
+   "agent": "builder",
+   "agent_spec_sha256": "4c00018dbd1a5767c71cd3eae077ca6aa2fbb16f44488760718f59c34181107a",
+   "model": "claude-opus-5-5",
+   "elapsed_s": 26.7,
+   "data_agent_run_query_id": "01c7ede0-010c-6e5b-0034-28cb001af5ae",
+   "tools": [
+    "ProposeCandidate",
+    "ReportCodeSearch"
+   ],
+   "tool_query_ids": [
+    "01c7ede0-010c-6e5b-0034-28cb001af5b2",
+    "79dd8874-c456-43cc-aef6-97753f8dfc0b",
+    "a32a8970-8231-447d-a407-d215c4c55a0a",
+    "fb140aef-47b7-4a8e-8412-96aaa04066cc",
+    "fc6ecaed-753a-43dd-a2fd-532794cc72ce"
+   ],
+   "skill_nodes": 0,
+   "new_candidates": [
+    [
+     "C00202_FFC3D1F1",
+     "STOCKGROUP_FANOUT_DEMO",
+     "PROPOSED"
+    ]
+   ],
+   "pass": true,
+   "checks": [
+    {
+     "check": "no_run_error",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "text_any:allocation|primary group|many-to-many|multiple stock groups|more than one",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "no_unsupported_claim:(?i)stock[- ]group product (has been|was) released",
+     "pass": true,
+     "detail": null
+    },
+    {
+     "check": "contract:no_invalid_release",
+     "pass": true,
+     "detail": [
+      [
+       "C00202_FFC3D1F1",
+       "STOCKGROUP_FANOUT_DEMO",
+       "PROPOSED"
+      ]
+     ]
+    }
+   ],
+   "flags": [],
+   "manual_interventions": "none"
+  }
+ ]
+}

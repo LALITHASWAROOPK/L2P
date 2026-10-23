@@ -387,7 +387,9 @@ BEGIN
     RETURN TO_JSON(OBJECT_CONSTRUCT('ok', FALSE, 'error', 'CHANGED_AFTER_VALIDATION', 'validated_hash', :vhash, 'current_hash', :hnow, 'state', 'FAILED'));
   END IF;
   -- Clone to a unique versioned release object, then verify the clone itself.
-  SELECT L2P.SEQ_RELEASE.NEXTVAL INTO :ver;
+  -- Version = max released + 1. Sequences are NOORDER across sessions (eval found v401 released before v302).
+  -- A concurrent release computing the same version fails on the CLONE name collision and releases nothing.
+  SELECT COALESCE(MAX(VERSION), 0) + 1 INTO :ver FROM L2P.RELEASES WHERE PRODUCT = 'DAILY_INVOICED_SALES';
   relobj := 'HACKATHON_D2K_PREWORK.L2P_RELEASE.DAILY_INVOICED_SALES_V' || LPAD(:ver::VARCHAR, 4, '0');
   BEGIN
     EXECUTE IMMEDIATE 'CREATE TABLE ' || :relobj || ' CLONE ' || :obj;

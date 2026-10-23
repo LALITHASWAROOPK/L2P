@@ -50,7 +50,7 @@ def final_text(resp):
     return "\n".join(out)
 
 
-def run(cur, pid, agent, prompt):
+def run(cur, pid, agent, prompt, out_dir=None):
     body = json.dumps({"messages": [{"role": "user", "content": [{"type": "text", "text": prompt}]}]})
     t0 = time.time()
     err = None
@@ -78,15 +78,16 @@ def run(cur, pid, agent, prompt):
             tr = n.get("tool_result", n)
             txt = json.dumps(tr.get("content", tr), default=str)
             calls.append({"kind": "tool_result", "name": tr.get("name"), "status": tr.get("status"),
-                          "query_ids": sorted(set(QID.findall(txt)))[:20], "excerpt": txt[:1500]})
+                          "query_ids": sorted(set(QID.findall(txt)))[:20], "excerpt": txt[:1500], "full": txt})
         else:
             calls.append({"kind": "skill_related_node", "node": json.dumps(n, default=str)[:1500]})
     rec = {"prompt_id": pid, "agent": agent, "prompt": prompt, "elapsed_s": elapsed, "data_agent_run_query_id": sql_qid,
            "error": err, "tool_trace": calls, "final_text": final_text(resp) if isinstance(resp, dict) else None,
            "manual_interventions": "none"}
-    (ROOT / "evidence" / "agent_runs").mkdir(exist_ok=True)
-    (ROOT / "evidence" / "agent_runs" / f"{pid}.raw.json").write_text(json.dumps(resp, indent=1, default=str) if resp else str(err), encoding="utf-8")
-    (ROOT / "evidence" / "agent_runs" / f"{pid}.trace.json").write_text(json.dumps(rec, indent=1, default=str), encoding="utf-8")
+    d = out_dir or (ROOT / "evidence" / "agent_runs")
+    d.mkdir(parents=True, exist_ok=True)
+    (d / f"{pid}.raw.json").write_text(json.dumps(resp, indent=1, default=str) if resp else str(err), encoding="utf-8")
+    (d / f"{pid}.trace.json").write_text(json.dumps(rec, indent=1, default=str), encoding="utf-8")
     names = [c["name"] for c in calls if c["kind"] == "tool_use"]
     print(f"{pid}: {elapsed}s err={err is not None} tools={names} skill_nodes={sum(1 for c in calls if c['kind']=='skill_related_node')}")
     return rec
