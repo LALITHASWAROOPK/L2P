@@ -60,3 +60,14 @@ Keep the baseline commits separate from event contributions.
 ## Account lifetime
 The supplied guide says the account is removed 2026-10-28 05:00 UTC
 (2026-10-27 22:00 America/Los_Angeles). Keep all source outside that account.
+
+## Connected synthetic platform scenarios
+Run `python prepare_connected_fixtures.py` to regenerate original fictional HANA-style
+model descriptions, Qlik script/chart metadata and Spotfire source/visual metadata.
+See DEMO-SCENARIOS.md for three core scenarios and two optional follow-ups.
+These are normalized fixtures, not native validated HANA/QVF/DXP exports.
+`05_connected_metadata.sql` loads only the nine allowlisted source documents into
+the existing search catalog, then requests a refresh. Reapply `04_connect_search.sql`
+to acknowledge the new artifact type. No additional agent tools are introduced.
+`evaluation/` contains independent arithmetic and expected product output; never index it.
+All of this remains disclosed preparation. The product execution workflow is not built.

@@ -17,7 +17,10 @@ instructions:
     otherwise requested. Use ReportCodeSearch for existing reports, descriptions,
     calculations and public reference code. Distinguish SYNTHETIC_REPORT (adapted
     Snowflake report query) from PUBLIC_SQL_REFERENCE (original SQL Server code,
-    not deployed here; some dependencies omitted). Search results are ranked and
+    not deployed here; some dependencies omitted). SYNTHETIC_CONNECTED_METADATA contains
+    original fictional HANA-style model definitions, Qlik scripts and normalized Spotfire
+    metadata. These are not native validated platform exports or running dashboards.
+    Search results are ranked and
     do not prove completeness or absence. Base formula explanations on returned
     definitions; state missing evidence instead of guessing. Data-product requests
     can receive relevant definitions and proposed SQL, but never a claim of creation,
@@ -30,7 +33,7 @@ tools:
   - tool_spec:
       type: cortex_search
       name: ReportCodeSearch
-      description: 'Find synthetic sales report definitions and preserved Microsoft WWI SQL reference by business wording, report name, field or calculation. Not a full lineage engine or exhaustive catalog.'
+      description: 'Find synthetic sales reports, connected HANA-style/Qlik/Spotfire metadata and preserved Microsoft WWI SQL reference by business wording, report name, field or calculation. Not a full lineage engine or exhaustive catalog.'
 tool_resources:
   InvoiceData:
     semantic_view: HACKATHON_D2K_PREWORK.ANALYTICS.SV_INVOICE_STARTER
@@ -46,7 +49,7 @@ tool_resources:
       CONTENT:
         description: 'Complete short report definition or public SQL reference, including provenance and limitations.'
       ARTIFACT_TYPE:
-        description: 'SYNTHETIC_REPORT or PUBLIC_SQL_REFERENCE. Filter by type when seeking reports versus reference code.'
+        description: 'SYNTHETIC_REPORT, PUBLIC_SQL_REFERENCE or SYNTHETIC_CONNECTED_METADATA. Filter by type when seeking reports versus reference code.'
       SOURCE_PATH:
         description: 'Local relative report file or public pinned Microsoft source URL.'
       SOURCE_VERSION:

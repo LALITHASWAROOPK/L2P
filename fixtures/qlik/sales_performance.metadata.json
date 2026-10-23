@@ -1,0 +1,33 @@
+{
+  "notice": "Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.",
+  "format": "normalized-fixture-v1",
+  "platform": "Qlik",
+  "app_id": "SYN_QLIK_SALES",
+  "app_name": "Sales Performance",
+  "description": "Customer sales bookings and monthly ordered value, excluding tax.",
+  "load_script": "fixtures/qlik/sales_performance.qvs",
+  "sheets": [
+    {
+      "id": "SYN_SHEET_ORDERS",
+      "name": "Monthly Sales",
+      "charts": [
+        {
+          "id": "SYN_CHART_ORDERED",
+          "title": "Sales by month",
+          "dimension": "MonthStart(SalesDate)",
+          "measure": "Sum(SalesAmount)",
+          "measure_label": "Sales (ordered, excluding tax)"
+        },
+        {
+          "id": "SYN_CHART_CUSTOMER",
+          "title": "Customer sales",
+          "dimension": "CUSTOMERNAME",
+          "measure": "Sum(SalesAmount)"
+        }
+      ]
+    }
+  ],
+  "filters": [],
+  "default_date_range": "all loaded dates",
+  "currency": null
+}

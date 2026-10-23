@@ -84,3 +84,30 @@ The account expires 2026-10-27 22:00 Pacific according to the supplied guide.
   Branch codex/hackathon-prework; baseline eaca841 retained, search extension 3833f37.
   Only reviewed public-source and synthetic files published; screenshots and UI traces
   remain local and ignored. No private company assets or credentials included.
+
+## Connected synthetic scenarios
+- Nine original source artifacts prepared for Northstar Supply: two normalized HANA
+  model XML files plus SQL equivalents, Qlik load script and chart metadata, Spotfire
+  source SQL and visual metadata, and business definitions. No native HANA/QVF/DXP
+  deployment or validation is claimed.
+- Five local checks passed: both model joins preserve line grain, both totals match
+  independent Decimal calculations, and both BI projections resolve to model columns.
+- Independent expected daily product has 241 date/customer/product groups.
+- All-date ordered value 65893.02; invoice sales 53589.47; difference 12303.55.
+  Naive product-group join inflates invoice sales to 64027.32.
+- Repeated generation produced identical files. Evaluation answers are stored only
+  under evaluation/ and excluded from the search ingestion allowlist.
+- Nine connected documents loaded to the existing Snowflake catalog; total 24
+  documents (9 connected, 12 public SQL, 3 synthetic reports). Refresh requested.
+- Existing two-tool starter updated to recognize the new synthetic artifact type.
+  No additional tools, role grants, native connections or product-writing actions.
+- Fresh-thread connected discovery test found both BI fixtures and distinguished
+  order/invoice definitions, date basis and shared tax treatment. Search trace
+  succeeded in 453ms; agent 21.3s. Request 29efec26-4bd8-42ce-ae67-f4ddb5d684a7,
+  thread 875088652. This is discovery evidence, not full lineage validation.
+- Remaining wording issues observed: "never invoiced" should mean not invoiced in
+  this snapshot; "invoice data here has no order tables" is too broad. RAW orders
+  exist but are not exposed by the current InvoiceData semantic tool. Add orders
+  query coverage during the event before demonstrating numeric reconciliation.
+- Product-generation and stock-group ambiguity agent scenarios are not yet tested.
+  Their prepared fixtures and independent oracles are available for event work.

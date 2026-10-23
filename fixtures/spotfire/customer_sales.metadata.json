@@ -1,0 +1,45 @@
+{
+  "notice": "Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.",
+  "format": "normalized-fixture-v1",
+  "platform": "Spotfire",
+  "analysis_id": "SYN_SPOTFIRE_CUSTOMER",
+  "name": "Customer Sales",
+  "description": "Invoiced sales by customer and invoice month, excluding tax.",
+  "library_path": "/Synthetic/Finance/Customer Sales",
+  "data_tables": [
+    {
+      "name": "InvoiceSales",
+      "source_sql": "fixtures/spotfire/customer_sales.source.sql",
+      "calculated_columns": [
+        {
+          "name": "SalesAmount",
+          "expression": "[INVOICED_SALES_EX_TAX]"
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "Invoice Sales",
+      "visuals": [
+        {
+          "id": "SYN_VIZ_CUSTOMER",
+          "title": "Customer invoiced sales",
+          "data_table": "InvoiceSales",
+          "category": "[CUSTOMERNAME]",
+          "value": "Sum([SalesAmount])"
+        },
+        {
+          "id": "SYN_VIZ_MONTH",
+          "title": "Monthly invoiced sales",
+          "data_table": "InvoiceSales",
+          "category": "<Year([INVOICEDATE]) NEST Month([INVOICEDATE])>",
+          "value": "Sum([SalesAmount])"
+        }
+      ]
+    }
+  ],
+  "filters": [],
+  "default_date_range": "all loaded dates",
+  "currency": null
+}

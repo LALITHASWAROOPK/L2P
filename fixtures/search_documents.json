@@ -1,0 +1,74 @@
+[
+  {
+    "id": "CONNECTED_c321fb5572f5ed86",
+    "title": "Synthetic hana: CV_INVOICE_SALES.model.xml",
+    "kind": "SYNTHETIC_CONNECTED_METADATA",
+    "source": "fixtures/hana/CV_INVOICE_SALES.model.xml",
+    "version": "d33d0ec9211725e359b399623b46396df45aca42fac9800473bebb08cc061ce3",
+    "text": "Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\n<SyntheticHanaModel name=\"CV_INVOICE_SALES\" schema=\"SYNTHETIC_SALES\" sourceSystem=\"SYNTHETIC_HANA\" format=\"normalized-fixture-v1\" nativeDeploymentValidated=\"false\" grain=\"INVOICELINEID\" description=\"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\">\r\n  <DataSources>\r\n    <Table name=\"INVOICELINES\" alias=\"l\" />\r\n    <Table name=\"INVOICES\" alias=\"i\" />\r\n    <Table name=\"CUSTOMERS\" alias=\"c\" />\r\n    <Table name=\"STOCKITEMS\" alias=\"p\" />\r\n  </DataSources>\r\n  <Joins>\r\n    <Join left=\"l.INVOICEID\" right=\"i.INVOICEID\" type=\"inner\" cardinality=\"many-to-one\" />\r\n    <Join left=\"i.CUSTOMERID\" right=\"c.CUSTOMERID\" type=\"inner\" cardinality=\"many-to-one\" />\r\n    <Join left=\"l.STOCKITEMID\" right=\"p.STOCKITEMID\" type=\"inner\" cardinality=\"many-to-one\" />\r\n  </Joins>\r\n  <RelationalDefinition dialect=\"portable SQL fixture\">SELECT i.INVOICEID, l.INVOICELINEID, i.ORDERID, i.INVOICEDATE,\r\n c.CUSTOMERID, c.CUSTOMERNAME, p.STOCKITEMID, p.STOCKITEMNAME,\r\n l.QUANTITY, l.EXTENDEDPRICE - l.TAXAMOUNT AS INVOICED_SALES_EX_TAX,\r\n l.TAXAMOUNT AS INVOICE_TAX, l.EXTENDEDPRICE AS INVOICE_TOTAL_INCL_TAX\r\nFROM INVOICELINES l\r\nJOIN INVOICES i ON l.INVOICEID = i.INVOICEID\r\nJOIN CUSTOMERS c ON i.CUSTOMERID = c.CUSTOMERID\r\nJOIN STOCKITEMS p ON l.STOCKITEMID = p.STOCKITEMID</RelationalDefinition>\r\n</SyntheticHanaModel>\r\n"
+  },
+  {
+    "id": "CONNECTED_6f53633c096a6b56",
+    "title": "Synthetic hana: CV_INVOICE_SALES.sql",
+    "kind": "SYNTHETIC_CONNECTED_METADATA",
+    "source": "fixtures/hana/CV_INVOICE_SALES.sql",
+    "version": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+    "text": "Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\n-- Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\r\n-- SQL equivalent of the normalized model, not an SAP deployment artifact.\r\nSELECT i.INVOICEID, l.INVOICELINEID, i.ORDERID, i.INVOICEDATE,\r\n c.CUSTOMERID, c.CUSTOMERNAME, p.STOCKITEMID, p.STOCKITEMNAME,\r\n l.QUANTITY, l.EXTENDEDPRICE - l.TAXAMOUNT AS INVOICED_SALES_EX_TAX,\r\n l.TAXAMOUNT AS INVOICE_TAX, l.EXTENDEDPRICE AS INVOICE_TOTAL_INCL_TAX\r\nFROM INVOICELINES l\r\nJOIN INVOICES i ON l.INVOICEID = i.INVOICEID\r\nJOIN CUSTOMERS c ON i.CUSTOMERID = c.CUSTOMERID\r\nJOIN STOCKITEMS p ON l.STOCKITEMID = p.STOCKITEMID;\r\n"
+  },
+  {
+    "id": "CONNECTED_c1d6c7f4b37882cd",
+    "title": "Synthetic hana: CV_ORDER_SALES.model.xml",
+    "kind": "SYNTHETIC_CONNECTED_METADATA",
+    "source": "fixtures/hana/CV_ORDER_SALES.model.xml",
+    "version": "b2d9a0cf0e09571bbb90293129dd0804a1ccd80ea168378ab3f7d52e78e8684a",
+    "text": "Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\n<SyntheticHanaModel name=\"CV_ORDER_SALES\" schema=\"SYNTHETIC_SALES\" sourceSystem=\"SYNTHETIC_HANA\" format=\"normalized-fixture-v1\" nativeDeploymentValidated=\"false\" grain=\"ORDERLINEID\" description=\"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\">\r\n  <DataSources>\r\n    <Table name=\"ORDERLINES\" alias=\"l\" />\r\n    <Table name=\"ORDERS\" alias=\"o\" />\r\n    <Table name=\"CUSTOMERS\" alias=\"c\" />\r\n    <Table name=\"STOCKITEMS\" alias=\"p\" />\r\n  </DataSources>\r\n  <Joins>\r\n    <Join left=\"l.ORDERID\" right=\"o.ORDERID\" type=\"inner\" cardinality=\"many-to-one\" />\r\n    <Join left=\"o.CUSTOMERID\" right=\"c.CUSTOMERID\" type=\"inner\" cardinality=\"many-to-one\" />\r\n    <Join left=\"l.STOCKITEMID\" right=\"p.STOCKITEMID\" type=\"inner\" cardinality=\"many-to-one\" />\r\n  </Joins>\r\n  <RelationalDefinition dialect=\"portable SQL fixture\">SELECT o.ORDERID, l.ORDERLINEID, o.ORDERDATE,\r\n c.CUSTOMERID, c.CUSTOMERNAME, p.STOCKITEMID, p.STOCKITEMNAME,\r\n l.QUANTITY, ROUND(l.QUANTITY * l.UNITPRICE, 2) AS ORDERED_VALUE_EX_TAX\r\nFROM ORDERLINES l\r\nJOIN ORDERS o ON l.ORDERID = o.ORDERID\r\nJOIN CUSTOMERS c ON o.CUSTOMERID = c.CUSTOMERID\r\nJOIN STOCKITEMS p ON l.STOCKITEMID = p.STOCKITEMID</RelationalDefinition>\r\n</SyntheticHanaModel>\r\n"
+  },
+  {
+    "id": "CONNECTED_d8398680328033bb",
+    "title": "Synthetic hana: CV_ORDER_SALES.sql",
+    "kind": "SYNTHETIC_CONNECTED_METADATA",
+    "source": "fixtures/hana/CV_ORDER_SALES.sql",
+    "version": "1f197fd3d2da50b70767619a1088fd0b7835501688a40efc73ca7e98fd0a3002",
+    "text": "Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\n-- Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\r\n-- SQL equivalent of the normalized model, not an SAP deployment artifact.\r\nSELECT o.ORDERID, l.ORDERLINEID, o.ORDERDATE,\r\n c.CUSTOMERID, c.CUSTOMERNAME, p.STOCKITEMID, p.STOCKITEMNAME,\r\n l.QUANTITY, ROUND(l.QUANTITY * l.UNITPRICE, 2) AS ORDERED_VALUE_EX_TAX\r\nFROM ORDERLINES l\r\nJOIN ORDERS o ON l.ORDERID = o.ORDERID\r\nJOIN CUSTOMERS c ON o.CUSTOMERID = c.CUSTOMERID\r\nJOIN STOCKITEMS p ON l.STOCKITEMID = p.STOCKITEMID;\r\n"
+  },
+  {
+    "id": "CONNECTED_c09c9d6a14cfbebb",
+    "title": "Synthetic qlik: sales_performance.metadata.json",
+    "kind": "SYNTHETIC_CONNECTED_METADATA",
+    "source": "fixtures/qlik/sales_performance.metadata.json",
+    "version": "8d8c9c69824dad7d75135ca808e54a3f46a269d870eb3b385d0777ffc1bd55ad",
+    "text": "Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\n{\r\n  \"notice\": \"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\",\r\n  \"format\": \"normalized-fixture-v1\",\r\n  \"platform\": \"Qlik\",\r\n  \"app_id\": \"SYN_QLIK_SALES\",\r\n  \"app_name\": \"Sales Performance\",\r\n  \"description\": \"Customer sales bookings and monthly ordered value, excluding tax.\",\r\n  \"load_script\": \"fixtures/qlik/sales_performance.qvs\",\r\n  \"sheets\": [\r\n    {\r\n      \"id\": \"SYN_SHEET_ORDERS\",\r\n      \"name\": \"Monthly Sales\",\r\n      \"charts\": [\r\n        {\r\n          \"id\": \"SYN_CHART_ORDERED\",\r\n          \"title\": \"Sales by month\",\r\n          \"dimension\": \"MonthStart(SalesDate)\",\r\n          \"measure\": \"Sum(SalesAmount)\",\r\n          \"measure_label\": \"Sales (ordered, excluding tax)\"\r\n        },\r\n        {\r\n          \"id\": \"SYN_CHART_CUSTOMER\",\r\n          \"title\": \"Customer sales\",\r\n          \"dimension\": \"CUSTOMERNAME\",\r\n          \"measure\": \"Sum(SalesAmount)\"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"filters\": [],\r\n  \"default_date_range\": \"all loaded dates\",\r\n  \"currency\": null\r\n}\r\n"
+  },
+  {
+    "id": "CONNECTED_5a56548a8e0e4e42",
+    "title": "Synthetic qlik: sales_performance.qvs",
+    "kind": "SYNTHETIC_CONNECTED_METADATA",
+    "source": "fixtures/qlik/sales_performance.qvs",
+    "version": "6101a40d6c86b0be37d91febd8599c70e083f7fb7c2b364b3d5eeed3f432983e",
+    "text": "Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\n// SYNTHETIC fixture; not executed in Qlik. Connection is a placeholder.\r\nLIB CONNECT TO 'SYNTHETIC_HANA_CONNECTION';\r\nSalesOrders:\r\nLOAD ORDERID, ORDERLINEID, ORDERDATE AS SalesDate,\r\n CUSTOMERID, CUSTOMERNAME, STOCKITEMID, STOCKITEMNAME,\r\n QUANTITY, ORDERED_VALUE_EX_TAX AS SalesAmount;\r\nSQL SELECT ORDERID, ORDERLINEID, ORDERDATE, CUSTOMERID, CUSTOMERNAME,\r\n STOCKITEMID, STOCKITEMNAME, QUANTITY, ORDERED_VALUE_EX_TAX\r\nFROM \"SYNTHETIC_SALES\".\"CV_ORDER_SALES\";\r\n"
+  },
+  {
+    "id": "CONNECTED_a5086dc0ef985e23",
+    "title": "Synthetic spotfire: customer_sales.metadata.json",
+    "kind": "SYNTHETIC_CONNECTED_METADATA",
+    "source": "fixtures/spotfire/customer_sales.metadata.json",
+    "version": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+    "text": "Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\n{\r\n  \"notice\": \"Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\",\r\n  \"format\": \"normalized-fixture-v1\",\r\n  \"platform\": \"Spotfire\",\r\n  \"analysis_id\": \"SYN_SPOTFIRE_CUSTOMER\",\r\n  \"name\": \"Customer Sales\",\r\n  \"description\": \"Invoiced sales by customer and invoice month, excluding tax.\",\r\n  \"library_path\": \"/Synthetic/Finance/Customer Sales\",\r\n  \"data_tables\": [\r\n    {\r\n      \"name\": \"InvoiceSales\",\r\n      \"source_sql\": \"fixtures/spotfire/customer_sales.source.sql\",\r\n      \"calculated_columns\": [\r\n        {\r\n          \"name\": \"SalesAmount\",\r\n          \"expression\": \"[INVOICED_SALES_EX_TAX]\"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"pages\": [\r\n    {\r\n      \"name\": \"Invoice Sales\",\r\n      \"visuals\": [\r\n        {\r\n          \"id\": \"SYN_VIZ_CUSTOMER\",\r\n          \"title\": \"Customer invoiced sales\",\r\n          \"data_table\": \"InvoiceSales\",\r\n          \"category\": \"[CUSTOMERNAME]\",\r\n          \"value\": \"Sum([SalesAmount])\"\r\n        },\r\n        {\r\n          \"id\": \"SYN_VIZ_MONTH\",\r\n          \"title\": \"Monthly invoiced sales\",\r\n          \"data_table\": \"InvoiceSales\",\r\n          \"category\": \"<Year([INVOICEDATE]) NEST Month([INVOICEDATE])>\",\r\n          \"value\": \"Sum([SalesAmount])\"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"filters\": [],\r\n  \"default_date_range\": \"all loaded dates\",\r\n  \"currency\": null\r\n}\r\n"
+  },
+  {
+    "id": "CONNECTED_1055b17d75582621",
+    "title": "Synthetic spotfire: customer_sales.source.sql",
+    "kind": "SYNTHETIC_CONNECTED_METADATA",
+    "source": "fixtures/spotfire/customer_sales.source.sql",
+    "version": "f67352b5a51bba4566da228ea9c31326007138b0e8e05aabca4de2686370f561",
+    "text": "Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\n-- Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\r\nSELECT INVOICEID, INVOICELINEID, ORDERID, INVOICEDATE,\r\n CUSTOMERID, CUSTOMERNAME, STOCKITEMID, STOCKITEMNAME, QUANTITY,\r\n INVOICED_SALES_EX_TAX, INVOICE_TAX, INVOICE_TOTAL_INCL_TAX\r\nFROM \"SYNTHETIC_SALES\".\"CV_INVOICE_SALES\";\r\n"
+  },
+  {
+    "id": "CONNECTED_d6d252dc2b0538ee",
+    "title": "Synthetic business: definitions.md",
+    "kind": "SYNTHETIC_CONNECTED_METADATA",
+    "source": "fixtures/business/definitions.md",
+    "version": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+    "text": "Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.\n# Northstar Supply: synthetic sales definitions\r\n\r\nAll data and report metadata are fictional. No real customer data is included.\r\nThe platform metadata is normalized fixture content, not native validated app exports.\r\n\r\n- Ordered value: order-line quantity multiplied by unit price; order-date basis.\r\n  Includes orders without invoices. This is a bookings measure, not recognized revenue.\r\n- Invoiced sales: invoice-line ExtendedPrice minus TaxAmount; invoice-date basis.\r\n  This simplified demo calls that revenue, without claiming accounting revenue recognition.\r\n- ExtendedPrice includes tax in the synthetic invoice dataset.\r\n- No currencies, discounts, returns or cancellations are modeled.\r\n- Customers and products are shared between the two reporting paths.\r\n- A product may belong to multiple stock groups. There is no designated primary group\r\n  or approved allocation weighting. Group totals are therefore not necessarily additive.\r\n- A proposed daily customer/product product must specify its date basis, tax treatment\r\n  and grain. Do not silently substitute orders for invoices or invent missing dates.\r\n- Qlik Sales Performance uses orders. Spotfire Customer Sales uses invoices.\r\n  Both use all loaded dates and amounts excluding tax; differing tax treatment is not\r\n  an explanation for a difference between these particular two synthetic reports.\r\n"
+  }
+]

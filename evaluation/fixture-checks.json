@@ -1,0 +1,48 @@
+{
+  "notice": "Evaluation only. Never load this folder into agent search.",
+  "ordered_sales_ex_tax": "65893.02",
+  "invoiced_sales_ex_tax": "53589.47",
+  "difference_uninvoiced_order_value": "12303.55",
+  "uninvoiced_order_count": 24,
+  "naive_stockgroup_join_total": "64027.32",
+  "double_counted_amount": "10437.85",
+  "daily_customer_product_groups": 241,
+  "monthly": {
+    "2026-01": {
+      "ordered": "29818.34",
+      "invoiced": "23081.24"
+    },
+    "2026-02": {
+      "ordered": "35583.22",
+      "invoiced": "29338.84"
+    },
+    "2026-03": {
+      "ordered": "491.46",
+      "invoiced": "1169.39"
+    }
+  },
+  "checks": [
+    {
+      "check": "CV_INVOICE_SALES preserves unique source-line grain",
+      "rows": 243,
+      "passed": true
+    },
+    {
+      "check": "CV_ORDER_SALES preserves unique source-line grain",
+      "rows": 303,
+      "passed": true
+    },
+    {
+      "check": "CV_ORDER_SALES matches independent CSV arithmetic",
+      "passed": true
+    },
+    {
+      "check": "CV_INVOICE_SALES matches independent CSV arithmetic",
+      "passed": true
+    },
+    {
+      "check": "Both BI source projections reference existing fixture output columns",
+      "passed": true
+    }
+  ]
+}

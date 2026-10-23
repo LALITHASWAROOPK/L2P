@@ -1,0 +1,20 @@
+<SyntheticHanaModel name="CV_ORDER_SALES" schema="SYNTHETIC_SALES" sourceSystem="SYNTHETIC_HANA" format="normalized-fixture-v1" nativeDeploymentValidated="false" grain="ORDERLINEID" description="Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.">
+  <DataSources>
+    <Table name="ORDERLINES" alias="l" />
+    <Table name="ORDERS" alias="o" />
+    <Table name="CUSTOMERS" alias="c" />
+    <Table name="STOCKITEMS" alias="p" />
+  </DataSources>
+  <Joins>
+    <Join left="l.ORDERID" right="o.ORDERID" type="inner" cardinality="many-to-one" />
+    <Join left="o.CUSTOMERID" right="c.CUSTOMERID" type="inner" cardinality="many-to-one" />
+    <Join left="l.STOCKITEMID" right="p.STOCKITEMID" type="inner" cardinality="many-to-one" />
+  </Joins>
+  <RelationalDefinition dialect="portable SQL fixture">SELECT o.ORDERID, l.ORDERLINEID, o.ORDERDATE,
+ c.CUSTOMERID, c.CUSTOMERNAME, p.STOCKITEMID, p.STOCKITEMNAME,
+ l.QUANTITY, ROUND(l.QUANTITY * l.UNITPRICE, 2) AS ORDERED_VALUE_EX_TAX
+FROM ORDERLINES l
+JOIN ORDERS o ON l.ORDERID = o.ORDERID
+JOIN CUSTOMERS c ON o.CUSTOMERID = c.CUSTOMERID
+JOIN STOCKITEMS p ON l.STOCKITEMID = p.STOCKITEMID</RelationalDefinition>
+</SyntheticHanaModel>

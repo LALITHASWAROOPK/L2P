@@ -1,0 +1,83 @@
+{
+  "notice": "Original synthetic fixture. Fictional company: Northstar Supply. Not exported from or validated in HANA, Qlik or Spotfire. No company data or real BI dashboard is represented.",
+  "assets": [
+    {
+      "path": "fixtures/hana/CV_INVOICE_SALES.model.xml",
+      "platform": "hana",
+      "sha256": "d33d0ec9211725e359b399623b46396df45aca42fac9800473bebb08cc061ce3",
+      "origin": "original synthetic authoring",
+      "native_platform_validation": false
+    },
+    {
+      "path": "fixtures/hana/CV_INVOICE_SALES.sql",
+      "platform": "hana",
+      "sha256": "a6c9df764b8ddc66665021280bf87770130becbbb10d52e1796768f78a84fd3d",
+      "origin": "original synthetic authoring",
+      "native_platform_validation": false
+    },
+    {
+      "path": "fixtures/hana/CV_ORDER_SALES.model.xml",
+      "platform": "hana",
+      "sha256": "b2d9a0cf0e09571bbb90293129dd0804a1ccd80ea168378ab3f7d52e78e8684a",
+      "origin": "original synthetic authoring",
+      "native_platform_validation": false
+    },
+    {
+      "path": "fixtures/hana/CV_ORDER_SALES.sql",
+      "platform": "hana",
+      "sha256": "1f197fd3d2da50b70767619a1088fd0b7835501688a40efc73ca7e98fd0a3002",
+      "origin": "original synthetic authoring",
+      "native_platform_validation": false
+    },
+    {
+      "path": "fixtures/qlik/sales_performance.metadata.json",
+      "platform": "qlik",
+      "sha256": "8d8c9c69824dad7d75135ca808e54a3f46a269d870eb3b385d0777ffc1bd55ad",
+      "origin": "original synthetic authoring",
+      "native_platform_validation": false
+    },
+    {
+      "path": "fixtures/qlik/sales_performance.qvs",
+      "platform": "qlik",
+      "sha256": "6101a40d6c86b0be37d91febd8599c70e083f7fb7c2b364b3d5eeed3f432983e",
+      "origin": "original synthetic authoring",
+      "native_platform_validation": false
+    },
+    {
+      "path": "fixtures/spotfire/customer_sales.metadata.json",
+      "platform": "spotfire",
+      "sha256": "46742043d0c70b3e9492aca16f0c3fc04404c1db0bc14e334978b2674f172357",
+      "origin": "original synthetic authoring",
+      "native_platform_validation": false
+    },
+    {
+      "path": "fixtures/spotfire/customer_sales.source.sql",
+      "platform": "spotfire",
+      "sha256": "f67352b5a51bba4566da228ea9c31326007138b0e8e05aabca4de2686370f561",
+      "origin": "original synthetic authoring",
+      "native_platform_validation": false
+    },
+    {
+      "path": "fixtures/business/definitions.md",
+      "platform": "business",
+      "sha256": "250c6d6c4690f5c15a505188504b1cca28eed8b42c627908d52769070558da93",
+      "origin": "original synthetic authoring",
+      "native_platform_validation": false
+    }
+  ],
+  "index_allowlist": [
+    "fixtures/hana/CV_INVOICE_SALES.model.xml",
+    "fixtures/hana/CV_INVOICE_SALES.sql",
+    "fixtures/hana/CV_ORDER_SALES.model.xml",
+    "fixtures/hana/CV_ORDER_SALES.sql",
+    "fixtures/qlik/sales_performance.metadata.json",
+    "fixtures/qlik/sales_performance.qvs",
+    "fixtures/spotfire/customer_sales.metadata.json",
+    "fixtures/spotfire/customer_sales.source.sql",
+    "fixtures/business/definitions.md"
+  ],
+  "excluded_from_index": [
+    "evaluation/",
+    "DEMO-SCENARIOS.md"
+  ]
+}

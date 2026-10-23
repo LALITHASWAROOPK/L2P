@@ -170,3 +170,13 @@ discovery smoke test passed. Public GitHub preparation repository is published a
 reconciliation and the validated product workflow. Do not spend the event rebuilding the starter or importing
 an entire enterprise database. Keep generated products isolated from the baseline.
 Save artifacts locally: the supplied account expires October 27 at 10 p.m. Pacific.
+
+## Connected synthetic scenario preparation
+See DEMO-SCENARIOS.md. The existing synthetic rows now have two normalized HANA-style
+model descriptions, one Qlik report path and one Spotfire report path, plus definitions.
+These original artifacts are not native platform exports. Five fixture checks validate
+relational joins, unique line grain, totals and BI source projections locally.
+Independent expected answers and daily product rows are excluded from retrieval.
+Prepared demos: discover reports, explain order/invoice differences, build a validated
+daily product. Optional follow-ups: stock-group overlap and source change impact.
+Fixture preparation does not establish end-to-end agent workflow success.
