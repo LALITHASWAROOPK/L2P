@@ -1,0 +1,35 @@
+{
+  "dataset": {
+    "dataset_type": "CORTEX AGENT",
+    "table_name": "HACKATHON_D2K_PREWORK.L2P.CODEX_NATIVE_20261023_1400_INPUT",
+    "dataset_name": "CODEX_NATIVE_20261023_1400_DATA",
+    "column_mapping": {
+      "query_text": "INPUT_QUERY",
+      "ground_truth": "GROUND_TRUTH"
+    }
+  },
+  "evaluation": {
+    "agent_params": {
+      "agent_name": "L2P_BUILDER",
+      "agent_type": "CORTEX AGENT",
+      "agent_version": "LIVE"
+    },
+    "run_params": {
+      "label": "L2P read-only native smoke evaluation"
+    },
+    "source_metadata": {
+      "type": "dataset",
+      "dataset_name": "CODEX_NATIVE_20261023_1400_DATA"
+    }
+  },
+  "metrics": [
+    {
+      "name": "answer_correctness",
+      "version": "v3"
+    },
+    {
+      "name": "logical_consistency",
+      "version": "v3"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+L2P — Logic to Product
+Submission draft | October 23, 2026 | Review before submitting
+
+PROJECT DESCRIPTION
+L2P helps a data developer create a reusable data product from logic already present in reports and source models. In our fictional Northstar Supply example, two reports both say “sales” but use different definitions. A Claude-powered builder agent retrieves synthetic Qlik, Spotfire and HANA-style definitions, explains their mappings, and invokes bounded Snowflake tools to create a daily invoiced-sales candidate. A versioned contract checks the candidate before release. A separate consumer agent queries only the released product through restricted tools and proposes a customer account-review shortlist.
+
+The demo shows a stock-group join multiplying sales, a contract rejecting that candidate, a corrected product passing, and the consumer querying the released version. It also tests a more subtle error: using order date instead of invoice date can preserve the grand total while producing the wrong daily product. Grouped reconciliation catches it.
+
+SPECIFIC USER AND VALUE
+The primary user is a data developer asked to reuse existing report logic. A platform architect configures evidence access, bounded tools and contract policies. An analyst consumes the resulting product. The intended value is less manual reconstruction of business definitions and fewer incorrect datasets reaching downstream decisions.
+
+Measured demonstration results: 32 backend regression assertions passed in the saved run. The correct product contained 241 date/customer/product rows representing 243 invoice lines and 53,589.47 sales excluding tax. Invalid fanout, omission and date-basis candidates were rejected. Post-validation mutation was rejected. A later failed candidate preserved the passing release. A consumer-agent run queried the released object and returned a ranking matching an independent source-snapshot calculation in 24.7 seconds. These are synthetic test results, not production reliability or measured business savings.
+
+Baseline: the prework starter offered report search and invoice queries but no product-writing workflow. The event builder completed a natural-language negative-test/corrected-build sequence and released version 2 in the recorded B3 run. Reuse the precise saved trace when presenting this comparison. The baseline lacked write tools by design, so this compares workflow capability, not model intelligence.
+
+Custom agent evaluation v2: 19/19 runs passed across 10 cases in run_20261023_133220, using structured tool results, release snapshot oracles and registry postconditions. Two wording flags need review. Native evaluations separately tested two read-only cases per agent: all answer correctness scores were 1.00; consumer consistency was 1.00/1.00, builder consistency 1.00/0.67. The lower score identified a search citation without retrieving its full definition. These small samples are not broad reliability estimates. A release-sequence ordering fix was deployed afterward; follow-up testing is in progress.
+
+Potential funder: a data-platform or analytics-engineering team responsible for governed self-service. No organization has committed funding or ownership. Business value has not been measured. Illustrative projection only: 10 builds/month x 1 hour saved/build x 100 currency units/hour = 1,000 currency units/month, before operating costs. These are assumptions for a pilot, not observed savings. A pilot should measure elapsed task time, manual interventions, mapping accuracy and escaped defects against the current process.
+
+ARCHITECTURE
+The verified runtime uses two saved Snowflake Cortex Agents with explicit claude-opus-5-5 orchestration. The builder uses Cortex Search, exact definition retrieval, reconciliation and bounded propose/create/validate/release procedures. Three original skills describe HANA-style interpretation, Qlik interpretation and product creation. Skills are staged and attached to the builder; their invocation evidence must be reported separately from attachment.
+
+Snowflake stores the synthetic sources, source snapshots, candidate data, contract/check results, registry and released versions. The release procedure enforces the validation gate. The consumer has separate discovery and read procedures over the current released product. The implementation demonstrates procedure/tool enforcement under one workshop role, not separate per-user RBAC. Neither a persona toggle nor a skill is the authorization boundary.
+
+A local browser UI calls a Python backend and the saved agents. Builder lineage tracing and consumer ranking were verified live. The build/release button is implemented; UI-path verification awaits completion of concurrent stateful tests. Native HANA, Qlik and Spotfire connectors and MCP integrations are not implemented.
+
+BUILD STORY
+Before the event, I prepared the account, independently generated synthetic rows, licensed public Microsoft WWI source references, normalized report/model fixtures, a basic search catalog and a starter agent. Prework baseline: 659671ba0744b1126d043af3c25843c6249538bb.
+
+During the event, I used CoCo Desktop to implement the contract, candidate and release workflow, separate builder/consumer agents, original skills, regression tests and agent evaluation harness. Codex helped with planning, review, skill drafts, evidence checks, the local UI/backend, native evaluations and presentation preparation. Disclose actual tools used; do not imply the entire entry was built solely in CoCo.
+
+One concrete failure during development was a validation crash leaving a candidate in CREATED with a run marked RUNNING. It could not be released, but its status was unclear. Error handling was revised to record FAILED with the error; the failed artifact was retained. The evaluation harness was also strengthened after recognizing that exact answer strings and mutable live-data comparisons were weaker than checking structured tool results against the released version's recorded snapshot.
+
+The design applies a general lesson from earlier engineering experience: agents make better-supported decisions when they can retrieve the specific definitions they need, preserve context and test their conclusions. All public evidence here must come from new synthetic runs. No employer code, data, skills, logs, screenshots or proprietary knowledge is part of the submission. Do not claim chunking caused an improvement until a controlled comparison supports it.
+
+VIABILITY AND NEXT STEPS
+A proposed pilot owner is a data-platform team with a business data owner approving contract semantics. Next steps are broader source-format coverage, role-separated permissions, concurrency and scale testing, refresh/revalidation policies, supported native connectors and evaluation on a larger authorized corpus. Expand beyond the bounded daily-sales recipe only with equivalent contract enforcement and evidence coverage.
+
+LIMITATIONS
+Original synthetic metadata is not native HANA, Qlik or Spotfire deployment. The builder uses bounded predefined recipes, not arbitrary SQL generation for every report. The product has no currency, consent, margin, campaign response or causal-uplift evidence. Sales supports an account-review shortlist, not campaign sends or claims about campaign effectiveness. The source data is a fixed synthetic snapshot. One successful run or a small passing suite does not establish production reliability.
+
+PARTNER TOOLS AND FEEDBACK
+Used: Snowflake tables, SQL procedures, Cortex Search, Cortex Agents, Claude Opus and CoCo Desktop. The prework starter also uses Cortex Analyst. Codex supported coordination, review, the local UI, native evaluations and presentation preparation. Only add further tools when actually used.
+Feedback: bounded procedure tools made validation and release behavior testable outside the agent and inspectable through query IDs. Keeping agent, tool and data-version evidence aligned required explicit trace capture and registry checks. Attachment of a skill and evidence of its invocation are distinct and need clear observability. These are build observations, not broad product benchmarks.
+
+FORM VALUES TO VERIFY
+Team/project name: L2P — Logic to Product (working name).
+Team members: confirm attendee details in the form. Maximum three; solo entry allowed per reviewed guide.
+Repository: https://github.com/LALITHASWAROOPK/d2k-inspired-sales-hackathon/tree/codex/l2p-hackathon-build
+Current public checkpoint verified earlier: 258dc840c5144d6850cd01dfccb1c44690304fdd. Update to final reviewed commit. Rename remains pending.
+Snowflake account: SFSEHOL-ANTHROPIC_SNOWFLAKE_HACKATHON_BXVLTM. Verify against the active workshop session.
+Hosted one-minute video URL: PENDING recording/upload/access check.
+Submission: https://cerebralvalley.ai/e/intelligence-at-work-hackathon/hackathon/submit
+Deadline: October 23, 2026, 4:30 p.m. America/Los_Angeles.
+
+FINAL REVIEW
+Verify final eval version and results; confirm both agents and tool boundary; review public diff for sensitive/unrelated assets; ensure judges land on the build branch; confirm video can be watched without your signed-in session; review final narratives and submit only with your approval. No form has been submitted by this draft.

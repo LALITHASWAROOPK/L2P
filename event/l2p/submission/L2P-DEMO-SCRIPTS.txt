@@ -1,0 +1,73 @@
+L2P — Logic to Product
+Recording and rehearsal scripts | October 23, 2026
+
+ONE-MINUTE NARRATION (approximately 125 words; rehearse to time)
+
+“Existing reports already contain valuable business logic, but it is scattered across models, load scripts and chart expressions.
+
+L2P helps a developer reuse that logic to build a tested data product. Here, our synthetic reports use different sales definitions. The builder traces the source fields and selects invoiced sales by invoice date.
+
+First, we deliberately join overlapping stock groups. Sales are duplicated. The contract fails and release is blocked.
+
+The corrected candidate passes validation and becomes the released product. A separate consumer agent queries that version and proposes an account-review shortlist.
+
+It also explains what sales cannot establish: marketing consent, margin or campaign uplift.
+
+During the hackathon, we built the two-agent workflow, release gate and tests on Snowflake with Claude. All demonstration data is synthetic.”
+
+ONE-MINUTE SHOT LIST
+0–9 seconds: Title and problem. Show synthetic report names or their real retrieved definitions.
+9–20: Show the builder's actual source mappings. Keep the selected report, date basis and formula legible.
+20–34: Show an executed bad candidate with failed checks and a rejected release. Do not stage a failure badge.
+34–45: Show the corrected candidate's passing run and released object/version.
+45–55: Show the consumer's real shortlist and the same release identity.
+55–60: End on the limitation and event-built contribution.
+
+Use an edited recording of genuine executions to fit the minute. Label it “Recorded workflow; pauses shortened” if waits are removed. Do not imply the workflow completes in 60 seconds. Never fabricate app screens. Record only the hackathon window, with company tabs, profile details, notifications, credentials and unrelated paths out of frame. No private reference video/audio/images.
+
+THREE-MINUTE LIVE SCRIPT
+
+0:00–0:25 — Problem and user
+“I built L2P for a developer who is asked to create a data product using an existing report's business logic. That logic may sit in a source model, a load script and a chart. Rebuilding it incorrectly can produce plausible but misleading numbers. Our example uses only fictional data and normalized report fixtures.”
+
+0:25–0:55 — Existing logic
+“These two reports both use the word sales. The Qlik path uses ordered value and order date. The invoice path uses invoice date and excludes tax. Here are the actual source definitions and field mappings. The platform names describe synthetic fixtures, not live platform integrations.”
+Show a previously verified builder answer or run the discovery prompt below. If showing saved evidence, say “This is the recorded run.”
+
+0:55–1:35 — Candidate and gate
+“We request daily invoiced sales by customer and product. I first run an intentionally invalid recipe that joins each product to all its stock groups. Overlapping groups duplicate sales. The contract checks row coverage and reconciles amounts at the requested grain, and the release procedure blocks this candidate.”
+Show actual failed checks and release response. “We also test the less obvious case where order date replaces invoice date. The total can match, but daily values fail reconciliation.”
+
+1:35–2:10 — Corrected release
+“The corrected candidate passes the contract and is released. This test snapshot has 241 product rows and 53,589.47 sales excluding tax. The audit record ties the release to its candidate, source snapshot and validation run. Another failed candidate cannot replace the passing release.”
+Use the release/version returned by the demonstration run. Do not hardcode version 1 or 2 when a newer test release is current.
+
+2:10–2:40 — Consumer and action
+“The second agent has read tools for released products only. It queries the released version and gives an account-review shortlist. It does not infer campaign consent, profitability or uplift from sales. This is a proposed review action, not an outbound campaign.”
+Show its returned queried object and ranking. If the snapshot is unchanged, customers 10, 8, 19, 18 and 4 are the independently checked top five.
+
+2:40–3:00 — Contribution and limits
+“The prework was synthetic data, source fixtures, search and a starter agent. During the event we built the two-agent workflow, bounded tools, contract gate and tests. This is a narrow working prototype. Broader connectors, separate user roles and larger-scale validation are next.”
+
+EXACT PROMPTS TO REHEARSE
+Builder discovery: “Find our synthetic Qlik Sales Performance and Spotfire Customer Sales reports. Trace each sales measure through its report metadata and source model. Explain the date basis and tax treatment with source citations.”
+Builder build: “Build daily invoiced sales by invoice date, customer and stock item, excluding tax. First exercise the supported stock-group fanout negative-test recipe and show that it cannot be released. Then create the correct candidate, validate it and release it only if all checks pass. Show the candidate, validation and release IDs.”
+Consumer: “Using the current released daily-sales product, give me the top five customers for account review. Identify the release version and queried object, and state the evidence limits.”
+
+Timing note: invoking the entire build live may exceed its allotted segment. Rehearse once and use genuine saved run evidence for that segment if necessary, clearly identified as recorded. Never promise the model will finish within the presentation slot. Keep a recorded fallback available if connectivity fails.
+
+SHORT ANSWERS FOR JUDGES
+Why two agents? “The builder has controlled product-writing tools. The consumer has only released-product discovery and read tools. Their responsibilities and tool surfaces differ.”
+What is the contract? “A versioned schema, grain and meaning specification with executable coverage and reconciliation checks. The release procedure enforces it.”
+Can the agent bypass it? “The configured consumer tools cannot build or read candidates. This demo uses one workshop role, so we do not claim separate per-user database isolation. An owner retains privileged access.”
+Is this arbitrary SQL generation? “No. This prototype maps evidence to a bounded daily-sales recipe. Generalizing generation requires broader validation.”
+Are these real HANA and Qlik connections? “No. They are original normalized synthetic fixtures. Native connectors are future work.”
+How do you know it works? “We saved query IDs, source snapshots, registry postconditions and independent calculations. The backend run passed 32 assertions. Agent results are reported by evaluation version, not as a universal accuracy claim.”
+Did chunking help? “We will show a controlled result only if the comparison is complete. Otherwise, it is an implemented or planned retrieval technique, not a measured improvement.”
+What did you learn? “Precise source retrieval matters, and a plausible answer or correct grand total is insufficient. We check evidence, grouped business meaning and release behavior separately.”
+
+IF YOU FEEL NERVOUS
+Opening sentence: “I’ll show one small workflow: reuse report logic, catch a bad product, and let another agent use the passing result.”
+If you lose your place: “The important point here is that the failed candidate never becomes the product the analyst reads.”
+If a demo call stalls: “This call is taking longer than the presentation slot. I’ll show the recorded execution and its query evidence.”
+If asked something untested: “I haven’t tested that yet. Here is what this prototype does verify.”

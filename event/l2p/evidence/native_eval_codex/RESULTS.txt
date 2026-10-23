@@ -1,0 +1,28 @@
+L2P native evaluation checkpoint — 2026-10-23 Pacific
+
+Run name on BOTH agents: CODEX_NATIVE_20261023_1400
+Builder: HACKATHON_D2K_PREWORK.L2P.L2P_BUILDER
+Consumer: HACKATHON_D2K_PREWORK.L2P_CONSUMER.L2P_CONSUMER
+Two read-only cases each, live agent configuration; metric version v3.
+
+Consumer: answer correctness 1.00/1.00; logical consistency 1.00/1.00.
+Builder: answer correctness 1.00/1.00; logical consistency 1.00/0.67.
+Builder finding: a definitions document was cited from Search without calling
+GetSourceDefinition for its complete version. The agent disclosed the limitation.
+Lineage facts matched retrieved sources; no candidate writes were requested.
+This is a small native smoke evaluation, not a broad reliability estimate.
+Custom deterministic agent grading and procedure contract checks are separate.
+
+The original 1340 consumer launch failed on missing EXECUTE TASK privilege.
+The user granted it using ACCOUNTADMIN, then the 1400 runs were launched under
+ATTENDEE_ROLE. The original failed attempt may remain in the native runs list.
+
+Consumer native results verified in Snowsight's Evaluations tab. Screenshot saved.
+During concurrent CoCo tests, releases differed across runs (401 in native eval,
+302 in local UI). Freeze testing before recording and report the actual version
+shown, not a hardcoded version. No release numbers were fabricated or altered.
+
+Local UI: outputs/l2p-demo; browser -> Python backend -> saved agent -> tools.
+Builder lineage and consumer ranking verified live. UI build/release button is
+implemented but not exercised yet while CoCo's stateful tests run. Files remain
+separate from CoCo's checkout and have not been committed or pushed.
