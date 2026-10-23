@@ -1,0 +1,166 @@
+{
+  "current_release": [
+    {
+      "VERSION": 604,
+      "CANDIDATE_ID": "C00506_934915D2",
+      "VALIDATION_RUN_ID": "V00605",
+      "ROW_COUNT": 241
+    }
+  ],
+  "recent_rejected_checks": [
+    {
+      "RUN_ID": "V00604",
+      "CANDIDATE_ID": "C00505_22452107",
+      "CHECK_NAME": "SNAPSHOT_UNCHANGED",
+      "STATUS": "PASS",
+      "OBSERVED": "\"cf2660acd7160ee46d6e38655d82b65198dda0b9d594210fe9fbde757bb90dd2\"",
+      "QUERY_ID": "01c7ee42-010c-6e59-0034-28cb001b1f6a",
+      "CHECKED_AT": "2026-10-23 14:54:20.513000-07:00"
+    },
+    {
+      "RUN_ID": "V00604",
+      "CANDIDATE_ID": "C00505_22452107",
+      "CHECK_NAME": "SCHEMA_EXACT",
+      "STATUS": "PASS",
+      "OBSERVED": "{\n  \"mismatches\": []\n}",
+      "QUERY_ID": null,
+      "CHECKED_AT": "2026-10-23 14:54:22.311000-07:00"
+    },
+    {
+      "RUN_ID": "V00604",
+      "CANDIDATE_ID": "C00505_22452107",
+      "CHECK_NAME": "SCHEMA_EXACT",
+      "STATUS": "ERROR",
+      "OBSERVED": "\"NULL result in a non-nullable column\"",
+      "QUERY_ID": null,
+      "CHECKED_AT": "2026-10-23 14:54:23.757000-07:00"
+    },
+    {
+      "RUN_ID": "V00604",
+      "CANDIDATE_ID": "C00505_22452107",
+      "CHECK_NAME": "KEYS_NOT_NULL",
+      "STATUS": "PASS",
+      "OBSERVED": "0",
+      "QUERY_ID": "01c7ee42-010c-6e59-0034-28cb001b1f9e",
+      "CHECKED_AT": "2026-10-23 14:54:24.351000-07:00"
+    },
+    {
+      "RUN_ID": "V00604",
+      "CANDIDATE_ID": "C00505_22452107",
+      "CHECK_NAME": "GRAIN_UNIQUE",
+      "STATUS": "PASS",
+      "OBSERVED": "0",
+      "QUERY_ID": "01c7ee42-010c-6e59-0034-28cb001b1fbe",
+      "CHECKED_AT": "2026-10-23 14:54:26.152000-07:00"
+    },
+    {
+      "RUN_ID": "V00604",
+      "CANDIDATE_ID": "C00505_22452107",
+      "CHECK_NAME": "REFERENTIAL_INTEGRITY",
+      "STATUS": "PASS",
+      "OBSERVED": "{\n  \"orphan_customers\": 0,\n  \"orphan_date_customer\": 0,\n  \"orphan_items\": 0,\n  \"orphan_lines_in_source\": 0\n}",
+      "QUERY_ID": "01c7ee42-010c-6e59-0034-28cb001b1fde",
+      "CHECKED_AT": "2026-10-23 14:54:27.809000-07:00"
+    },
+    {
+      "RUN_ID": "V00604",
+      "CANDIDATE_ID": "C00505_22452107",
+      "CHECK_NAME": "LINE_COVERAGE",
+      "STATUS": "FAIL",
+      "OBSERVED": "{\n  \"candidate_lines\": 293,\n  \"dropped_lines\": 0,\n  \"multiplied_lines\": 50,\n  \"source_lines\": 243\n}",
+      "QUERY_ID": "01c7ee42-010c-6e59-0034-28cb001f400a",
+      "CHECKED_AT": "2026-10-23 14:54:30.681000-07:00"
+    },
+    {
+      "RUN_ID": "V00604",
+      "CANDIDATE_ID": "C00505_22452107",
+      "CHECK_NAME": "ROW_COUNT_MATCH",
+      "STATUS": "PASS",
+      "OBSERVED": "241",
+      "QUERY_ID": "01c7ee42-010c-6e59-0034-28cb001f402a",
+      "CHECKED_AT": "2026-10-23 14:54:32.399000-07:00"
+    },
+    {
+      "RUN_ID": "V00604",
+      "CANDIDATE_ID": "C00505_22452107",
+      "CHECK_NAME": "GROUPED_RECONCILIATION",
+      "STATUS": "FAIL",
+      "OBSERVED": "{\n  \"extra_in_candidate\": 0,\n  \"missing_in_candidate\": 0,\n  \"sample\": [\n    {\n      \"cand_amt\": 1125.28,\n      \"cand_lines\": 2,\n      \"customer\": 17,\n      \"date\": \"2026-02-14\",\n      \"item\": 4,\n      \"src_amt\": 562.64,\n      \"src_lines\": 1\n    },\n    {\n      \"cand_amt\": 43.44,\n      \"cand_lines\": 2,\n      \"customer\": 12,\n      \"date\": \"2026-01-22\",\n      \"item\": 12,\n      \"src_amt\": 21.72,\n      \"src_lines\": 1\n    },\n    {\n      \"cand_amt\": 984.62,\n      \"cand_lines\": 2,\n      \"customer\": 6,\n      \"date\": \"2026-01-16\",\n      \"item\": 4,\n      \"src_amt\": 492.31,\n      \"src_lines\": 1\n    },\n    {\n      \"cand_amt\": 43.44,\n      \"cand_lines\": 2,\n      \"customer\": 12,\n      \"date\": \"2026-02-07\",\n      \"item\": 12,\n      \"src_amt\": 21.72,\n      \"src_lines\": 1\n    },\n    {\n      \"cand_amt\": 785.4,\n      \"cand_lines\": 2,\n      \"customer\": 10,\n      \"date\": \"2026-01-05\",\n      \"item\": 8,\n      \"src_amt\": 392.7,\n      \"src_lines\": 1\n    }\n  ],\n  \"value_mismatches\": 50\n}",
+      "QUERY_ID": "01c7ee42-010c-6e59-0034-28cb001f404a",
+      "CHECKED_AT": "2026-10-23 14:54:34.016000-07:00"
+    },
+    {
+      "RUN_ID": "V00604",
+      "CANDIDATE_ID": "C00505_22452107",
+      "CHECK_NAME": "TOTAL_RECONCILIATION",
+      "STATUS": "FAIL",
+      "OBSERVED": "{\n  \"sales_ex_tax\": 64027.32,\n  \"tax\": 6402.85,\n  \"total\": 70430.17\n}",
+      "QUERY_ID": "01c7ee42-010c-6e59-0034-28cb001f406a",
+      "CHECKED_AT": "2026-10-23 14:54:35.741000-07:00"
+    },
+    {
+      "RUN_ID": "V00604",
+      "CANDIDATE_ID": "C00505_22452107",
+      "CHECK_NAME": "DIMENSION_CONSISTENCY",
+      "STATUS": "PASS",
+      "OBSERVED": "0",
+      "QUERY_ID": "01c7ee42-010c-6e59-0034-28cb001f408a",
+      "CHECKED_AT": "2026-10-23 14:54:37.497000-07:00"
+    },
+    {
+      "RUN_ID": "V00604",
+      "CANDIDATE_ID": "C00505_22452107",
+      "CHECK_NAME": "SCOPE_CONSISTENCY",
+      "STATUS": "PASS",
+      "OBSERVED": "{\n  \"customers\": 20,\n  \"dates\": 48,\n  \"items\": 15,\n  \"max_date\": \"2026-03-03\",\n  \"min_date\": \"2026-01-05\"\n}",
+      "QUERY_ID": "01c7ee42-010c-6e59-0034-28cb001f40aa",
+      "CHECKED_AT": "2026-10-23 14:54:39.281000-07:00"
+    }
+  ],
+  "current_checks": [
+    {
+      "CHECK_NAME": "REFERENTIAL_INTEGRITY",
+      "STATUS": "PASS"
+    },
+    {
+      "CHECK_NAME": "SNAPSHOT_UNCHANGED",
+      "STATUS": "PASS"
+    },
+    {
+      "CHECK_NAME": "SCHEMA_EXACT",
+      "STATUS": "PASS"
+    },
+    {
+      "CHECK_NAME": "KEYS_NOT_NULL",
+      "STATUS": "PASS"
+    },
+    {
+      "CHECK_NAME": "GRAIN_UNIQUE",
+      "STATUS": "PASS"
+    },
+    {
+      "CHECK_NAME": "LINE_COVERAGE",
+      "STATUS": "PASS"
+    },
+    {
+      "CHECK_NAME": "ROW_COUNT_MATCH",
+      "STATUS": "PASS"
+    },
+    {
+      "CHECK_NAME": "GROUPED_RECONCILIATION",
+      "STATUS": "PASS"
+    },
+    {
+      "CHECK_NAME": "TOTAL_RECONCILIATION",
+      "STATUS": "PASS"
+    },
+    {
+      "CHECK_NAME": "DIMENSION_CONSISTENCY",
+      "STATUS": "PASS"
+    },
+    {
+      "CHECK_NAME": "SCOPE_CONSISTENCY",
+      "STATUS": "PASS"
+    }
+  ]
+}

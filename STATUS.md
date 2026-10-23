@@ -1,3 +1,5 @@
+> Historical checkpoint log. For current event behavior and limitations, see [START-HERE](event/l2p/START-HERE.md).
+
 # Pre-work status
 
 Date: 2026-10-23, America/Los_Angeles.
@@ -24,7 +26,7 @@ Date: 2026-10-23, America/Los_Angeles.
   Neither was acted on. Record as baseline weaknesses; do not present as polished behavior.
 - Agent is saved and usable in Preview; not published to CoWork or shared with new roles.
 - Public GitHub publication: not performed. Local isolated Git baseline only.
-- Stoweaway and Agilent objects: untouched.
+- Stoweaway and employer objects: untouched.
 - New grants, schedules, external integrations: none.
 - Core discovery/lineage/product-building workflow: not built; reserved for event.
 
@@ -80,8 +82,8 @@ The account expires 2026-10-27 22:00 Pacific according to the supplied guide.
   These two sampled tests are setup checks, not a broad reliability claim.
 
 
-- Public repository published: https://github.com/LALITHASWAROOPK/d2k-inspired-sales-hackathon
-  Branch codex/hackathon-prework; baseline eaca841 retained, search extension 3833f37.
+- Public repository published: https://github.com/LALITHASWAROOPK/L2P
+  Branch hackathon-prework; baseline eaca841 retained, search extension 3833f37.
   Only reviewed public-source and synthetic files published; screenshots and UI traces
   remain local and ignored. No private company assets or credentials included.
 
@@ -113,7 +115,7 @@ The account expires 2026-10-27 22:00 Pacific according to the supplied guide.
   Their prepared fixtures and independent oracles are available for event work.
 
 ## EVENT BUILD (hackathon 2026-10-23) — L2P Logic to Product (in progress)
-Everything below was built during the event on branch codex/l2p-hackathon-build, starting
+Everything below was built during the event on branch l2p-hackathon-build, starting
 from prework baseline commit 659671ba0744b1126d043af3c25843c6249538bb. Code: event/l2p/, skills/.
 Status is updated as work proceeds; items marked PENDING have not been run yet.
 

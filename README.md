@@ -1,13 +1,13 @@
 # L2P — Logic to Product: event build
 
-Start with [the event demo, video, architecture and evidence](event/l2p/START-HERE.md). This branch is `codex/l2p-hackathon-build`. The preparation baseline below is retained for provenance and is not claimed as event-built functionality.
+Start with [the event demo, video, architecture and evidence](event/l2p/START-HERE.md). This branch is `l2p-hackathon-build`. The preparation baseline below is retained for provenance and is not claimed as event-built functionality.
 
 ---
 
 # Hackathon pre-work baseline — 2026-10-23
 
 This folder is preparation, not claimed as functionality built during the hackathon.
-No Agilent datasets, definitions, agent instructions, skills, logs or credentials are included.
+No employer datasets, definitions, agent instructions, skills, logs or credentials are included.
 
 ## Source and license
 Microsoft sql-server-samples, MIT License, pinned commit
@@ -70,18 +70,18 @@ The supplied guide says the account is removed 2026-10-28 05:00 UTC
 ## Connected synthetic platform scenarios
 Run `python prepare_connected_fixtures.py` to regenerate original fictional HANA-style
 model descriptions, Qlik script/chart metadata and Spotfire source/visual metadata.
-See DEMO-SCENARIOS.md for three core scenarios and two optional follow-ups.
+See event/l2p/submission/L2P-CASE-STUDY.txt for the demonstrated workflow and evidence.
 These are normalized fixtures, not native validated HANA/QVF/DXP exports.
 `05_connected_metadata.sql` loads only the nine allowlisted source documents into
 the existing search catalog, then requests a refresh. Reapply `04_connect_search.sql`
 to acknowledge the new artifact type. No additional agent tools are introduced.
 `evaluation/` contains independent arithmetic and expected product output; never index it.
-All of this remains disclosed preparation. The product execution workflow is not built.
+At the preserved prework baseline, these assets were preparation and the product execution workflow had not yet been built. The completed event workflow is described below and in event/l2p/START-HERE.md.
 
 ## Hackathon event build: L2P (Logic to Product)
-**Prework baseline:** commit `659671ba0744b1126d043af3c25843c6249538bb` on `codex/hackathon-prework`.
+**Prework baseline:** commit `659671ba0744b1126d043af3c25843c6249538bb` on `hackathon-prework`.
 Everything above this section is prework. Everything in `event/l2p/` and `skills/` was built
-during the event on branch `codex/l2p-hackathon-build`. See STATUS.md for what has actually passed.
+during the event on branch `l2p-hackathon-build`. See STATUS.md for what has actually passed.
 
 Built during the event:
 - Contract-gated product registry and release path (`event/l2p/sql/10..30`): fixed recipes,

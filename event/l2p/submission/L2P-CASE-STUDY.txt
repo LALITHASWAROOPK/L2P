@@ -1,0 +1,46 @@
+L2P — Logic to Product
+Hackathon case study | October 23, 2026
+
+Moving data is easier. We are moving knowledge with Snowflake, CoCo and Claude.
+
+THE PROBLEM AND THE USER
+Moving tables does not preserve the meaning embedded in reports and source models. A data developer may need to reconstruct a metric from a HANA model, a Qlik expression and existing SQL, then prove that a new product preserves its intended meaning. An analyst needs a reusable, explainable product rather than another unverified query.
+
+L2P demonstrates this workflow for fictional Northstar Supply. Its sales records are independently generated synthetic data. The schema is a simplified adaptation of Microsoft's public Wide World Importers sample. The HANA, Qlik and additional Spotfire definitions are synthetic fixtures, not employer assets or live BI connectors.
+
+THE SOLUTION
+Two saved Snowflake Cortex Agents use explicit Claude Opus orchestration. The Builder retrieves full source definitions, explains mappings and uses bounded SQL procedures to create a candidate from a supported recipe. Eleven deterministic checks test schema, keys, grain, references, source coverage, row counts, grouped and total reconciliation, dimensions, scope and snapshot stability. A failed candidate cannot be released. A passing candidate receives a versioned release with snapshot and validation evidence, followed by publication through a guarded semantic view.
+
+The Consumer uses Cortex Analyst against that semantic view. It checks the recorded contract and current release integrity before and after answering, and returns the release version with the result. This verifies recorded passing results and unchanged content; it does not rerun every source reconciliation. Its supported outcome is a human-reviewed account shortlist. It cannot send campaigns or establish consent, margin or causal uplift.
+
+INTERFACES AND SNOWFLAKE ARCHITECTURE
+The custom chat offers Developer and Analyst views. Its Python backend invokes saved Cortex Agents through the Snowflake connector and CORTEX.DATA_AGENT_RUN. The presenter also checked access through Snowflake CoWork. Judge permissions are a separate access check. CoCo was used for core backend development and the custom evaluation suite; supplementary engineering added the custom interface, semantic integration, native evaluations and demonstration materials.
+
+Snowflake stores source definitions, candidates, snapshots, contracts, results and release history. Cortex Search supports retrieval. Cortex Analyst and the semantic view support consumption. Native agent evaluations and Observability provide supporting evidence. Three Builder skills are attached for HANA interpretation, Qlik interpretation and data-product creation, but invocation has not been verified. Future MCP/Fabric adapters are not implemented.
+
+WHAT THE DEMO PROVES
+The negative example joins invoice lines to stock groups where an item may belong to multiple groups. It still produces 241 summary rows, so a row-count check alone cannot catch the problem. However, it counts 293 line contributions against 243 source lines and inflates sales excluding tax from 53,589.47 to 64,027.32. Line coverage, grouped reconciliation and total reconciliation fail, preventing release.
+
+The recorded positive Builder test creates candidate C00303_2BEFADF9, passes all eleven checks in validation V00104 and releases product version 603. The recorded Consumer answer uses that same release and returns the expected top-five customer ranking through its semantic view. The negative and positive examples are separate recorded tests. The video combines these with a conceptual flow animation and actual UI/evaluation screenshots; it is not a continuous execution recording.
+
+EVALUATION AND LEARNINGS
+The custom agent suite recorded 19 passing runs across ten fixed synthetic cases on its tested revision. After fixing release numbering, two additional agent-driven builds passed. A separate native evaluation contained two read-only cases per agent: all four answer-correctness scores were 1.00, while one Builder logical-consistency result was 0.67. The latter exposed a citation-discipline gap. These are separate, small test sets, not a general reliability claim or coverage of all later changes.
+
+Evaluation also exposed non-monotonic sequence-generated release numbers. Allocation was changed to the highest released version plus one and subsequent builds confirmed increasing versions. This is not a claim of production-grade concurrency handling.
+
+A final read-only registry check found current release 604 with 241 rows and eleven recorded PASS checks. Its rejected negative candidate recorded an additional SCHEMA_EXACT error as well as the expected reconciliation failures. That extra error remains unresolved and is disclosed; the video does not portray it as fixed. Later sample-question edits preserved all other agent specification fields and existing native evaluation runs.
+
+BUSINESS VALUE AND NEXT STEP
+The baseline starter could retrieve and query but could not create and release a tested product. The event-built workflow adds that capability and exposes the result for reuse. The demonstrated benefit is catching specific semantic errors before release, not measured production time savings.
+
+An analytics-engineering or data-platform team would own a pilot with domain owners reviewing metric definitions. Measure task completion time, manual interventions, mapping correctness and escaped defects against the existing workflow. An illustrative ten builds per month saving one hour each would save ten developer hours before operating costs; that is a scenario, not an observed result.
+
+WHAT WAS BUILT DURING THE EVENT
+Prepared foundation: synthetic rows, normalized source/report fixtures, search and a starter.
+Event work: candidate creation, validation and release procedures; Builder/Consumer workflow; contract and agent evaluations; versioning correction; semantic extension; custom UI; example questions and demo materials.
+
+LIMITATIONS
+The prototype uses 24 whole documents, with no chunking comparison. Qlik currently demonstrates aliases and aggregation, not a richer cross-layer filter case. Tools separate Builder and Consumer capabilities, but both use the workshop role rather than independent user RBAC. Missing-release behavior has procedure coverage, not an agent-level test. An unsupported invoice-delay claim remains a recorded evaluation finding. The next work is to resolve the validation error, verify skill use, deepen the Qlik fixture, expand evaluations and run the developer-efficiency pilot.
+
+SUBMISSION STATUS
+Prepared for owner review. The latest video and case study have not been published or submitted. Video publication and the final form submission remain last, after owner review and public-link checks.

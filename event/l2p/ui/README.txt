@@ -1,4 +1,4 @@
-L2P local demo interface — event-built by Codex
+L2P local demo interface — built during the event
 
 Architecture: browser -> local Python HTTP backend -> saved Snowflake Cortex agent
 -> bounded tools -> contract/registry -> released product.

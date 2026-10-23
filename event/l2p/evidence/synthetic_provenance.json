@@ -1,0 +1,10 @@
+{
+  "customers.csv": true,
+  "invoicelines.csv": true,
+  "invoices.csv": true,
+  "orderlines.csv": true,
+  "orders.csv": true,
+  "stockgroups.csv": true,
+  "stockitems.csv": true,
+  "stockitemstockgroups.csv": true
+}

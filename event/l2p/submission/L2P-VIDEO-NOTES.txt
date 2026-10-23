@@ -1,1 +1,0 @@
-59.91-second narrated evidence replay, compiled from real recorded tool results. Synthetic Windows narration; not the presenter's voice. Pauses shortened. This is an edited evidence walkthrough, not a continuous screen recording. See demo-evidence/builder-recorded.json and analyst-recorded.json for the source traces. No private or employer assets used.

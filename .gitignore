@@ -8,3 +8,22 @@ __pycache__/
 *.pyc
 event/l2p/evidence/agent_runs/*.raw.json
 event/l2p/evidence/eval/*/*.raw.json
+
+# Local review media, secrets and internal coaching
+*.mp4
+*.mov
+*.mp3
+*.wav
+.env
+.env.*
+*.pem
+*.key
+l2p_pat
+~$*
+/DEMO-SCENARIOS.md
+/OVERALL-PLAN.md
+/event/l2p/submission/L2P-PRESENTER-GUIDE.txt
+/event/l2p/submission/L2P-DEMO-SCRIPTS.txt
+/event/l2p/submission/L2P-SUBMISSION-DRAFT.txt
+/event/l2p/submission/L2P-VIDEO-NOTES.txt
+/event/l2p/submission/L2P-Hackathon-With-UI.pptx

@@ -1,7 +1,7 @@
 # L2P event build progress (EVENT-BUILT, 2026-10-23)
 
-Prework baseline commit: 659671ba0744b1126d043af3c25843c6249538bb (branch codex/hackathon-prework).
-Build branch: codex/l2p-hackathon-build (local only, not yet committed/pushed).
+Prework baseline commit: 659671ba0744b1126d043af3c25843c6249538bb (branch hackathon-prework).
+Build branch: l2p-hackathon-build (local only, not yet committed/pushed).
 
 ## Checkpoint 1
 - Connection verified: SFSEHOL / ANTHROPIC_SNOWFLAKE_HACKATHON_BXVLTM / ATTENDEE_ROLE / DEFAULT_WH.
