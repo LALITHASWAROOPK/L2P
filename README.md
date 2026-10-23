@@ -39,12 +39,23 @@ No new role grants, external integrations, schedules or autonomous write tools.
 Deployment and response-test status is recorded in STATUS.md; file existence does not
 mean that the SQL has been deployed or tested.
 
+## Report/code search preparation
+Run `python prepare_catalog.py` to reproduce three synthetic report fixtures and a
+15-document corpus (three report definitions and twelve preserved public SQL files).
+Execute `03_catalog.sql`, then `04_connect_search.sql` in the isolated hackathon account.
+The public SQL is reference material, not deployed SQL Server logic. Synthetic report
+fixtures are executable Snowflake views, not real dashboards. This is basic ranked
+search, not an exhaustive dependency graph. No seeded metadata defects are included.
+`rollback_search.sql` restores the original one-tool agent specification without
+removing data. `catalog-validation.json` records local SQLite checks over the CSVs;
+Snowflake deployment and agent-test results belong in STATUS.md.
+
 ## Reserved for the event
-New report/code discovery, metadata reconciliation, lineage traversal, business
-clarification, product generation, independent evaluation and approval-controlled
-publishing. No custom report fixtures or seeded metadata defects have been built here.
-Confirm organizer rules before preparing further custom fixtures. Keep a starting
-commit and disclose this baseline and public sources in the final submission.
+Custom lineage extraction, metadata reconciliation, product generation, independent
+comparative evaluation and approval-controlled publishing remain unimplemented.
+The catalog and basic search are disclosed as preparation under our interpretation
+of the starter-agent guidance; this is not organizer approval of every component.
+Keep the baseline commits separate from event contributions.
 
 ## Account lifetime
 The supplied guide says the account is removed 2026-10-28 05:00 UTC

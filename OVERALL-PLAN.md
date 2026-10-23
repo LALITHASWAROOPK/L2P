@@ -19,8 +19,8 @@ This is a scoped demonstration of D2K's approach, not a copy of Agilent's D2K as
 
 | D2K capability | Hackathon equivalent | Current status |
 |---|---|---|
-| Business-language discovery across catalogs | Find reports, tables and SQL using names, descriptions and field evidence | Pending |
-| Technical source inspection | Retrieve preserved SQL and inspect executable Snowflake definitions | Original public SQL saved locally; not connected to agent |
+| Business-language discovery across catalogs | Find reports, tables and SQL using names, descriptions and field evidence | Basic search deployed; three synthetic reports found in smoke test |
+| Technical source inspection | Retrieve preserved SQL and inspect executable Snowflake definitions | Twelve public SQL files indexed with provenance |
 | Field and transformation lineage | Follow explicit relationships from a report field through a transformation to source columns | Pending |
 | Reconcile incomplete metadata | Compare catalog claims with current definitions; distinguish missing evidence from absence | Pending |
 | Help build a data product | Generate a specification, mappings, SQL and checks from supported sources | Pending |
@@ -63,7 +63,7 @@ fixtures we author must be labeled synthetic and must not claim actual platform 
 8. Saved reproducible generation/loading scripts and an isolated local Git baseline.
 
 No Agilent data/code/skills/logs/credentials were copied. Stoweaway is unchanged.
-No GitHub publication, additional role grants, schedules or external integrations.
+Public GitHub status is recorded in STATUS.md. No additional role grants, schedules or external integrations.
 
 ## Known limitations of the foundation
 
@@ -77,15 +77,19 @@ No GitHub publication, additional role grants, schedules or external integration
 - Stock-group membership is many-to-many and can multiply totals if joined carelessly.
 - Agent is saved in Preview, not published to CoWork or granted to other roles.
 
-## Event implementation order
+## Preparation and event implementation order
 
-### 1. Prepare the small evidence collection
+### 1. Prepare the small evidence collection — pre-work
 Create two or three executable synthetic report queries and short business definitions.
 Inventory deployed columns and definitions. Keep source system, object identity, artifact
 type, original/adapted status and version on every asset. Introduce at most one documented
 stale catalog snapshot to exercise reconciliation. Keep reference answers outside retrieval.
 
-### 2. Add discovery and lineage
+### 2. Basic search deployed; custom lineage remains event work
+Loading the report/code collection and connecting basic Cortex Search are planned as
+starter-agent preparation. Record them as pre-event work, not competition contributions.
+Custom dependency extraction, coverage checks and reconciliation remain event work.
+
 Provide semantic discovery for business wording and exact structured lookups for object
 and field coverage. Retrieve relevant code sections and explicit dependency edges.
 Support a bounded SQL subset; flag unsupported syntax rather than promising a universal
@@ -138,9 +142,11 @@ It excludes basic RAG applications and dashboard-led entries. The published sche
 October 23, 11:00 a.m.–4:30 p.m. Pacific for building, with submissions due at 4:30 p.m.
 
 We can technically build everything beforehand, but cannot claim pre-event functionality
-as event-built work. Before the official start, stop at this foundation unless organizers
-explicitly clarify a broader allowance. Once the event begins, implement the pending
-workflow and keep the new commits distinct. Do not assume that calling work "pre-work"
+as event-built work. Our interpretation of the starter-agent guidance permits preparing the synthetic
+report/code catalog and connecting basic search before the event. This is not explicit
+organizer approval for every component. Disclose all such work as preparation. Reserve
+custom lineage extraction/reconciliation and the validated product-creation workflow for
+the event, and keep their commits distinct. Do not assume that calling work "pre-work"
 makes an otherwise completed entry eligible. This plan is guidance, not organizer approval.
 
 CoCo and Claude are encouraged development tools. The published rules do not explicitly
@@ -159,7 +165,8 @@ Technical guide: https://docs.google.com/document/d/17O5M8jxzpjuVORgnxvOwcT4hwdU
 - source/manifest.json and source/: original public source evidence and license.
 - validation.json: dataset integrity results and expected setup totals.
 
-Next implementation step at the event: add the small report/code evidence collection,
-then discovery and lineage. Do not spend the event rebuilding the starter or importing
+The synthetic report/code evidence collection and basic search are deployed and the
+discovery smoke test passed. Public GitHub publication is being completed. At the event, build custom lineage
+reconciliation and the validated product workflow. Do not spend the event rebuilding the starter or importing
 an entire enterprise database. Keep generated products isolated from the baseline.
 Save artifacts locally: the supplied account expires October 27 at 10 p.m. Pacific.

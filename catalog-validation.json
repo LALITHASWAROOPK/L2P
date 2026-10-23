@@ -1,0 +1,36 @@
+{
+  "customer_invoice_sales": {
+    "rows": 20,
+    "columns": [
+      "CUSTOMERID",
+      "CUSTOMERNAME",
+      "INVOICE_COUNT",
+      "SALES_EXCLUDING_TAX",
+      "TAX",
+      "TOTAL_INCLUDING_TAX"
+    ],
+    "counts": 96,
+    "sales_excluding_tax": 53589.47
+  },
+  "daily_invoice_sales": {
+    "rows": 48,
+    "columns": [
+      "SALES_DATE",
+      "INVOICE_COUNT",
+      "SALES_EXCLUDING_TAX",
+      "TAX",
+      "TOTAL_INCLUDING_TAX"
+    ],
+    "counts": 96,
+    "sales_excluding_tax": 53589.47
+  },
+  "daily_ordered_sales": {
+    "rows": 53,
+    "columns": [
+      "ORDER_DATE",
+      "ORDER_COUNT",
+      "ORDERED_VALUE_EXCLUDING_TAX"
+    ],
+    "counts": 120
+  }
+}
