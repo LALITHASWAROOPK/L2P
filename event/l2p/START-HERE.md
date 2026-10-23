@@ -6,7 +6,7 @@
 
 ## Review the demonstration
 
-- [One-minute narrated evidence replay](submission/L2P-One-Minute-Demo.mp4). Real recorded outputs, edited into a short walkthrough; synthetic narration. It is not a continuous screen recording.
+- Video is withheld pending the owner's review and approval.
 - [Editable presentation](submission/L2P-Submission-Deck.pptx).
 - [Three-minute script and Q&A](submission/L2P-PRESENTER-GUIDE.txt).
 - [Submission narrative and limitations](submission/L2P-SUBMISSION-FINAL.txt).
