@@ -32,26 +32,55 @@ Screenshots load-proof.png and totals-proof.png are local verification evidence.
 Original SQL source is local reference material, not yet searchable by the starter agent.
 The account expires 2026-10-27 22:00 Pacific according to the supplied guide.
 
+
 ## Basic catalog/search extension — October 23, pre-event
+
 - Three synthetic executable report views deployed: daily invoice sales, daily ordered
+
   sales and customer invoice sales. These are fixtures, not published BI dashboards.
+
 - T_PREWORK_CATALOG holds three report definitions plus twelve original public SQL
+
   reference files; source hashes verified locally, license retained.
+
 - CSS_PREWORK_CATALOG created; ReportCodeSearch connected alongside InvoiceData.
+
 - Local report checks: daily invoices 48 dates / 96 invoices; customer report 20
+
   customers / 96 invoices; orders 53 dates / 120 orders. Both invoice reports
+
   reconcile to 53589.47 excluding tax. Direct Snowflake daily-report totals also
+
   returned 96 / 53589.47 / 5359.07 / 58948.54.
+
 - Fresh-thread discovery smoke test passed: found all three synthetic reports,
+
   explained the correct revenue expression and joins, distinguished reference SQL
+
   from deployed fixtures, and did not claim full lineage or product creation.
+
   Request 3860349f-2c70-4ef3-b6be-040c64503dcd; thread 875088648.
+
   Agent Studio trace: successful Cortex Search call, 439ms; agent 17.9s.
+
 - Currency/scheduling rules tightened. Rollback restores the original agent spec
+
   using rollback_search.sql; the data/search artifacts are retained for inspection.
+
 - Earlier status entries above describe the original baseline, not this extension.
+
 - Custom lineage/reconciliation and product creation remain unimplemented.
+
 - Follow-up regression passed: invoice totals unchanged, no currency symbol,
+
   scheduling request declined. Trace confirms semantic context and SQL execution.
+
   Request ea06ec0a-45e3-4e28-9018-b108829b1e2d; agent duration 19.1s.
+
   These two sampled tests are setup checks, not a broad reliability claim.
+
+
+- Public repository published: https://github.com/LALITHASWAROOPK/d2k-inspired-sales-hackathon
+  Branch codex/hackathon-prework; baseline eaca841 retained, search extension 3833f37.
+  Only reviewed public-source and synthetic files published; screenshots and UI traces
+  remain local and ignored. No private company assets or credentials included.

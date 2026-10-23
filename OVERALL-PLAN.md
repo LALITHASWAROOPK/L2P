@@ -166,7 +166,7 @@ Technical guide: https://docs.google.com/document/d/17O5M8jxzpjuVORgnxvOwcT4hwdU
 - validation.json: dataset integrity results and expected setup totals.
 
 The synthetic report/code evidence collection and basic search are deployed and the
-discovery smoke test passed. Public GitHub publication is being completed. At the event, build custom lineage
+discovery smoke test passed. Public GitHub preparation repository is published at https://github.com/LALITHASWAROOPK/d2k-inspired-sales-hackathon . At the event, build custom lineage
 reconciliation and the validated product workflow. Do not spend the event rebuilding the starter or importing
 an entire enterprise database. Keep generated products isolated from the baseline.
 Save artifacts locally: the supplied account expires October 27 at 10 p.m. Pacific.
