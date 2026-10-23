@@ -39,7 +39,7 @@ and invoice arithmetic. These are dataset integrity checks, not competition eval
 Only execute against the supplied SFSEHOL hackathon account.
 01_load.sql creates a NEW HACKATHON_D2K_PREWORK database and RAW schema.
 It intentionally does not use OR REPLACE/IF NOT EXISTS: do not rerun after a partial
-load without inspecting which statements succeeded. No Stoweaway objects are touched.
+load without inspecting which statements succeeded. Unrelated database objects are untouched.
 02_starter.sql creates a simple invoice semantic view and query-only agent.
 No new role grants, external integrations, schedules or autonomous write tools.
 Deployment and response-test status is recorded in STATUS.md; file existence does not

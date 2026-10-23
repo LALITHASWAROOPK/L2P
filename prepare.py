@@ -63,7 +63,7 @@ def literal(v):
     return str(v)
 sql=["-- PREWORK: public-schema adaptation + independently synthetic rows.",
 "-- One-time creation intentionally fails if this isolated database already exists.",
-"CREATE DATABASE HACKATHON_D2K_PREWORK COMMENT='Pre-event baseline. Public WWI schema subset; synthetic rows. No Agilent assets.';",
+"CREATE DATABASE HACKATHON_D2K_PREWORK COMMENT='Pre-event baseline. Public WWI schema subset; synthetic rows. No proprietary assets.';",
 "CREATE SCHEMA HACKATHON_D2K_PREWORK.RAW;", "USE SCHEMA HACKATHON_D2K_PREWORK.RAW;", "USE WAREHOUSE DEFAULT_WH;"]
 manifest={}
 for table,values in rows.items():

@@ -2,7 +2,7 @@
 
 -- One-time creation intentionally fails if this isolated database already exists.
 
-CREATE DATABASE HACKATHON_D2K_PREWORK COMMENT='Pre-event baseline. Public WWI schema subset; synthetic rows. No Agilent assets.';
+CREATE DATABASE HACKATHON_D2K_PREWORK COMMENT='Pre-event baseline. Public WWI schema subset; synthetic rows. No proprietary assets.';
 
 CREATE SCHEMA HACKATHON_D2K_PREWORK.RAW;
 

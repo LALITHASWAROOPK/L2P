@@ -26,7 +26,7 @@ Date: 2026-10-23, America/Los_Angeles.
   Neither was acted on. Record as baseline weaknesses; do not present as polished behavior.
 - Agent is saved and usable in Preview; not published to CoWork or shared with new roles.
 - Public GitHub publication: not performed. Local isolated Git baseline only.
-- Stoweaway and employer objects: untouched.
+- Unrelated and employer objects: untouched.
 - New grants, schedules, external integrations: none.
 - Core discovery/lineage/product-building workflow: not built; reserved for event.
 
