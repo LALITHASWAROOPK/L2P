@@ -1,0 +1,4 @@
+source/repository-tree.json
+*.png
+*.ax.txt
+__pycache__/

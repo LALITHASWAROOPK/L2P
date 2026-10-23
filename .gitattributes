@@ -1,0 +1,5 @@
+source/** -text
+data/** -text
+*.py text eol=lf
+*.md text eol=lf
+*.sql text eol=lf

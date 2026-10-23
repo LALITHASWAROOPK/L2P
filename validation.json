@@ -1,0 +1,63 @@
+{
+  "seed": 231026,
+  "source_rows": "independently synthetic, not Microsoft exported records",
+  "tables": {
+    "CUSTOMERS": {
+      "rows": 20,
+      "sha256": "8561709531d9452a201c207378b3c0e2ca387da8bd222130753ed3dbf1fce72e"
+    },
+    "STOCKITEMS": {
+      "rows": 15,
+      "sha256": "394d758f6a5bc3c66887448802bce8d3b799326e2253a2626d9203891fbb2600"
+    },
+    "STOCKGROUPS": {
+      "rows": 3,
+      "sha256": "303c5dcdfb8c4cfd6e8c169f41d6f993317cd22f222fb550ee4d28f56677e31d"
+    },
+    "STOCKITEMSTOCKGROUPS": {
+      "rows": 18,
+      "sha256": "61b2802b8ea4139efe49f5c8eddfe2ce0305d724fdd1120a9b67c3106f5ce590"
+    },
+    "ORDERS": {
+      "rows": 120,
+      "sha256": "cdcfc5d9ad01f6664e46f816ccf4485e64f09a31732ac8d3cd6d3b98dae4c255"
+    },
+    "ORDERLINES": {
+      "rows": 303,
+      "sha256": "f768fbb6b6a4e40447835a3fbbf9a21b12fbda043cf3b926c86a1bcc518ae87e"
+    },
+    "INVOICES": {
+      "rows": 96,
+      "sha256": "44b6e909065e1b4a338629c6bb668f681903e8117d95fbaa2a6e7f31b05d5abb"
+    },
+    "INVOICELINES": {
+      "rows": 243,
+      "sha256": "feedbea2295cb924f55b0019211e4a89d3d4724188e97fd6af1ebc5ef6cea3b2"
+    }
+  },
+  "checks_passed": [
+    "CUSTOMERS: unique non-null primary key and row shape",
+    "STOCKITEMS: unique non-null primary key and row shape",
+    "STOCKGROUPS: unique non-null primary key and row shape",
+    "STOCKITEMSTOCKGROUPS: unique non-null primary key and row shape",
+    "ORDERS: unique non-null primary key and row shape",
+    "ORDERLINES: unique non-null primary key and row shape",
+    "INVOICES: unique non-null primary key and row shape",
+    "INVOICELINES: unique non-null primary key and row shape",
+    "CUSTOMERS[2] -> CUSTOMERS: no orphan keys",
+    "STOCKITEMSTOCKGROUPS[1] -> STOCKITEMS: no orphan keys",
+    "STOCKITEMSTOCKGROUPS[2] -> STOCKGROUPS: no orphan keys",
+    "ORDERS[1] -> CUSTOMERS: no orphan keys",
+    "ORDERLINES[1] -> ORDERS: no orphan keys",
+    "ORDERLINES[2] -> STOCKITEMS: no orphan keys",
+    "INVOICES[1] -> CUSTOMERS: no orphan keys",
+    "INVOICES[2] -> CUSTOMERS: no orphan keys",
+    "INVOICES[3] -> ORDERS: no orphan keys",
+    "INVOICELINES[1] -> INVOICES: no orphan keys",
+    "INVOICELINES[2] -> STOCKITEMS: no orphan keys",
+    "Invoice extended price = quantity * unit price + tax (WWI source formula)"
+  ],
+  "invoice_sales_excluding_tax": "53589.47",
+  "invoice_tax": "5359.07",
+  "invoice_total_including_tax": "58948.54"
+}

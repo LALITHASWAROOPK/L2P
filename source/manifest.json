@@ -1,0 +1,75 @@
+{
+  "commit": "dac9747acaca4e54a3b5ea4c6de1c4be6c1b964a",
+  "files": [
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/sql-server-samples/dac9747acaca4e54a3b5ea4c6de1c4be6c1b964a/license.txt",
+      "sha256": "201F3705979E932C92CD3C6DDBDDF4DC3C71DCC5A82089A1E4018227CFE1CF09",
+      "path": "license.txt"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/sql-server-samples/dac9747acaca4e54a3b5ea4c6de1c4be6c1b964a/samples/databases/wide-world-importers/README.md",
+      "sha256": "9A52A00D92A16941CF864254C2473FCFBD7BCF4175537EC6B7C0A60C8377FC68",
+      "path": "samples/databases/wide-world-importers/README.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/sql-server-samples/dac9747acaca4e54a3b5ea4c6de1c4be6c1b964a/samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Sales/Tables/Customers.sql",
+      "sha256": "FEA8A3680D3D79A5A4F1EA19F5482918D3618C629A038F66A1EE458C5C939A05",
+      "path": "samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Sales/Tables/Customers.sql"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/sql-server-samples/dac9747acaca4e54a3b5ea4c6de1c4be6c1b964a/samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Sales/Tables/Orders.sql",
+      "sha256": "5D76A3C1271C2BA7C1022958E450D4C24D09DFA45CDBF2BE930748213531C35C",
+      "path": "samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Sales/Tables/Orders.sql"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/sql-server-samples/dac9747acaca4e54a3b5ea4c6de1c4be6c1b964a/samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Sales/Tables/OrderLines.sql",
+      "sha256": "0A47B2F0711306CF7E773E081D20EA8E724ED4A40B7C5BD51E631200AFBA0AB0",
+      "path": "samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Sales/Tables/OrderLines.sql"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/sql-server-samples/dac9747acaca4e54a3b5ea4c6de1c4be6c1b964a/samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Sales/Tables/Invoices.sql",
+      "sha256": "E274206641A02FEB38F615F67814A87928E04B00C5ED5EF35314E2AC6D100D69",
+      "path": "samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Sales/Tables/Invoices.sql"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/sql-server-samples/dac9747acaca4e54a3b5ea4c6de1c4be6c1b964a/samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Sales/Tables/InvoiceLines.sql",
+      "sha256": "C73464737BEA9F610087C63A37F99B9BA95CDE8CDD1B7F24B174BBC9A42DD280",
+      "path": "samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Sales/Tables/InvoiceLines.sql"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/sql-server-samples/dac9747acaca4e54a3b5ea4c6de1c4be6c1b964a/samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Warehouse/Tables/StockItems.sql",
+      "sha256": "493E1C80487ADC972B1A6260593508617CB8E58853EA157FCA2B2B6EB1A747E9",
+      "path": "samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Warehouse/Tables/StockItems.sql"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/sql-server-samples/dac9747acaca4e54a3b5ea4c6de1c4be6c1b964a/samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Warehouse/Tables/StockGroups.sql",
+      "sha256": "9ED45F27089E0940DC6BF8498F62D19AAFA02F527369DC8FA3E3246127550264",
+      "path": "samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Warehouse/Tables/StockGroups.sql"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/sql-server-samples/dac9747acaca4e54a3b5ea4c6de1c4be6c1b964a/samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Warehouse/Tables/StockItemStockGroups.sql",
+      "sha256": "78683E63CDEC019B3C530662E17CB2F2C5116CC8BF1B5FBDA8335ED740CC68D1",
+      "path": "samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Warehouse/Tables/StockItemStockGroups.sql"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/sql-server-samples/dac9747acaca4e54a3b5ea4c6de1c4be6c1b964a/samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Website/Stored Procedures/InvoiceCustomerOrders.sql",
+      "sha256": "09C53C616DD0EE455687AD5D8DE049E4B27A6A75F1904F0FBB489BD4DBDE6811",
+      "path": "samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/Website/Stored Procedures/InvoiceCustomerOrders.sql"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/sql-server-samples/dac9747acaca4e54a3b5ea4c6de1c4be6c1b964a/samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/WebApi/Views/Invoices.sql",
+      "sha256": "1EEE276F10B639F437C6537D69F79BBA6268A0F0B85E38604F13F1A624449669",
+      "path": "samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/WebApi/Views/Invoices.sql"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/sql-server-samples/dac9747acaca4e54a3b5ea4c6de1c4be6c1b964a/samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/WebApi/Views/SalesOrders.sql",
+      "sha256": "38122E4CE72B602A4098730C40EB44B3492EE019343DB368EA16EBD557EBE80F",
+      "path": "samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/WebApi/Views/SalesOrders.sql"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/sql-server-samples/dac9747acaca4e54a3b5ea4c6de1c4be6c1b964a/samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/WebApi/Views/SalesOrderLines.sql",
+      "sha256": "5408D266D295D16B1E2EA4002227C52C97C7560B05CCE9E8900BA32A6D3354BB",
+      "path": "samples/databases/wide-world-importers/wwi-ssdt/wwi-ssdt/WebApi/Views/SalesOrderLines.sql"
+    }
+  ]
+}
