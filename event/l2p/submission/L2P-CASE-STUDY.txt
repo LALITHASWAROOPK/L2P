@@ -43,4 +43,4 @@ LIMITATIONS
 The prototype uses 24 whole documents, with no chunking comparison. Qlik currently demonstrates aliases and aggregation, not a richer cross-layer filter case. Tools separate Builder and Consumer capabilities, but both use the workshop role rather than independent user RBAC. Missing-release behavior has procedure coverage, not an agent-level test. An unsupported invoice-delay claim remains a recorded evaluation finding. The next work is to resolve the validation error, verify skill use, deepen the Qlik fixture, expand evaluations and run the developer-efficiency pilot.
 
 SUBMISSION STATUS
-Prepared for owner review. The latest video and case study have not been published or submitted. Video publication and the final form submission remain last, after owner review and public-link checks.
+Video and case study published with owner approval. The submission form has not yet been submitted; retain confirmation after submitting.

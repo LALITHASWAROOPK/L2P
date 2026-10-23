@@ -36,7 +36,7 @@ Northstar Supply is fictional. The schema is a simplified adaptation of public M
 
 LINKS
 Public build branch: https://github.com/LALITHASWAROOPK/L2P/tree/l2p-hackathon-build
-Video: L2P-Demo-Review-Final.mp4, 59-second local review copy. Publication pending owner approval. Builder and Consumer positive evidence both use release 603; the rejection is a separate historical negative test.
+Video: https://github.com/LALITHASWAROOPK/L2P/raw/refs/heads/l2p-hackathon-build/event/l2p/submission/L2P-Demo.mp4
 Snowflake account: SFSEHOL-ANTHROPIC_SNOWFLAKE_HACKATHON_BXVLTM
 Submission: https://cerebralvalley.ai/e/intelligence-at-work-hackathon/hackathon/submit
 Deadline: October 23, 2026, 4:30 p.m. Pacific. Target ready by 4:00 p.m.

@@ -6,7 +6,7 @@
 
 ## Review the demonstration
 
-- Video is withheld pending the owner's review and approval.
+- [Watch or download the 59-second demo video](https://github.com/LALITHASWAROOPK/L2P/raw/refs/heads/l2p-hackathon-build/event/l2p/submission/L2P-Demo.mp4).
 - [Editable presentation](submission/L2P-Submission-Deck.pptx).
 - [Case study](submission/L2P-CASE-STUDY.txt).
 - [Technical architecture](submission/L2P-Technical-Architecture.png).
@@ -48,6 +48,6 @@ CoCo built the core backend and custom suite. Supplementary engineering added th
 
 ## Package and history
 
-The public submission directory contains one current deck, architecture, case study and form narrative. Video is withheld; internal presenter scripts, Q&A and planning notes are not part of the current package. Earlier commits remain available for provenance.
+The public submission directory contains one current deck, architecture, case study and form narrative. Video is published with owner approval; internal presenter scripts, Q&A and planning notes are not part of the current package. Earlier commits remain available for provenance.
 
 The baseline is on `hackathon-prework`; event work is on `l2p-hackathon-build`. Keep raw fixtures, source licenses, SQL, skills, tests and recorded evaluation evidence. Do not treat old test results as proof of later revisions. Example-question-only agent edits preserved all other live specification fields and existing native evaluations; they were not a new evaluation run.
